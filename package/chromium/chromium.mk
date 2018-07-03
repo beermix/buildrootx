@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CHROMIUM_VERSION = 67.0.3396.87
+CHROMIUM_VERSION = 67.0.3396.99
 CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-official
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
