@@ -11,7 +11,7 @@ CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo dbus freetype harfbuzz \
 			host-clang host-lld host-ninja host-python \
-			jpeg libdrm libglib2 libkrb5 libnss libpng pango \
+			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
 			xlib_libXcursor xlib_libXrandr zlib libva
 
