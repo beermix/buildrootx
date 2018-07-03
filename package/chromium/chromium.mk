@@ -83,20 +83,21 @@ CHROMIUM_HOST_CXXFLAGS += $(CHROMIUM_HOST_CFLAGS)
 CHROMIUM_HOST_LDFLAGS += --gcc-toolchain="/usr"
 
 define CHROMIUM_CONFIGURE_CMDS
-
+export CCACHE_SLOPPINESS=time_macros
+export CCACHE_CPP2=yes
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
-		HOST_CC="$(HOSTCC)" \
-		HOST_CXX="$(HOSTCXX)" \
+		HOST_CC="ccache $(HOSTCC)" \
+		HOST_CXX="ccache $(HOSTCXX)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
-		TARGET_CC="clang" \
-		TARGET_CXX="clang++" \
+		TARGET_CC="ccache clang" \
+		TARGET_CXX="ccache clang++" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -Wno-attributes -Wno-comment -Wno-unused-variable -Wno-noexcept-type -Wno-register -Wno-strict-overflow -Wno-deprecated-declarations -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
