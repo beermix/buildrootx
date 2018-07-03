@@ -14,4 +14,11 @@ AT_SPI2_CORE_INSTALL_STAGING = YES
 AT_SPI2_CORE_DEPENDENCIES = host-pkgconf dbus libglib2 xlib_libXtst
 AT_SPI2_CORE_CONF_OPTS = -Ddbus_daemon=/usr/bin/dbus-daemon
 
+ATK_CONF_OPTS += \
+	-Denable_docs=false \
+	-Denable-introspection=no
+
+ATK_CONF_ENV = $(HOST_UTF8_LOCALE_ENV)
+ATK_NINJA_ENV = $(HOST_UTF8_LOCALE_ENV)
+
 $(eval $(meson-package))
