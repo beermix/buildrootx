@@ -32,20 +32,13 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	use_dbus=true \
 	use_cups=false \
-	use_system_zlib=false \
-	use_system_libjpeg=false \
-	use_system_libpng=false \
+	use_system_zlib=true \
+	use_system_libjpeg=true \
+	use_system_libpng=true \
 	use_system_libdrm=true \
-	use_system_harfbuzz=false \
-	use_system_freetype=false \
+	use_system_harfbuzz=true \
+	use_system_freetype=true \
 	symbol_level=0 \
-	fatal_linker_warnings=false \
-	treat_warnings_as_errors=false \
-	fieldtrial_testing_like_official_build=true \
-	remove_webcore_debug_symbols=true \
-	ffmpeg_branding=\"Chrome\" \
-	proprietary_codecs=true \
-	is_component_build=false \
 	use_vaapi=true
 
 # tcmalloc has portability issues
