@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ICU_VERSION = 62.1
+ICU_VERSION = 60.2
 ICU_SOURCE = icu4c-$(subst .,_,$(ICU_VERSION))-src.tgz
 ICU_SITE = http://download.icu-project.org/files/icu4c/$(ICU_VERSION)
 ICU_LICENSE = ICU License
@@ -33,7 +33,6 @@ endif
 HOST_ICU_CONF_OPTS = \
 	--enable-static \
 	--disable-shared
-
 ICU_SUBDIR = source
 HOST_ICU_SUBDIR = source
 
