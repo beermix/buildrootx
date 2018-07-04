@@ -58,10 +58,6 @@ CHROMIUM_OPTS = \
 	enable_vulkan=false \
 	use_vaapi=true
 
-CFLAGS+=' -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables'
-CXXFLAGS+=' -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables -fpermissive'
-CPPFLAGS+=' -DNO_UNWIND_TABLES'
-
 # tcmalloc has portability issues
 CHROMIUM_OPTS += use_allocator=\"none\"
 
@@ -119,9 +115,9 @@ export CCACHE_COMPRESS=true
 		TARGET_NM="nm" \
 		TARGET_CC="ccache clang" \
 		TARGET_CXX="ccache clang++" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
-		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS)" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables -fpermissive" \
+		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		out/Release/gn gen out/Release --args="$(CHROMIUM_OPTS)" \
 			--script-executable=$(HOST_DIR)/bin/python2 \
