@@ -10,5 +10,6 @@
 /*.diff
 *.orig
 *.rej
+*.tmp
 *~
 *.pyc

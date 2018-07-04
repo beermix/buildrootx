@@ -36,8 +36,8 @@ HOST_CMAKE_CONF_OPTS = \
 # Get rid of -I* options from $(HOST_CPPFLAGS) to prevent that a
 # header available in $(HOST_DIR)/include is used instead of a
 # CMake internal header, e.g. lzma* headers of the xz package
-HOST_CMAKE_CFLAGS = $(shell echo $(HOST_CFLAGS) | sed -r "s%$(HOST_CPPFLAGS)%%")
-HOST_CMAKE_CXXFLAGS = $(shell echo $(HOST_CXXFLAGS) | sed -r "s%$(HOST_CPPFLAGS)%%")
+HOST_CMAKE_CFLAGS = $(shell echo $(HOST_CFLAGS) -g0 | sed -r "s%$(HOST_CPPFLAGS)%%")
+HOST_CMAKE_CXXFLAGS = $(shell echo $(HOST_CXXFLAGS) -g0 | sed -r "s%$(HOST_CPPFLAGS)%%")
 
 define HOST_CMAKE_CONFIGURE_CMDS
 	(cd $(@D); \
