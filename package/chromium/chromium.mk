@@ -58,6 +58,10 @@ CHROMIUM_OPTS = \
 	enable_vulkan=false \
 	use_vaapi=true
 
+CFLAGS+=' -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables'
+CXXFLAGS+=' -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables -fpermissive'
+CPPFLAGS+=' -DNO_UNWIND_TABLES'
+
 # tcmalloc has portability issues
 CHROMIUM_OPTS += use_allocator=\"none\"
 
@@ -102,7 +106,6 @@ CHROMIUM_HOST_LDFLAGS += --gcc-toolchain="/usr"
 define CHROMIUM_CONFIGURE_CMDS
 export CCACHE_SLOPPINESS=time_macros
 export CCACHE_COMPRESS=true
-export CCACHE_COMPRESSLEVEL=7
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
@@ -116,8 +119,8 @@ export CCACHE_COMPRESSLEVEL=7
 		TARGET_NM="nm" \
 		TARGET_CC="ccache clang" \
 		TARGET_CXX="ccache clang++" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fpermissive" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
 		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS)" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		out/Release/gn gen out/Release --args="$(CHROMIUM_OPTS)" \
@@ -128,7 +131,7 @@ endef
 define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
+		ninja -j$(PARALLEL_JOBS) -v -C out/Release chrome chrome_sandbox chromedriver \
 	)
 endef
 
