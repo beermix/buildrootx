@@ -127,7 +127,7 @@ endef
 define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		ninja -j$(PARALLEL_JOBS) -v -C out/Release chrome chrome_sandbox chromedriver \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
 	)
 endef
 
