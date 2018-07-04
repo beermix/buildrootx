@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-HARFBUZZ_VERSION = 1.7.1
+HARFBUZZ_VERSION = 1.8.2
 HARFBUZZ_SITE = https://www.freedesktop.org/software/harfbuzz/release
 HARFBUZZ_SOURCE = harfbuzz-$(HARFBUZZ_VERSION).tar.bz2
 HARFBUZZ_LICENSE = MIT, ISC (ucdn library)
@@ -15,7 +15,8 @@ HARFBUZZ_CONF_OPTS = --with-coretext=no --with-uniscribe=no
 # freetype & glib2 support required by host-pango
 HOST_HARFBUZZ_DEPENDENCIES = \
 	host-freetype \
-	host-libglib2
+	host-libglib2 \
+	host-icu
 HOST_HARFBUZZ_CONF_OPTS = \
 	--with-coretext=no \
 	--with-uniscribe=no \
@@ -29,6 +30,8 @@ ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 # forgets to link test programs with -pthread breaking static link
 HARFBUZZ_CONF_ENV = LDFLAGS="$(TARGET_LDFLAGS) -pthread"
 endif
+
+HARFBUZZ_DEPENDENCIES += icu
 
 ifeq ($(BR2_PACKAGE_CAIRO),y)
 HARFBUZZ_DEPENDENCIES += cairo
