@@ -41,7 +41,6 @@ CHROMIUM_OPTS = \
 	use_system_libdrm=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_system_opus =true \
 	symbol_level=0 \
 	use_vaapi=true
 
