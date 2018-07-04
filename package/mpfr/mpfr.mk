@@ -14,5 +14,7 @@ MPFR_DEPENDENCIES = gmp
 HOST_MPFR_DEPENDENCIES = host-gmp
 MPFR_MAKE_OPTS = RANLIB=$(TARGET_RANLIB)
 
+MPFR_CONF_OPTS += --enable-thread-safe
+
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
