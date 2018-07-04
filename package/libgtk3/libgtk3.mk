@@ -147,6 +147,7 @@ HOST_LIBGTK3_DEPENDENCIES = \
 	host-libglib2 \
 	host-libpng \
 	host-gdk-pixbuf \
+	at-spi2-atk \
 	host-pkgconf
 
 HOST_LIBGTK3_CFLAGS = \
