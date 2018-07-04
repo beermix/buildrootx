@@ -9,11 +9,11 @@ CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-offici
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
-CHROMIUM_DEPENDENCIES = alsa-lib cairo systemd dbus freetype harfbuzz \
+CHROMIUM_DEPENDENCIES = alsa-lib cairo systemd zlib dbus freetype harfbuzz \
 			host-clang host-lld host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
-			xlib_libXcursor xlib_libXrandr zlib libva
+			xlib_libXcursor xlib_libXrandr libva
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
