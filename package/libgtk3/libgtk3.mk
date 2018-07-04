@@ -147,8 +147,7 @@ HOST_LIBGTK3_DEPENDENCIES = \
 	host-libglib2 \
 	host-libpng \
 	host-gdk-pixbuf \
-	host-pkgconf \
-	host-librsvg
+	host-pkgconf
 
 HOST_LIBGTK3_CFLAGS = \
 	`$(HOST_DIR)/bin/pkgconf --cflags --libs gdk-pixbuf-2.0` \
@@ -165,17 +164,11 @@ define HOST_LIBGTK3_BUILD_CMDS
 		$(@D)/gtk/updateiconcache.c \
 		$(HOST_LIBGTK3_CFLAGS) \
 		-o $(@D)/gtk/gtk-update-icon-cache
-	$(HOSTCC) $(HOST_CFLAGS) $(HOST_LDFLAGS) \
-		$(@D)/gtk/encodesymbolic.c \
-		$(HOST_LIBGTK3_CFLAGS) \
-		-o $(@D)/gtk/gtk-encode-symbolic-svg
 endef
 
 define HOST_LIBGTK3_INSTALL_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/gtk/gtk-update-icon-cache \
 		$(HOST_DIR)/bin/gtk-update-icon-cache
-	$(INSTALL) -D -m 0755 $(@D)/gtk/gtk-encode-symbolic-svg \
-		$(HOST_DIR)/bin/gtk-encode-symbolic-svg
 endef
 
 # Create icon-theme.cache for each of the icon directories/themes
