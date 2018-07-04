@@ -13,7 +13,7 @@ CHROMIUM_DEPENDENCIES = host-yasm alsa-lib cairo systemd zlib dbus freetype harf
 			host-clang host-lld host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
-			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups
+			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -34,7 +34,7 @@ CHROMIUM_OPTS = \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
 	use_dbus=true \
-	use_cups=true \
+	use_cups=false \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_libpng=true \
