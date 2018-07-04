@@ -26,7 +26,7 @@ GETTEXT_CONF_OPTS += \
 	--disable-native-java \
 	--disable-csharp \
 	--disable-relocatable \
-	--without-emacs
+	--without-emacs --disable-nls
 
 HOST_GETTEXT_CONF_OPTS = \
 	--disable-libasprintf \
@@ -37,7 +37,7 @@ HOST_GETTEXT_CONF_OPTS = \
 	--disable-native-java \
 	--disable-csharp \
 	--disable-relocatable \
-	--without-emacs
+	--without-emacs --disable-nls
 
 # Force the build of libintl, even if the C library provides a stub
 # gettext implementation

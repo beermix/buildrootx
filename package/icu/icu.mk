@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ICU_VERSION = 60.2
+ICU_VERSION = 62.1
 ICU_SOURCE = icu4c-$(subst .,_,$(ICU_VERSION))-src.tgz
 ICU_SITE = http://download.icu-project.org/files/icu4c/$(ICU_VERSION)
 ICU_LICENSE = ICU License
@@ -15,8 +15,8 @@ ICU_INSTALL_STAGING = YES
 ICU_CONFIG_SCRIPTS = icu-config
 ICU_CONF_OPTS = \
 	--with-cross-build=$(HOST_ICU_DIR)/source \
-	--enable-static \
-	--disable-shared
+	--disable-samples \
+	--disable-tests
 
 # When available, icu prefers to use C++11 atomics, which rely on the
 # __atomic builtins. On certain architectures, this requires linking

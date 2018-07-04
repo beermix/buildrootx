@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 3.4.2
+FFMPEG_VERSION = 3.2.10
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = http://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -396,7 +396,7 @@ FFMPEG_CONF_OPTS += --disable-libx265
 endif
 
 ifeq ($(BR2_X86_CPU_HAS_MMX),y)
-FFMPEG_CONF_OPTS += --enable-x86asm
+FFMPEG_CONF_OPTS += --enable-yasm
 FFMPEG_DEPENDENCIES += host-nasm
 else
 FFMPEG_CONF_OPTS += --disable-x86asm
