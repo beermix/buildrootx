@@ -27,7 +27,7 @@ HOST_HARFBUZZ_CONF_OPTS = \
 
 ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 # forgets to link test programs with -pthread breaking static link
-HARFBUZZ_CONF_ENV = LDFLAGS="$(TARGET_LDFLAGS) -pthread"
+HARFBUZZ_CONF_ENV = LDFLAGS="$(TARGET_LDFLAGS) -pthread -ldl"
 endif
 
 ifeq ($(BR2_PACKAGE_CAIRO),y)
