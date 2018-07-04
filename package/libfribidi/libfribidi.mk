@@ -19,4 +19,13 @@ LIBFRIBIDI_DEPENDENCIES = host-pkgconf
 # https://github.com/behdad/fribidi/pull/14
 LIBFRIBIDI_CONF_OPTS = --with-glib=no
 
+HOST_LIBFRIBIDI_AUTORECONF = YES
+HOST_LIBFRIBIDI_DEPENDENCIES = host-pkgconf
+# libglib2 dependency causes a build failure, and this optional
+# dependency is going to be removed upstream, see
+# https://github.com/behdad/fribidi/pull/14
+HOST_LIBFRIBIDI_CONF_OPTS = --with-glib=no
+
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
+
