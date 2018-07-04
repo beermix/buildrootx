@@ -17,7 +17,7 @@ endif
 # When we're on ARM, but we don't have ARM instructions (only
 # Thumb-2), disable the usage of assembly as it is not Thumb-ready.
 ifeq ($(BR2_arm)$(BR2_armeb):$(BR2_ARM_CPU_HAS_ARM),y:)
-OPUS_CONF_OPTS += --disable-asm
+OPUS_CONF_OPTS += --disable-asm --disable-shared
 endif
 
 $(eval $(autotools-package))

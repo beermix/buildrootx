@@ -13,7 +13,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo systemd zlib dbus freetype harfbuzz \
 			host-clang host-lld host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
-			xlib_libXcursor xlib_libXrandr libva
+			xlib_libXcursor xlib_libXrandr libva opus
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -41,6 +41,7 @@ CHROMIUM_OPTS = \
 	use_system_libdrm=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
+	use_system_opus =true \
 	symbol_level=0 \
 	use_vaapi=true
 
