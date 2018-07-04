@@ -105,6 +105,9 @@ export CCACHE_COMPRESS=true
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
+		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
+		sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
 		HOST_CC="ccache $(HOSTCC)" \
