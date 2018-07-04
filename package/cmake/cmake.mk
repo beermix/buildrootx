@@ -24,7 +24,7 @@ CMAKE_LICENSE_FILES = Copyright.txt
 
 CMAKE_DEPENDENCIES = zlib jsoncpp libcurl libarchive expat bzip2 xz libuv rhash
 
-CMAKE_DEPENDENCIES = host-libopenssl
+HOST_CMAKE_DEPENDENCIES = host-libopenssl
 
 HOST_CMAKE_CONF_OPTS = \
 	-DKWSYS_LFS_WORKS=TRUE \
