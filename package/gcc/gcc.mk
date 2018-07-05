@@ -19,7 +19,7 @@ GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
 #GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
 GCC_SITE = ftp://gcc.gnu.org/pub/gcc/snapshots/LATEST-7
-GCC_SOURCE = gcc-7-20180628.tar.xz
+GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
 # From version 5.5.0, 6.4.0, 7.2.0 and 8.1.0 a bz2 release tarball is not
 # provided anymore. Use the xz tarball instead.
 ifeq ($(BR2_GCC_VERSION_4_9_X),y)

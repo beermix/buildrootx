@@ -26,7 +26,7 @@ CMAKE_DEPENDENCIES = zlib jsoncpp libcurl libarchive expat bzip2 xz libuv rhash
 
 HOST_CMAKE_DEPENDENCIES = host-libopenssl
 
-HOST_CMAKE_CONF_OPTS = \
+CMAKE_CONF_OPTS = \
 	-DKWSYS_LFS_WORKS=TRUE \
 	-DKWSYS_CHAR_IS_SIGNED=TRUE \
 	-DCMAKE_USE_SYSTEM_LIBRARIES=1 \
@@ -36,8 +36,8 @@ HOST_CMAKE_CONF_OPTS = \
 # Get rid of -I* options from $(HOST_CPPFLAGS) to prevent that a
 # header available in $(HOST_DIR)/include is used instead of a
 # CMake internal header, e.g. lzma* headers of the xz package
-HOST_CMAKE_CFLAGS = $(shell echo $(HOST_CFLAGS) -g0 | sed -r "s%$(HOST_CPPFLAGS)%%")
-HOST_CMAKE_CXXFLAGS = $(shell echo $(HOST_CXXFLAGS) -g0 | sed -r "s%$(HOST_CPPFLAGS)%%")
+HOST_CMAKE_CFLAGS = $(shell echo $(HOST_CFLAGS) | sed -r "s%$(HOST_CPPFLAGS)%%")
+HOST_CMAKE_CXXFLAGS = $(shell echo $(HOST_CXXFLAGS) | sed -r "s%$(HOST_CPPFLAGS)%%")
 
 define HOST_CMAKE_CONFIGURE_CMDS
 	(cd $(@D); \
@@ -47,7 +47,7 @@ define HOST_CMAKE_CONFIGURE_CMDS
 			--parallel=$(PARALLEL_JOBS) -- \
 			-DCMAKE_C_FLAGS="$(HOST_CMAKE_CFLAGS)" \
 			-DCMAKE_CXX_FLAGS="$(HOST_CMAKE_CXXFLAGS)" \
-			-DCMAKE_EXE_LINKER_FLAGS="$(HOST_LDFLAGS)" \
+			-DCMAKE_EXE_LINKER_FLAGS="$(HOST_LDFLAGS) -s" \
 			-DCMAKE_USE_OPENSSL:BOOL=ON \
 			-DBUILD_CursesDialog=OFF \
 	)

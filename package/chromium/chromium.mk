@@ -13,7 +13,7 @@ CHROMIUM_DEPENDENCIES = host-yasm alsa-lib cairo systemd zlib dbus freetype harf
 			host-clang host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
-			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt
+			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -34,7 +34,7 @@ CHROMIUM_OPTS = \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
 	use_dbus=false \
-	use_cups=false \
+	use_cups=true \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_libpng=true \
@@ -102,6 +102,7 @@ CHROMIUM_HOST_LDFLAGS += --gcc-toolchain="/usr"
 define CHROMIUM_CONFIGURE_CMDS
 export CCACHE_SLOPPINESS=time_macros
 export CCACHE_COMPRESS=true
+
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
@@ -141,7 +142,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
-	
+
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
 endef
