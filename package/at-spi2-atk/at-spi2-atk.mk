@@ -11,6 +11,6 @@ AT_SPI2_ATK_SITE =  http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/$(AT_SPI2
 AT_SPI2_ATK_LICENSE = LGPL-2.0+
 AT_SPI2_ATK_LICENSE_FILES = COPYING
 AT_SPI2_ATK_INSTALL_STAGING = YES
-AT_SPI2_ATK_DEPENDENCIES = atk at-spi2-core libglib2 host-pkgconf
+AT_SPI2_ATK_DEPENDENCIES = atk at-spi2-core libglib2 host-pkgconf libxml2
 
 $(eval $(meson-package))
