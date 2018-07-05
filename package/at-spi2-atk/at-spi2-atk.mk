@@ -12,5 +12,7 @@ AT_SPI2_ATK_LICENSE = LGPL-2.0+
 AT_SPI2_ATK_LICENSE_FILES = COPYING
 AT_SPI2_ATK_INSTALL_STAGING = YES
 AT_SPI2_ATK_DEPENDENCIES = atk at-spi2-core libglib2 host-pkgconf libxml2
+HOST_AT_SPI2_ATK_DEPENDENCIES = host-atk host-at-spi2-core host-libglib2 host-pkgconf host-libxml2
 
 $(eval $(meson-package))
+$(eval $(host-meson-package))

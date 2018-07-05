@@ -18,3 +18,4 @@ JASPER_CONF_OPTS = \
 	-DJAS_ENABLE_LIBJPEG=ON
 
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))

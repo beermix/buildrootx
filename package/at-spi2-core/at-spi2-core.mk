@@ -15,3 +15,4 @@ AT_SPI2_CORE_DEPENDENCIES = host-pkgconf dbus libglib2 xlib_libXtst
 AT_SPI2_CORE_CONF_OPTS = -Denable_docs=false -Denable-introspection=no -Ddbus_daemon=/usr/bin/dbus-daemon
 
 $(eval $(meson-package))
+$(eval $(host-meson-package))

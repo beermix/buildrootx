@@ -16,3 +16,4 @@ ATK_CONF_OPTS = -Ddocs=false -Dintrospection=false
 ATK_DEPENDENCIES = libglib2 host-pkgconf
 
 $(eval $(meson-package))
+$(eval $(host-meson-package))
