@@ -78,7 +78,7 @@ ZAPCC_POST_INSTALL_TARGET_HOOKS += ZAPCC_CLEANUP_TARGET
 # for cross-compiling clang
 define HOST_ZAPCC_INSTALL_ZAPCC_TBLGEN
 	$(INSTALL) -D -m 0755 $(HOST_ZAPCC_BUILDDIR)/bin/clang-tblgen \
-		$(HOST_DIR)/usr/bin/zapcc-tblgen
+		$(HOST_DIR)/usr/bin/clang-tblgen
 endef
 HOST_ZAPCC_POST_INSTALL_HOOKS = HOST_ZAPCC_INSTALL_ZAPCC_TBLGEN
 

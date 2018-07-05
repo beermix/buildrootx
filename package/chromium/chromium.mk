@@ -10,7 +10,7 @@ CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = host-yasm alsa-lib cairo systemd zlib dbus freetype harfbuzz \
-			host-clang host-ninja host-python \
+			host-zapcc host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
 			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups
@@ -112,8 +112,8 @@ export CCACHE_COMPRESS=true
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
-		TARGET_CC="ccache clang" \
-		TARGET_CXX="ccache clang++" \
+		TARGET_CC="ccache zapcc" \
+		TARGET_CXX="ccache zapcc++" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
