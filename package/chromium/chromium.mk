@@ -33,7 +33,7 @@ CHROMIUM_OPTS = \
 	google_default_client_id=\"740889307901-4bkm4e0udppnp1lradko85qsbnmkfq3b.apps.googleusercontent.com\" \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
-	use_dbus=false \
+	use_dbus=true \
 	use_cups=true \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
@@ -98,60 +98,24 @@ CHROMIUM_HOST_CFLAGS += --target=$(HOSTARCH)-buildroot-linux-gnu
 CHROMIUM_HOST_CXXFLAGS += $(CHROMIUM_HOST_CFLAGS)
 CHROMIUM_HOST_LDFLAGS += --gcc-toolchain="/usr"
 
-define CHROMIUM_CONFIGURE_CMDS
 export CCACHE_SLOPPINESS=time_macros
 export CCACHE_COMPRESS=true
 
-declare -gA _system_libs=(
-  #[ffmpeg]=ffmpeg
-  #[flac]=flac
-  [fontconfig]=fontconfig
-  [freetype]=freetype2
-  [harfbuzz-ng]=harfbuzz
-  [icu]=icu
-  [libdrm]=
-  [libjpeg]=libjpeg
-  #[libpng]=libpng            # https://crbug.com/752403#c10
-  #[libvpx]=libvpx            # needs unreleased libvpx
-  #[libwebp]=libwebp
-  #[libxml]=libxml2           # https://crbug.com/736026
-  [libxslt]=libxslt
-  #[opus]=opus
-  #[re2]=re2
-  #[snappy]=snappy
-  [yasm]=
-  [zlib]=minizip
-)
-_unwanted_bundled_libs=(
-  ${!_system_libs[@]}
-  ${_system_libs[libjpeg]+libjpeg_turbo}
-)
-depends+=(${_system_libs[@]})
-
-local _lib
-for _lib in ${_unwanted_bundled_libs[@]}; do
-  find "third_party/$_lib" -type f \
-    \! -path "third_party/$_lib/chromium/*" \
-    \! -path "third_party/$_lib/google/*" \
-    \! -path 'third_party/yasm/run_yasm.py' \
-    \! -regex '.*\.\(gn\|gni\|isolate\)' \
-    -delete
-done
-
+define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		HOST_CC="ccache $(HOSTCC)" \
-		HOST_CXX="ccache $(HOSTCXX)" \
+		HOST_CC="$(HOSTCC)" \
+		HOST_CXX="$(HOSTCXX)" \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
+		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
-		$(HOST_DIR)/bin/python2 build/linux/unbundle/replace_gn_files.py --system-libraries "${!_system_libs[@]}"; \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
-		TARGET_CC="ccache zapcc" \
-		TARGET_CXX="ccache zapcc++" \
+		TARGET_CC="ccache clang" \
+		TARGET_CXX="ccache clang++" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
