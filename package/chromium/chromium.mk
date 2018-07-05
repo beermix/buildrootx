@@ -50,7 +50,9 @@ CHROMIUM_OPTS = \
 	proprietary_codecs=true \
 	remove_webcore_debug_symbols=true \
 	enable_widevine=true \
+	enable_hangout_services_extension=true \
 	enable_vulkan=false \
+	is_official_build=true \
 	use_vaapi=true
 
 # tcmalloc has portability issues
