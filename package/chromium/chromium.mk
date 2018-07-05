@@ -9,7 +9,7 @@ CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-offici
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
-CHROMIUM_DEPENDENCIES = host-yasm alsa-lib cairo systemd zlib dbus freetype harfbuzz \
+CHROMIUM_DEPENDENCIES = host-yasm yasm alsa-lib cairo systemd zlib dbus freetype harfbuzz \
 			host-zapcc host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
@@ -101,15 +101,53 @@ CHROMIUM_HOST_LDFLAGS += --gcc-toolchain="/usr"
 define CHROMIUM_CONFIGURE_CMDS
 export CCACHE_SLOPPINESS=time_macros
 export CCACHE_COMPRESS=true
+
+declare -gA _system_libs=(
+  #[ffmpeg]=ffmpeg
+  #[flac]=flac
+  [fontconfig]=fontconfig
+  [freetype]=freetype2
+  [harfbuzz-ng]=harfbuzz
+  [icu]=icu
+  [libdrm]=
+  [libjpeg]=libjpeg
+  #[libpng]=libpng            # https://crbug.com/752403#c10
+  #[libvpx]=libvpx            # needs unreleased libvpx
+  #[libwebp]=libwebp
+  #[libxml]=libxml2           # https://crbug.com/736026
+  [libxslt]=libxslt
+  #[opus]=opus
+  #[re2]=re2
+  #[snappy]=snappy
+  [yasm]=
+  [zlib]=minizip
+)
+_unwanted_bundled_libs=(
+  ${!_system_libs[@]}
+  ${_system_libs[libjpeg]+libjpeg_turbo}
+)
+depends+=(${_system_libs[@]})
+
+local _lib
+for _lib in ${_unwanted_bundled_libs[@]}; do
+  find "third_party/$_lib" -type f \
+    \! -path "third_party/$_lib/chromium/*" \
+    \! -path "third_party/$_lib/google/*" \
+    \! -path 'third_party/yasm/run_yasm.py' \
+    \! -regex '.*\.\(gn\|gni\|isolate\)' \
+    -delete
+done
+
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
-		HOST_AR="$(HOSTAR)" \
-		HOST_NM="$(HOSTNM)" \
 		HOST_CC="ccache $(HOSTCC)" \
 		HOST_CXX="ccache $(HOSTCXX)" \
+		HOST_AR="$(HOSTAR)" \
+		HOST_NM="$(HOSTNM)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
+		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		$(HOST_DIR)/bin/python2 build/linux/unbundle/replace_gn_files.py --system-libraries "${!_system_libs[@]}"; \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
 		TARGET_CC="ccache zapcc" \
