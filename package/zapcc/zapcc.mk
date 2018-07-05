@@ -10,7 +10,7 @@ ZAPCC_SUPPORTS_IN_SOURCE_BUILD = NO
 ZAPCC_INSTALL_STAGING = YES
 
 HOST_ZAPCC_DEPENDENCIES = host-llvm host-libxml2
-ZAPCC_DEPENDENCIES = llvm host-clang
+ZAPCC_DEPENDENCIES = llvm host-zapcc
 
 # This option is needed, otherwise multiple shared libs
 # (libclangAST.so, libclangBasic.so, libclangFrontend.so, etc.) will
@@ -48,26 +48,26 @@ ZAPCC_CONF_OPTS += \
 
 HOST_ZAPCC_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(HOST_DIR)/bin/llvm-config
 ZAPCC_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(STAGING_DIR)/usr/bin/llvm-config \
-	-DZAPCC_TABLEGEN:FILEPATH=$(HOST_DIR)/usr/bin/clang-tblgen \
+	-DZAPCC_TABLEGEN:FILEPATH=$(HOST_DIR)/usr/bin/zapcc-tblgen \
 	-DLLVM_TABLEGEN_EXE:FILEPATH=$(HOST_DIR)/usr/bin/llvm-tblgen
 
 # Clang can't be used as compiler on the target since there are no
 # development files (headers) and other build tools. So remove clang
 # binaries and some other unnecessary files from target.
 ZAPCC_FILES_TO_REMOVE = \
-	/usr/bin/clang* \
+	/usr/bin/zapcc* \
 	/usr/bin/c-index-test \
-	/usr/bin/git-clang-format \
+	/usr/bin/git-zapcc-format \
 	/usr/bin/scan-build \
 	/usr/bin/scan-view \
 	/usr/libexec/c++-analyzer \
 	/usr/libexec/ccc-analyzer \
-	/usr/share/clang \
+	/usr/share/zapcc \
 	/usr/share/opt-viewer \
 	/usr/share/scan-build \
 	/usr/share/scan-view \
 	/usr/share/man/man1/scan-build.1 \
-	/usr/lib/clang
+	/usr/lib/zapcc
 
 define ZAPCC_CLEANUP_TARGET
 	rm -rf $(addprefix $(TARGET_DIR),$(ZAPCC_FILES_TO_REMOVE))
@@ -77,8 +77,8 @@ ZAPCC_POST_INSTALL_TARGET_HOOKS += ZAPCC_CLEANUP_TARGET
 # clang-tblgen is not installed by default, however it is necessary
 # for cross-compiling clang
 define HOST_ZAPCC_INSTALL_ZAPCC_TBLGEN
-	$(INSTALL) -D -m 0755 $(HOST_ZAPCC_BUILDDIR)/bin/clang-tblgen \
-		$(HOST_DIR)/usr/bin/clang-tblgen
+	$(INSTALL) -D -m 0755 $(HOST_ZAPCC_BUILDDIR)/bin/zapcc-tblgen \
+		$(HOST_DIR)/usr/bin/zapcc-tblgen
 endef
 HOST_ZAPCC_POST_INSTALL_HOOKS = HOST_ZAPCC_INSTALL_ZAPCC_TBLGEN
 
