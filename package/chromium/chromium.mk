@@ -10,7 +10,7 @@ CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = host-yasm yasm alsa-lib cairo systemd zlib dbus freetype harfbuzz \
-			host-zapcc host-ninja host-python \
+			host-clang host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
 			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups
@@ -109,11 +109,10 @@ define CHROMIUM_CONFIGURE_CMDS
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
-		sed -i -e '/"-Wno-null-pointer-arithmetic"/d' build/config/compiler/BUILD.gn; \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
-		TARGET_CC="ccache zapcc" \
-		TARGET_CXX="ccache zapcc++" \
+		TARGET_CC="ccache clang" \
+		TARGET_CXX="ccache clang++" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
