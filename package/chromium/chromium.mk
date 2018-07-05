@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Chromium host-lld
+# Chromium
 #
 ################################################################################
 
@@ -43,9 +43,8 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	linux_link_libudev=true \
 	symbol_level=0 \
-	enable_webrtc=true \
-	enable_hangout_services_extension=false \
 	fatal_linker_warnings=false \
+	treat_warnings_as_errors=false \
 	fieldtrial_testing_like_official_build=true \
 	enable_swiftshader=false \
 	is_component_build=false \
@@ -102,7 +101,6 @@ CHROMIUM_HOST_LDFLAGS += --gcc-toolchain="/usr"
 define CHROMIUM_CONFIGURE_CMDS
 export CCACHE_SLOPPINESS=time_macros
 export CCACHE_COMPRESS=true
-
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
@@ -117,7 +115,7 @@ export CCACHE_COMPRESS=true
 		TARGET_CC="ccache clang" \
 		TARGET_CXX="ccache clang++" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables -fpermissive" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		out/Release/gn gen out/Release --args="$(CHROMIUM_OPTS)" \
