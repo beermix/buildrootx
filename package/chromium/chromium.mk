@@ -33,11 +33,7 @@ CHROMIUM_OPTS = \
 	google_default_client_id=\"740889307901-4bkm4e0udppnp1lradko85qsbnmkfq3b.apps.googleusercontent.com\" \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
-	use_dbus=true \
-	use_cups=true \
 	use_system_zlib=true \
-	use_system_libjpeg=true \
-	use_system_libpng=true \
 	use_system_libdrm=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
@@ -112,10 +108,12 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
+		sed -i -e '/"-Wno-null-pointer-arithmetic"/d' build/config/compiler/BUILD.gn; \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
-		TARGET_CC="ccache clang" \
-		TARGET_CXX="ccache clang++" \
+		TARGET_CC="ccache zapcc" \
+		TARGET_CXX="ccache zapcc++" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
