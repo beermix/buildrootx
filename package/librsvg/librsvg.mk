@@ -19,7 +19,7 @@ LIBRSVG_LICENSE_FILES = COPYING.LIB
 
 # We're patching configure.ac
 LIBRSVG_AUTORECONF = YES
-LIBRSVG_CONF_ENV = RUST_TARGET=$(RUSTC_TARGET_NAME)
+# LIBRSVG_CONF_ENV = RUST_TARGET=$(RUSTC_TARGET_NAME)
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

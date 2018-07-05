@@ -48,7 +48,7 @@ ZAPCC_CONF_OPTS += \
 
 HOST_ZAPCC_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(HOST_DIR)/bin/llvm-config
 ZAPCC_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(STAGING_DIR)/usr/bin/llvm-config \
-	-DZAPCC_TABLEGEN:FILEPATH=$(HOST_DIR)/usr/bin/zapcc-tblgen \
+	-DZAPCC_TABLEGEN:FILEPATH=$(HOST_DIR)/usr/bin/clang-tblgen \
 	-DLLVM_TABLEGEN_EXE:FILEPATH=$(HOST_DIR)/usr/bin/llvm-tblgen
 
 # Clang can't be used as compiler on the target since there are no
@@ -77,7 +77,7 @@ ZAPCC_POST_INSTALL_TARGET_HOOKS += ZAPCC_CLEANUP_TARGET
 # clang-tblgen is not installed by default, however it is necessary
 # for cross-compiling clang
 define HOST_ZAPCC_INSTALL_ZAPCC_TBLGEN
-	$(INSTALL) -D -m 0755 $(HOST_ZAPCC_BUILDDIR)/bin/zapcc-tblgen \
+	$(INSTALL) -D -m 0755 $(HOST_ZAPCC_BUILDDIR)/bin/clang-tblgen \
 		$(HOST_DIR)/usr/bin/zapcc-tblgen
 endef
 HOST_ZAPCC_POST_INSTALL_HOOKS = HOST_ZAPCC_INSTALL_ZAPCC_TBLGEN

@@ -15,7 +15,8 @@ ICU_INSTALL_STAGING = YES
 ICU_CONFIG_SCRIPTS = icu-config
 ICU_CONF_OPTS = \
 	--with-cross-build=$(HOST_ICU_DIR)/source \
-	--enable-static --disable-shared
+	--enable-static \
+	--disable-shared
 
 # When available, icu prefers to use C++11 atomics, which rely on the
 # __atomic builtins. On certain architectures, this requires linking
