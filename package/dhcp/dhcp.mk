@@ -118,4 +118,5 @@ define DHCP_INSTALL_TARGET_CMDS
 	$(DHCP_INSTALL_CLIENT)
 endef
 
-$(eval $(autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))
