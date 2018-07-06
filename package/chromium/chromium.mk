@@ -10,10 +10,10 @@ CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = host-yasm yasm alsa-lib cairo systemd zlib dbus freetype harfbuzz \
-			host-clang host-ninja host-python \
+			host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
-			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups
+			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups host-clang
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
