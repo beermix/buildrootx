@@ -102,15 +102,15 @@ export CCACHE_COMPRESS=true
 define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
+		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
+		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CXX="$(HOSTCXX)" \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
-		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
-		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
-		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
 		TARGET_CC="ccache clang" \
