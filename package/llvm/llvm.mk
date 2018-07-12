@@ -62,8 +62,8 @@ LLVM_TARGETS_TO_BUILD += AMDGPU
 endif
 
 # Build backend for host architecture
-ifeq ($(BR2_PACKAGE_LLVM_ENABLE_HOST_ARCH),y)
-HOST_LLVM_TARGETS_TO_BUILD += $(call qstrip,$(BR2_PACKAGE_LLVM_HOST_ARCH))
+ifeq ($(BR2_PACKAGE_HOST_LLVM_ENABLE_HOST_ARCH),y)
+HOST_LLVM_TARGETS_TO_BUILD += $(call qstrip,$(BR2_PACKAGE_HOST_LLVM_HOST_ARCH))
 endif
 
 # Use native llvm-tblgen from host-llvm (needed for cross-compilation)

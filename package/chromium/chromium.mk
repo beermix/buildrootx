@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CHROMIUM_VERSION = 67.0.3396.87
+CHROMIUM_VERSION = 67.0.3396.99
 CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-official
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
@@ -13,20 +13,20 @@ CHROMIUM_DEPENDENCIES = host-yasm yasm alsa-lib cairo systemd zlib dbus freetype
 			host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
-			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups host-clang
+			xlib_libXcursor xlib_libXrandr libva opus dbus-glib libxml2 libxslt cups host-clang host-lld
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
-	use_lld=false \
+	use_lld=true \
 	is_clang=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
 	linux_use_bundled_binutils=false \
-	use_sysroot=false \
+	use_sysroot=true \
 	target_sysroot=\"$(STAGING_DIR)\" \
 	target_cpu=\"$(BR2_PACKAGE_CHROMIUM_TARGET_ARCH)\" \
 	google_api_key=\"AIzaSyAQ6L9vt9cnN4nM0weaa6Y38K4eyPvtKgI\" \
@@ -68,6 +68,30 @@ else
 CHROMIUM_OPTS += is_debug=false
 endif
 
+ifeq ($(BR2_PACKAGE_CUPS),y)
+CHROMIUM_DEPENDENCIES += cups
+CHROMIUM_OPTS += use_cups=true
+else
+CHROMIUM_OPTS += use_cups=false
+endif
+
+ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)
+CHROMIUM_OPTS += proprietary_codecs=true ffmpeg_branding=\"Chrome\"
+endif
+
+ifeq ($(BR2_PACKAGE_DBUS),y)
+CHROMIUM_OPTS += use_dbus=true
+else
+CHROMIUM_OPTS += use_dbus=false
+endif
+
+ifeq ($(BR2_PACKAGE_PCIUTILS),y)
+CHROMIUM_DEPENDENCIES += pciutils
+CHROMIUM_OPTS += use_libpci=true
+else
+CHROMIUM_OPTS += use_libpci=false
+endif
+
 ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
 CHROMIUM_DEPENDENCIES += pulseaudio
 CHROMIUM_OPTS += use_pulseaudio=true
@@ -92,12 +116,7 @@ endif
 CHROMIUM_TARGET_CFLAGS += $(CHROMIUM_TARGET_LDFLAGS)
 CHROMIUM_TARGET_CXXFLAGS += $(CHROMIUM_TARGET_CFLAGS)
 
-CHROMIUM_HOST_CFLAGS += --target=$(HOSTARCH)-buildroot-linux-gnu
-CHROMIUM_HOST_CXXFLAGS += $(CHROMIUM_HOST_CFLAGS)
-CHROMIUM_HOST_LDFLAGS += --gcc-toolchain="/usr"
-
 export CCACHE_SLOPPINESS=time_macros
-export CCACHE_COMPRESS=true
 
 define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
@@ -105,10 +124,10 @@ define CHROMIUM_CONFIGURE_CMDS
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
-		HOST_CC="$(HOSTCC)" \
-		HOST_CXX="$(HOSTCXX)" \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
+		HOST_CC="$(HOSTCC)" \
+		HOST_CXX="$(HOSTCXX)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
