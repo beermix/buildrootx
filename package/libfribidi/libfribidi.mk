@@ -19,9 +19,4 @@ LIBFRIBIDI_DEPENDENCIES = host-pkgconf
 # https://github.com/behdad/fribidi/pull/14
 LIBFRIBIDI_CONF_OPTS = --with-glib=no
 
-HOST_LIBFRIBIDI_AUTORECONF = YES
-HOST_LIBFRIBIDI_DEPENDENCIES = host-pkgconf
-HOST_LIBFRIBIDI_CONF_OPTS = --with-glib=no
-
 $(eval $(autotools-package))
-$(eval $(host-autotools-package))

@@ -8,7 +8,7 @@
 # Version, site and source
 #
 
-GCC_VERSION = 7-20180628
+GCC_VERSION = $(call qstrip,$(BR2_GCC_VERSION))
 
 ifeq ($(BR2_GCC_VERSION_ARC),y)
 GCC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,gcc,$(GCC_VERSION))
@@ -17,9 +17,7 @@ else ifeq ($(BR2_or1k),y)
 GCC_SITE = $(call github,openrisc,or1k-gcc,$(GCC_VERSION))
 GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
-#GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
-GCC_SITE = ftp://gcc.gnu.org/pub/gcc/snapshots/LATEST-7
-GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
+GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
 # From version 5.5.0, 6.4.0, 7.2.0 and 8.1.0 a bz2 release tarball is not
 # provided anymore. Use the xz tarball instead.
 ifeq ($(BR2_GCC_VERSION_4_9_X),y)
