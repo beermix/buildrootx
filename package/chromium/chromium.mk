@@ -13,7 +13,7 @@ CHROMIUM_DEPENDENCIES = host-yasm yasm alsa-lib cairo systemd zlib dbus freetype
 			host-ninja host-python \
 			libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
-			xlib_libXcursor xlib_libXrandr libva dbus-glib host-clang host-lld
+			xlib_libXcursor xlib_libXrandr libva dbus-glib libjpeg-turbo host-clang host-lld
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -47,6 +47,10 @@ CHROMIUM_OPTS = \
 	enable_vulkan=false \
 	use_cups=false \
 	enable_vr=false \
+	use_custom_libcxx=false \
+	enable_swiftshader=false \
+	is_official_build=true \
+	use_system_libjpeg=true \
 	use_vaapi=true
 
 # tcmalloc has portability issues
