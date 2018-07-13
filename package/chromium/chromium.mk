@@ -20,7 +20,8 @@ CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
-	use_lld=true \
+	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
+	use_lld=false \
 	is_clang=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -37,6 +38,8 @@ CHROMIUM_OPTS = \
 	use_system_libdrm=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
+	use_system_libjpeg=true \
+	use_system_libpng=true \
 	linux_link_libudev=true \
 	symbol_level=0 \
 	fatal_linker_warnings=false \
@@ -50,7 +53,6 @@ CHROMIUM_OPTS = \
 	use_custom_libcxx=false \
 	enable_swiftshader=false \
 	is_official_build=true \
-	use_system_libjpeg=true \
 	use_vaapi=true
 
 # tcmalloc has portability issues
