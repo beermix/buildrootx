@@ -45,6 +45,7 @@ CHROMIUM_OPTS = \
 	enable_widevine=true \
 	enable_hangout_services_extension=true \
 	enable_vulkan=false \
+	is_official_build=true \
 	use_cups=false \
 	enable_vr=false \
 	use_vaapi=true
