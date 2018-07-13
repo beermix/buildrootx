@@ -14,7 +14,7 @@ LLVM_INSTALL_STAGING = YES
 
 # http://llvm.org/docs/GettingStarted.html#software
 # host-python: Python interpreter 2.7 or newer is required for builds and testing.
-HOST_LLVM_DEPENDENCIES = host-python
+HOST_LLVM_DEPENDENCIES = host-python host-cmake
 LLVM_DEPENDENCIES = host-llvm
 
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
