@@ -20,7 +20,7 @@ CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
-	use_gold=true \
+	use_gold=false \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
@@ -116,6 +116,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
+		sed -i -e '/"-fuse-ld=lld"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
 		HOST_CC="$(HOSTCC)" \
