@@ -117,8 +117,8 @@ define CHROMIUM_CONFIGURE_CMDS
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
-		HOST_CC="$(HOSTCC)" \
-		HOST_CXX="$(HOSTCXX)" \
+		HOST_CC="ccache $(HOSTCC)" \
+		HOST_CXX="ccache $(HOSTCXX)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
