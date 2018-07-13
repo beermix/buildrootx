@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Chromium
+# Chromium 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 #
 ################################################################################
 
@@ -13,15 +13,13 @@ CHROMIUM_DEPENDENCIES = host-yasm yasm alsa-lib cairo systemd zlib dbus freetype
 			host-ninja host-python libdrm libglib2 libkrb5 libnss libpng pango \
 			pciutils xlib_libXcomposite xlib_libXScrnSaver \
 			xlib_libXcursor xlib_libXrandr libva dbus-glib \
-			jpeg-turbo host-clang host-lld
+			jpeg-turbo host-clang
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
-	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
-	use_lld=false \
 	is_clang=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -119,8 +117,8 @@ define CHROMIUM_CONFIGURE_CMDS
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
-		HOST_CC="ccache $(HOSTCC)" \
-		HOST_CXX="ccache $(HOSTCXX)" \
+		HOST_CC="$(HOSTCC)" \
+		HOST_CXX="$(HOSTCXX)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
