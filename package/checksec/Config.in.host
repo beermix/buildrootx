@@ -1,0 +1,16 @@
+config BR2_PACKAGE_HOST_CHECKSEC
+	bool "host checksec"
+	help
+	  This tool provides a shell script to check the
+	  properties of the executables
+	  (like PIE,RELRO,PaX,Canaries,ASLR,Fortify Source).
+
+	  https://github.com/slimm609/checksec.sh.git
+
+	  NOTE: This tool has a hard-coded path to the standard
+	  libraries for some of the fortify test cases and
+	  requires you to either test the local filesystem or be
+	  in a chroot'd environment.  The tool can still be used
+	  against a folder of files but requires discretion of
+	  which the tests may not report consistently vs
+	  chroot/on-target.
