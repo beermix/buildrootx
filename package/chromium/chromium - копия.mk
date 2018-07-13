@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Chromium
+# Chromium 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 #
 ################################################################################
 
@@ -9,11 +9,10 @@ CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-offici
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
-CHROMIUM_DEPENDENCIES = host-clang systemd alsa-lib cairo dbus freetype harfbuzz \
-			host-ninja host-python \
-			jpeg-turbo libdrm libglib2 libkrb5 libnss libpng pango \
-			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib
+CHROMIUM_DEPENDENCIES = host-yasm host-ninja host-clang yasm alsa-lib cairo systemd zlib dbus freetype harfbuzz \
+			host-python libdrm libglib2 libkrb5 libnss libpng jpeg-turbo pango \
+			pciutils xlib_libXcomposite xlib_libXScrnSaver \
+			xlib_libXcursor xlib_libXrandr libva dbus-glib
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 

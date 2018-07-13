@@ -42,7 +42,6 @@ gcc_toolchain("target") {
     current_os = target_os
     is_clang = is_clang
     use_sysroot = use_sysroot
-    use_lld = false
   }
 }
 
