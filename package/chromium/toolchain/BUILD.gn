@@ -41,7 +41,6 @@ gcc_toolchain("target") {
     current_os = target_os
     is_clang = is_clang
     use_sysroot = use_sysroot
-    use_lld = false
   }
 }
 
@@ -67,7 +66,6 @@ gcc_toolchain("v8_snapshot") {
     current_os = host_os
     is_clang = is_clang
     use_sysroot = false
-    use_lld = false
   }
 }
 

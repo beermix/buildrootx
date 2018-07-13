@@ -13,13 +13,15 @@ CHROMIUM_DEPENDENCIES = systemd alsa-lib cairo dbus freetype harfbuzz \
 			host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libva libkrb5 libnss libpng pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib host-clang
+			xlib_libXrandr zlib host-clang host-lld
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
+	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
+	use_lld=true \
 	is_clang=true \
 	use_gold=false \
 	clang_use_chrome_plugins=false \
@@ -60,7 +62,7 @@ CHROMIUM_OPTS += use_allocator=\"none\"
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=false
+CHROMIUM_OPTS += v8_use_snapshot=true
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
@@ -117,7 +119,6 @@ define CHROMIUM_CONFIGURE_CMDS
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
-		sed -i -e '/"-fuse-ld=lld"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
 		HOST_CC="$(HOSTCC)" \
