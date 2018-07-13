@@ -21,7 +21,7 @@ CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
-	use_lld=false \
+	use_lld=true \
 	is_clang=true \
 	use_gold=false \
 	clang_use_chrome_plugins=false \
@@ -61,7 +61,7 @@ CHROMIUM_OPTS += use_allocator=\"none\"
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=false
+CHROMIUM_OPTS += v8_use_snapshot=true
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
