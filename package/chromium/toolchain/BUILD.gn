@@ -29,7 +29,6 @@ gcc_toolchain("target") {
   ar = getenv("TARGET_AR")
   nm = getenv("TARGET_NM")
   ld = cxx
-  readelf = getenv("TARGET_READELF")
 
   extra_cflags = getenv("TARGET_CFLAGS")
   extra_cppflags = getenv("TARGET_CPPFLAGS")
