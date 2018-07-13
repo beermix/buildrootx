@@ -39,7 +39,7 @@ CHROMIUM_OPTS = \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_system_libjpeg=true \
-	use_system_libpng=true \
+	use_system_libpng=false \
 	linux_link_libudev=true \
 	symbol_level=0 \
 	fatal_linker_warnings=false \
@@ -110,6 +110,7 @@ CHROMIUM_TARGET_CFLAGS += $(CHROMIUM_TARGET_LDFLAGS)
 CHROMIUM_TARGET_CXXFLAGS += $(CHROMIUM_TARGET_CFLAGS)
 
 export CCACHE_SLOPPINESS=time_macros
+export CCACHE_CPP2=yes
 
 define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \

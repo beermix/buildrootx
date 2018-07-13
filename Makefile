@@ -320,6 +320,8 @@ SED := $(shell which sed || type -p sed) -i -e
 export HOSTAR HOSTAS HOSTCC HOSTCXX HOSTLD
 export HOSTCC_NOCCACHE HOSTCXX_NOCCACHE
 
+export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
+
 # Determine the userland we are running on.
 #
 # Note that, despite its name, we are not interested in the actual

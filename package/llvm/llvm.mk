@@ -12,9 +12,11 @@ LLVM_LICENSE_FILES = LICENSE.TXT
 LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_INSTALL_STAGING = YES
 
+export CCACHE_SLOPPINESS=file_macro
+
 # http://llvm.org/docs/GettingStarted.html#software
 # host-python: Python interpreter 2.7 or newer is required for builds and testing.
-HOST_LLVM_DEPENDENCIES = host-python
+HOST_LLVM_DEPENDENCIES = host-python host-libxml2
 LLVM_DEPENDENCIES = host-llvm
 
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
@@ -270,6 +272,8 @@ LLVM_CONF_OPTS += \
 define HOST_LLVM_COPY_LLVM_CONFIG_TO_STAGING_DIR
 	$(INSTALL) -D -m 0755 $(HOST_DIR)/bin/llvm-config \
 		$(STAGING_DIR)/usr/bin/llvm-config
+		
+	#cp $(shell pwd)/package/llvm/llvm-config.h $(HOST_DIR)/include/llvm/Config/llvm-config.h
 endef
 HOST_LLVM_POST_INSTALL_HOOKS = HOST_LLVM_COPY_LLVM_CONFIG_TO_STAGING_DIR
 

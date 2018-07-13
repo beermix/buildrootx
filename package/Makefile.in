@@ -448,3 +448,5 @@ include package/pkg-kernel-module.mk
 include package/pkg-waf.mk
 include package/pkg-golang.mk
 include package/pkg-meson.mk
+
+export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
