@@ -42,15 +42,13 @@ CHROMIUM_OPTS = \
 	fatal_linker_warnings=false \
 	treat_warnings_as_errors=false \
 	fieldtrial_testing_like_official_build=true \
-	enable_swiftshader=false \
-	is_component_build=false \
-	use_custom_libcxx=false \
 	remove_webcore_debug_symbols=true \
 	enable_widevine=true \
 	enable_hangout_services_extension=true \
 	enable_vulkan=false \
 	is_official_build=true \
 	use_cups=false \
+	enable_vr=false \
 	use_vaapi=true
 
 # tcmalloc has portability issues
