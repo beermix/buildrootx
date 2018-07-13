@@ -52,6 +52,7 @@ CHROMIUM_OPTS = \
 	enable_vr=false \
 	use_custom_libcxx=false \
 	enable_swiftshader=false \
+	is_official_build=true \
 	use_vaapi=true
 
 # tcmalloc has portability issues
