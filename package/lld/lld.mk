@@ -16,4 +16,3 @@ LLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
-

@@ -1,0 +1,40 @@
+# vi: ft=dockerfile
+
+# When updating this version, please also update it below.
+FROM base/devel:2018.07.01
+
+LABEL maintainer="Buildroot mailing list <buildroot@buildroot.org>" \
+      vendor="Buildroot" \
+      description="Container based on Arch 2018.07.01, with everything needed to run Buildroot already installed"
+
+# Pin the repository to a known version
+RUN echo 'Server=https://archive.archlinux.org/repos/2018/07/01/$repo/os/$arch' \
+        > /etc/pacman.d/mirrorlist && \
+    pacman -Sy
+RUN pacman --noconfirm -S \
+        bc \
+        bzr \
+        cvs \
+        cpio \
+        flake8 \
+        git \
+        mercurial \
+        python \
+        python-nose2 \
+        python-pexpect \
+        qemu \
+        qemu-arch-extra \
+        rsync \
+        subversion \
+        unzip \
+        wget
+
+RUN sed -i 's/# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+    && /usr/sbin/locale-gen
+
+RUN useradd -ms /bin/bash br-user
+
+USER br-user
+WORKDIR /home/br-user
+ENV HOME /home/br-user
+ENV LC_ALL en_US.UTF-8

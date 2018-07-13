@@ -1,0 +1,42 @@
+# vi: ft=dockerfile
+# Note: this dockerfile is not reproducible, because the repository
+# where we fetch packages from is not pinned to a specific point in
+# time; i.e. we'll get whatever is current at the moment we build.
+
+FROM alpine:3.7
+
+LABEL maintainer="Buildroot mailing list <buildroot@buildroot.org>" \
+      vendor="Buildroot" \
+      description="Container based on Alpine 3.7, with everything needed to run Buildroot already installed"
+
+RUN apk update
+
+RUN apk add \
+    alpine-sdk \
+    bash \
+    bc \
+    bzip2 \
+    bzr \
+    cpio \
+    cvs \
+    file \
+    flake8 \
+    grep \
+    gzip \
+    mercurial \
+    ncurses-dev \
+    perl \
+    py2-nose \
+    py2-pexpect \
+    python \
+    rsync \
+    subversion \
+    unzip \
+    wget
+
+RUN adduser -h /home/br-user -s /bin/bash -D br-user
+
+USER br-user
+WORKDIR /home/br-user
+ENV HOME /home/br-user
+ENV LC_ALL en_US.UTF-8
