@@ -1,0 +1,21 @@
+diff -Naur chromium-67.0.3396.99-orig/tools/gn/bootstrap/bootstrap.py chromium-67.0.3396.99/tools/gn/bootstrap/bootstrap.py
+--- chromium-67.0.3396.99-orig/tools/gn/bootstrap/bootstrap.py	2018-07-13 23:49:32.254424209 +0300
++++ chromium-67.0.3396.99/tools/gn/bootstrap/bootstrap.py	2018-07-09 19:19:47.000000000 +0300
+@@ -386,13 +386,13 @@
+     ld = os.environ.get('LD', os.path.join(CCPATH, 'link.exe'))
+     ar = os.environ.get('AR', os.path.join(CCPATH, 'lib.exe'))
+   elif is_aix:
+-    cc = os.environ.get('CC', 'gcc')
+-    cxx = os.environ.get('CXX', 'c++')
++    cc = os.environ.get('CC', 'ccache gcc')
++    cxx = os.environ.get('CXX', 'ccache c++')
+     ld = os.environ.get('LD', cxx)
+     ar = os.environ.get('AR', 'ar -X64')
+   else:
+-    cc = os.environ.get('CC', 'cc')
+-    cxx = os.environ.get('CXX', 'c++')
++    cc = os.environ.get('CC', 'ccache cc')
++    cxx = os.environ.get('CXX', 'ccache c++')
+     ld = cxx
+     ar = os.environ.get('AR', 'ar')
+ 

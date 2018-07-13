@@ -52,7 +52,6 @@ CHROMIUM_OPTS = \
 	enable_vr=false \
 	use_custom_libcxx=false \
 	enable_swiftshader=false \
-	is_official_build=true \
 	use_vaapi=true
 
 # tcmalloc has portability issues
@@ -110,7 +109,6 @@ CHROMIUM_TARGET_CFLAGS += $(CHROMIUM_TARGET_LDFLAGS)
 CHROMIUM_TARGET_CXXFLAGS += $(CHROMIUM_TARGET_CFLAGS)
 
 export CCACHE_SLOPPINESS=time_macros
-export CCACHE_CPP2=yes
 
 define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
@@ -126,11 +124,11 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
-		TARGET_CC="ccache clang" \
-		TARGET_CXX="ccache clang++" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
+		TARGET_CC="/home/user/.bin/ccache $(HOST_DIR)/bin/clang" \
+		TARGET_CXX="/home/user/.bin/ccache $(HOST_DIR)/bin/clang++" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -mmmx -msse -msse2 -mfpmath=sse -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -mmmx -msse -msse2 -mfpmath=sse -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		out/Release/gn gen out/Release --args="$(CHROMIUM_OPTS)" \
 			--script-executable=$(HOST_DIR)/bin/python2 \
