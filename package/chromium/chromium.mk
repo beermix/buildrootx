@@ -150,8 +150,8 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(@D)/out/Release/locales/*.pak
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
-	#$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
-	#$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
+	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
+	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
 endef
 
 $(eval $(generic-package))
