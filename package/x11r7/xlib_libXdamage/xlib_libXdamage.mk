@@ -11,6 +11,5 @@ XLIB_LIBXDAMAGE_LICENSE = MIT
 XLIB_LIBXDAMAGE_LICENSE_FILES = COPYING
 XLIB_LIBXDAMAGE_INSTALL_STAGING = YES
 XLIB_LIBXDAMAGE_DEPENDENCIES = xproto_damageproto xlib_libX11 xlib_libXfixes xproto_xproto
-XLIB_LIBXDAMAGE_OPTS = --enable-static --disable-shared --with-pic
 
 $(eval $(autotools-package))

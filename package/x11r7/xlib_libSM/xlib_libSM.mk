@@ -11,6 +11,6 @@ XLIB_LIBSM_LICENSE = MIT
 XLIB_LIBSM_LICENSE_FILES = COPYING
 XLIB_LIBSM_INSTALL_STAGING = YES
 XLIB_LIBSM_DEPENDENCIES = xlib_libICE xlib_xtrans xproto_xproto
-XLIB_LIBSM_CONF_OPTS = --without-libuuid --enable-static --disable-shared --with-pic
+XLIB_LIBSM_CONF_OPTS = --without-libuuid
 
 $(eval $(autotools-package))

@@ -12,7 +12,6 @@ XLIB_LIBFONTENC_LICENSE_FILES = COPYING
 XLIB_LIBFONTENC_INSTALL_STAGING = YES
 XLIB_LIBFONTENC_DEPENDENCIES = zlib xproto_xproto
 HOST_XLIB_LIBFONTENC_DEPENDENCIES = host-zlib host-xproto_xproto
-XLIB_LIBFONTENC_OPTS = --enable-static --disable-shared --with-pic
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
