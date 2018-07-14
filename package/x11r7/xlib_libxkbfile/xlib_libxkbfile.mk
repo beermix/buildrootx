@@ -12,6 +12,7 @@ XLIB_LIBXKBFILE_LICENSE_FILES = COPYING
 XLIB_LIBXKBFILE_INSTALL_STAGING = YES
 XLIB_LIBXKBFILE_DEPENDENCIES = xlib_libX11 xproto_kbproto
 HOST_XLIB_LIBXKBFILE_DEPENDENCIES = host-xlib_libX11 host-xproto_kbproto
+XLIB_LIBXKBFILE_OPTS = --enable-static --disable-shared
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

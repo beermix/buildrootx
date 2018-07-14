@@ -19,7 +19,7 @@ HOST_LIBXCB_DEPENDENCIES = \
 	host-libxslt host-libpthread-stubs host-xcb-proto host-xlib_libXdmcp \
 	host-xlib_libXau host-python host-pkgconf
 
-LIBXCB_CONF_OPTS = --with-doxygen=no
+LIBXCB_CONF_OPTS = --with-doxygen=no --enable-static --disable-shared
 HOST_LIBXCB_CONF_OPTS = --with-doxygen=no
 
 # libxcb is not python3 friendly, so force the python interpreter

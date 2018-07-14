@@ -26,7 +26,7 @@ HOST_XLIB_LIBXFONT2_DEPENDENCIES = \
 	host-xproto_xproto \
 	host-xfont_encodings
 
-XLIB_LIBXFONT2_CONF_OPTS = --disable-devel-docs
+XLIB_LIBXFONT2_CONF_OPTS = --disable-devel-docs --enable-static --disable-shared
 HOST_XLIB_LIBXFONT2_CONF_OPTS = --disable-devel-docs
 
 $(eval $(autotools-package))

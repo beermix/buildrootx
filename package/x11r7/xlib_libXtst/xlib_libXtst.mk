@@ -17,4 +17,6 @@ XLIB_LIBXTST_DEPENDENCIES = \
 	xlib_libXi \
 	xproto_recordproto
 
+XLIB_LIBXTST_OPTS = --enable-static --disable-shared
+
 $(eval $(autotools-package))

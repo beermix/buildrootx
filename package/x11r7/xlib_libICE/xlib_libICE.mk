@@ -11,5 +11,6 @@ XLIB_LIBICE_LICENSE = MIT
 XLIB_LIBICE_LICENSE_FILES = COPYING
 XLIB_LIBICE_INSTALL_STAGING = YES
 XLIB_LIBICE_DEPENDENCIES = xlib_xtrans xproto_xproto host-pkgconf
+XLIB_LIBICE_OPTS = --enable-static --disable-shared
 
 $(eval $(autotools-package))
