@@ -52,7 +52,7 @@ CHROMIUM_OPTS = \
 	enable_vr=false \
 	use_custom_libcxx=false \
 	enable_swiftshader=false \
-	is_official_build=false \
+	is_official_build=true \
 	use_vaapi=true
 
 # tcmalloc has portability issues
@@ -148,7 +148,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
 	cp $(@D)/out/Release/{chrome_{100,200}_percent,resources}.pak \
-		$(@D)/out/Release/{*.bin,chromedriver} \
+		$(@D)/out/Release/chromedriver \
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
