@@ -15,7 +15,7 @@ HOST_XLIB_LIBXFIXES_DEPENDENCIES = \
 	host-xproto_fixesproto host-xlib_libX11 host-xproto_xextproto \
 	host-xproto_xproto
 
-XLIB_LIBXFIXES_OPTS = --enable-static --disable-shared
+XLIB_LIBXFIXES_OPTS = --enable-static --disable-shared --with-pic
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

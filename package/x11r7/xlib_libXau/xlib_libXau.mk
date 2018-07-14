@@ -14,7 +14,7 @@ XLIB_LIBXAU_DEPENDENCIES = host-pkgconf xutil_util-macros xproto_xproto
 HOST_XLIB_LIBXAU_DEPENDENCIES = \
 	host-pkgconf host-xutil_util-macros host-xproto_xproto
 	
-XLIB_LIBXAU_OPTS = --enable-static --disable-shared
+XLIB_LIBXAU_OPTS = --enable-static --disable-shared --with-pic
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

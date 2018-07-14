@@ -18,6 +18,6 @@ XLIB_LIBXI_DEPENDENCIES = \
 	xlib_libXext \
 	xlib_libXfixes
 
-XLIB_LIBXI_CONF_OPTS = --disable-malloc0returnsnull --enable-static --disable-shared
+XLIB_LIBXI_CONF_OPTS = --disable-malloc0returnsnull --enable-static --disable-shared --with-pic
 
 $(eval $(autotools-package))

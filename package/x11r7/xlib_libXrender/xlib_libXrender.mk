@@ -14,7 +14,7 @@ XLIB_LIBXRENDER_DEPENDENCIES = xlib_libX11 xproto_renderproto xproto_xproto
 HOST_XLIB_LIBXRENDER_DEPENDENCIES = \
 	host-xlib_libX11 host-xproto_renderproto host-xproto_xproto
 
-XLIB_LIBXRENDER_CONF_OPTS = --disable-malloc0returnsnull --enable-static --disable-shared
+XLIB_LIBXRENDER_CONF_OPTS = --disable-malloc0returnsnull --enable-static --disable-shared --with-pic
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
