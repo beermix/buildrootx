@@ -15,8 +15,6 @@ BINUTILS_VERSION = 2.29.1
 endif
 endif # BINUTILS_VERSION
 
-HOST_BINUTILS_DEPENDENCIES += host-flex host-bison
-
 ifeq ($(BINUTILS_VERSION),arc-2018.03)
 BINUTILS_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,binutils-gdb,$(BINUTILS_VERSION))
 BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.gz

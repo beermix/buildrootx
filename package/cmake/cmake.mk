@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-CMAKE_VERSION_MAJOR = 3.11
-CMAKE_VERSION = $(CMAKE_VERSION_MAJOR).4
+CMAKE_VERSION_MAJOR = 3.8
+CMAKE_VERSION = $(CMAKE_VERSION_MAJOR).2
 CMAKE_SITE = https://cmake.org/files/v$(CMAKE_VERSION_MAJOR)
 CMAKE_LICENSE = BSD-3-Clause
 CMAKE_LICENSE_FILES = Copyright.txt
@@ -23,8 +23,6 @@ CMAKE_LICENSE_FILES = Copyright.txt
 #   linking with the ones bundled into the CMake sources.
 
 CMAKE_DEPENDENCIES = zlib jsoncpp libcurl libarchive expat bzip2 xz libuv rhash
-
-# HOST_CMAKE_DEPENDENCIES = host-libopenssl
 
 CMAKE_CONF_OPTS = \
 	-DKWSYS_LFS_WORKS=TRUE \
@@ -47,8 +45,8 @@ define HOST_CMAKE_CONFIGURE_CMDS
 			--parallel=$(PARALLEL_JOBS) -- \
 			-DCMAKE_C_FLAGS="$(HOST_CMAKE_CFLAGS)" \
 			-DCMAKE_CXX_FLAGS="$(HOST_CMAKE_CXXFLAGS)" \
-			-DCMAKE_EXE_LINKER_FLAGS="$(HOST_LDFLAGS) -s" \
-			-DCMAKE_USE_OPENSSL:BOOL=ON \
+			-DCMAKE_EXE_LINKER_FLAGS="$(HOST_LDFLAGS)" \
+			-DCMAKE_USE_OPENSSL:BOOL=OFF \
 			-DBUILD_CursesDialog=OFF \
 	)
 endef
