@@ -52,7 +52,7 @@ GLIBC_EXTRA_CFLAGS += -mabi=32
 endif
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
-GLIBC_EXTRA_CFLAGS += -g
+GLIBC_EXTRA_CFLAGS += -g -Wno-error=stringop-truncation -Wno-error=overflow -Wno-error=format-overflow=
 # GLIBC_EXTRA_CFLAGS += -g -Wno-error=stringop-truncation -Wno-error=overflow -Wno-error=format-overflow=
 endif
 
