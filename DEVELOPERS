@@ -157,6 +157,7 @@ F:	package/sysdig/
 
 N:	Anisse Astier <anisse@astier.eu>
 F:	package/go/
+F:	package/nghttp2/
 
 N:	Anthony Viallard <viallard@syscom-instruments.com>
 F:	package/gnuplot/
@@ -510,6 +511,9 @@ N:	Damien Lanson <damien@kal-host.com>
 F:	package/libvdpau/
 F:	package/log4cpp/
 
+N:	Daniel Nicoletti <dantti12@gmail.com>
+F:	package/cutelyst/
+
 N:	Daniel Nyström <daniel.nystrom@timeterminal.se>
 F:	package/e2tools/
 
@@ -660,6 +664,7 @@ F:	configs/imx6slevk_defconfig
 F:	configs/imx6sx-sdb_defconfig
 F:	configs/imx6ulevk_defconfig
 F:	configs/imx6ulpico_defconfig
+F:	configs/imx7d-sdb_defconfig
 F:	configs/imx7dpico_defconfig
 F:	configs/mx25pdk_defconfig
 F:	configs/mx51evk_defconfig
@@ -983,6 +988,7 @@ F:	package/x11r7/xdriver_xf86-video-imx/
 F:	package/x11r7/xdriver_xf86-video-imx-viv/
 
 N:	Joel Carlson <JoelsonCarl@gmail.com>
+F:	package/capnproto/
 F:	package/cmocka/
 F:	package/flatcc/
 
@@ -1033,14 +1039,12 @@ N:	Jörg Krause <joerg.krause@embedded.rocks>
 F:	board/lemaker/bananapro/
 F:	configs/bananapro_defconfig
 F:	package/augeas/
-F:	package/bctoolbox/
+F:	package/bluez-alsa/
 F:	package/freescale-imx/imx-alsa-plugins/
 F:	package/libopusenc/
-F:	package/libshout/
 F:	package/libupnpp/
 F:	package/luv/
 F:	package/luvi/
-F:	package/mp4v2/
 F:	package/mpd/
 F:	package/shairport-sync/
 F:	package/swupdate/
@@ -1058,8 +1062,10 @@ F:	package/rabbitmq-c/
 N:	Joseph Kogut <joseph.kogut@gmail.com>
 F:	package/at-spi2-atk/
 F:	package/at-spi2-core/
+F:	package/clang/
 F:	package/gconf/
 F:	package/libnss/
+F:	package/llvm/
 F:	package/python-cython/
 F:	package/python-raven/
 F:	package/python-schedule/
@@ -1117,6 +1123,7 @@ N:	Kevin Joly <kevin.joly@sensefly.com>
 F:	package/libgphoto2/
 
 N:	Koen Martens <gmc@sonologic.nl>
+F:	package/capnproto/
 F:	package/linuxconsoletools/
 
 N:	Kurt Van Dijck <dev.kurt@vandijck-laurijssen.be>
@@ -1921,6 +1928,16 @@ F:	package/civetweb/
 N:	Thomas De Schampheleire <thomas.de_schampheleire@nokia.com>
 F:	docs/manual/
 F:	package/opkg-utils/
+F:	package/perl-convert-asn1/
+F:	package/perl-crypt-blowfish/
+F:	package/perl-crypt-cbc/
+F:	package/perl-digest-md5/
+F:	package/perl-mime-base64-urlsafe/
+F:	package/perl-mojolicious-plugin-authentication/
+F:	package/perl-net-ping/
+F:	package/perl-net-snmp/
+F:	package/perl-net-ssh2/
+F:	package/perl-net-telnet/
 F:	package/pigz/
 F:	support/scripts/size-stats
 F:	utils/size-stats-compare
@@ -1991,7 +2008,7 @@ N:	Tzu-Jung Lee <roylee17@gmail.com>
 F:	package/dropwatch/
 F:	package/tstools/
 
-N:	Valentin Korenblit <valentin.korenblit@smile.fr>
+N:	Valentin Korenblit <valentinkorenblit@gmail.com>
 F:	package/clang/
 F:	package/llvm/
 

@@ -213,7 +213,7 @@ TARGET_OBJDUMP  = $(TARGET_CROSS)objdump
 ifeq ($(BR2_STRIP_strip),y)
 STRIP_STRIP_DEBUG := --strip-debug
 TARGET_STRIP = $(TARGET_CROSS)strip
-STRIPCMD = $(TARGET_CROSS)strip --strip-all
+STRIPCMD = $(TARGET_CROSS)strip --remove-section=.comment --remove-section=.note
 else
 TARGET_STRIP = /bin/true
 STRIPCMD = $(TARGET_STRIP)
