@@ -52,8 +52,7 @@ GLIBC_EXTRA_CFLAGS += -mabi=32
 endif
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
-GLIBC_EXTRA_CFLAGS += -g -Wno-error=stringop-truncation -Wno-error=overflow -Wno-error=format-overflow=
-# GLIBC_EXTRA_CFLAGS += -g -Wno-error=stringop-truncation -Wno-error=overflow -Wno-error=format-overflow=
+GLIBC_EXTRA_CFLAGS += -g
 endif
 
 # The stubs.h header is not installed by install-headers, but is
@@ -83,7 +82,7 @@ define GLIBC_CONFIGURE_CMDS
 	# Do the configuration
 	(cd $(@D)/build; \
 		$(TARGET_CONFIGURE_OPTS) \
-		CFLAGS="-O2 $(GLIBC_EXTRA_CFLAGS)" CPPFLAGS="" \
+		CFLAGS="-O2 -Wno-error=stringop-truncation -Wno-error=overflow -Wno-error=format-overflow= $(GLIBC_EXTRA_CFLAGS)" CPPFLAGS="" \
 		CXXFLAGS="-O2 $(GLIBC_EXTRA_CFLAGS)" \
 		$(SHELL) $(@D)/configure \
 		ac_cv_path_BASH_SHELL=/bin/bash \
