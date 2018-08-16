@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CHROMIUM_VERSION = 68.0.3440.75
+CHROMIUM_VERSION = 68.0.3440.106
 CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-official
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
@@ -92,13 +92,8 @@ else
 CHROMIUM_OPTS += use_pulseaudio=false
 endif
 
-ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
-CHROMIUM_DEPENDENCIES += libgtk3
-CHROMIUM_OPTS += use_gtk3=true
-else
 CHROMIUM_DEPENDENCIES += libgtk2 xlib_libXi xlib_libXtst
 CHROMIUM_OPTS += use_gtk3=false
-endif
 
 ifeq ($(BR2_TOOLCHAIN_EXTERNAL),y)
 CHROMIUM_TARGET_LDFLAGS += --gcc-toolchain=$(TOOLCHAIN_EXTERNAL_INSTALL_DIR)
