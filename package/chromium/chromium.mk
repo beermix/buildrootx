@@ -14,7 +14,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg libdrm libglib2 libkrb5 libnss libpng \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libva
+			xlib_libXrandr zlib libva systemd
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -43,7 +43,8 @@ CHROMIUM_OPTS = \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
-	use_vaapi=true
+	use_vaapi=true \
+	linux_link_libudev=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
