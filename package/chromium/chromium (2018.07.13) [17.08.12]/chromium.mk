@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CHROMIUM_VERSION = 68.0.3440.106
+CHROMIUM_VERSION = 67.0.3396.99
 CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-official
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
@@ -13,7 +13,7 @@ CHROMIUM_DEPENDENCIES = systemd alsa-lib cairo dbus freetype harfbuzz \
 			host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libva libkrb5 libnss libpng pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib host-clang host-lld libgtk2 xlib_libXi xlib_libXtst
+			xlib_libXrandr zlib host-clang
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -39,7 +39,7 @@ CHROMIUM_OPTS = \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_system_libjpeg=true \
-	use_system_libpng=false \
+	use_system_libpng=true \
 	linux_link_libudev=true \
 	symbol_level=0 \
 	fatal_linker_warnings=false \
@@ -92,6 +92,14 @@ else
 CHROMIUM_OPTS += use_pulseaudio=false
 endif
 
+ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
+CHROMIUM_DEPENDENCIES += libgtk3
+CHROMIUM_OPTS += use_gtk3=true
+else
+CHROMIUM_DEPENDENCIES += libgtk2 xlib_libXi xlib_libXtst
+CHROMIUM_OPTS += use_gtk3=false
+endif
+
 ifeq ($(BR2_TOOLCHAIN_EXTERNAL),y)
 CHROMIUM_TARGET_LDFLAGS += --gcc-toolchain=$(TOOLCHAIN_EXTERNAL_INSTALL_DIR)
 else
@@ -141,7 +149,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
 	cp $(@D)/out/Release/{chrome_{100,200}_percent,resources}.pak \
-		$(@D)/out/Release/chromedriver \
+		$(@D)/out/Release/{*.bin,chromedriver} \
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
