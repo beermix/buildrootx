@@ -12,10 +12,10 @@ Signed-off-by: Matt Weber <matthew.weber@rockwellcollins.com>
  ccache.c | 15 +++++++++++++++
  1 file changed, 15 insertions(+)
 
-diff --git a/ccache.c b/ccache.c
+diff --git a/src/ccache.c b/src/ccache.c
 index 8ffadcc..76139b9 100644
---- a/ccache.c
-+++ b/ccache.c
+--- a/src/ccache.c
++++ b/src/ccache.c
 @@ -2407,6 +2407,21 @@ cc_process_args(struct args *args, struct args **preprocessor_args,
  			free(option);
  			continue;

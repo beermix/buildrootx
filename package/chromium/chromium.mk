@@ -37,6 +37,10 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
+	use_cfi_icall=false \
+	fieldtrial_testing_like_official_build=true \
+	enable_hangout_services_extension=true \
+	enable_widevine=true \
 	remove_webcore_debug_symbols=true \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
@@ -129,15 +133,12 @@ endif
 CHROMIUM_TARGET_CFLAGS += $(CHROMIUM_TARGET_LDFLAGS)
 CHROMIUM_TARGET_CXXFLAGS += $(CHROMIUM_TARGET_CFLAGS)
 
-export CCACHE_SLOPPINESS=time_macros
-
 define CHROMIUM_CONFIGURE_CMDS
 	# Allow building against system libraries in official builds
 	( cd $(@D); \
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
 			tools/generate_shim_headers/generate_shim_headers.py \
 	)
-export CCACHE_SLOPPINESS=time_macros
 
 	# Use python2 by default
 	mkdir -p $(@D)/bin
@@ -161,6 +162,7 @@ export CCACHE_SLOPPINESS=time_macros
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
+		CCACHE_SLOPPINESS=time_macros \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
@@ -172,9 +174,9 @@ export CCACHE_SLOPPINESS=time_macros
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
-		TARGET_CC="$(CHROMIUM_CC_WRAPPER) ccache clang" \
+		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) ccache clang++" \
+		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
