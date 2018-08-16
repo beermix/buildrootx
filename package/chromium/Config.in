@@ -21,11 +21,13 @@ menuconfig BR2_PACKAGE_CHROMIUM
 	select BR2_PACKAGE_AT_SPI2_ATK
 	select BR2_PACKAGE_ALSA_LIB
 	select BR2_PACKAGE_FREETYPE
+	select BR2_PACKAGE_FONTCONFIG
 	select BR2_PACKAGE_HARFBUZZ
 	select BR2_PACKAGE_HOST_CLANG
 	select BR2_PACKAGE_HOST_LLD
 	select BR2_PACKAGE_HOST_NINJA
 	select BR2_PACKAGE_HOST_PYTHON
+	select BR2_PACKAGE_ICU
 	select BR2_PACKAGE_JPEG_TURBO
 	select BR2_PACKAGE_LIBDRM
 	select BR2_PACKAGE_LIBVA
@@ -35,6 +37,9 @@ menuconfig BR2_PACKAGE_CHROMIUM
 	select BR2_PACKAGE_LIBKRB5
 	select BR2_PACKAGE_LIBNSS
 	select BR2_PACKAGE_LIBPNG
+	select BR2_PACKAGE_LIBXML2
+	select BR2_PACKAGE_LIBXSLT
+	select BR2_PACKAGE_PANGO
 	select BR2_PACKAGE_XLIB_LIBXCOMPOSITE
 	select BR2_PACKAGE_XLIB_LIBXCURSOR
 	select BR2_PACKAGE_XLIB_LIBXI if !BR2_PACKAGE_LIBGTK3_X11
@@ -56,9 +61,12 @@ config BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS
 
 endif # BR2_PACKAGE_CHROMIUM
 
-comment "chromium needs toolchain w/ Glibc, host gcc >= 4.9.0"
-	depends on !BR2_TOOLCHAIN_USES_GLIBC \
+comment "chromium needs toolchain w/ Glibc, host gcc >= 4.9.0, dynamic library"
+	depends on BR2_PACKAGE_CHROMIUM_ARCH_SUPPORTS \
+		&& !BR2_TOOLCHAIN_USES_GLIBC \
 		|| !BR2_HOST_GCC_AT_LEAST_4_9
 
-comment "chromium depends on X.org and needs an OpenGL backend"
-	depends on !BR2_PACKAGE_XORG7 || !BR2_PACKAGE_HAS_LIBGL
+comment "chromium needs X.org and an OpenGL backend"
+	depends on BR2_PACKAGE_CHROMIUM_ARCH_SUPPORTS \
+		&& !BR2_PACKAGE_XORG7 \
+		|| !BR2_PACKAGE_HAS_LIBGL
