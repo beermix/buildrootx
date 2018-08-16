@@ -11,8 +11,8 @@ CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-clang host-ninja host-python \
-			icu jpeg libdrm libglib2 libkrb5 libnss libpng \
-			libxml2 libxslt pango \
+			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
+			libxml2 libxslt pango snappy \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
 			xlib_libXrandr zlib libva systemd dbus
 
@@ -38,7 +38,7 @@ CHROMIUM_OPTS = \
 	enable_linux_installer=false \
 	is_official_build=true \
 	use_cfi_icall=false \
-	fieldtrial_testing_like_official_build=true \
+	fieldtrial_testing_like_official_build=false \
 	enable_hangout_services_extension=true \
 	enable_widevine=true \
 	remove_webcore_debug_symbols=true \
@@ -60,7 +60,8 @@ CHROMIUM_SYSTEM_LIBS = \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt
+	libxslt \
+	snappy
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
@@ -199,7 +200,7 @@ define CHROMIUM_BUILD_CMDS
 endef
 
 define CHROMIUM_INSTALL_TARGET_CMDS
-	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chromium
+	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chromium.bin
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
 	cp $(@D)/out/Release/{chrome_{100,200}_percent,resources}.pak \
