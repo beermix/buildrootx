@@ -1,23 +1,11 @@
-From fe42d6f7b739e8d42811bf46bcccfafa728847a2 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Mathias=20De=20Mar=C3=A9?= <mathias.de_mare@nokia.com>
-Date: Mon, 19 Sep 2016 10:38:13 +0200
-Subject: [PATCH] Convert argument to '--sysroot' option to relative path
-
-Previously, only the argument to '--sysroot=' was converted.
-This changeset adds support for '--sysroot'.
-
-Signed-off-by: Brandon Maier <brandon.maier@rockwellcollins.com>
-Signed-off-by: Matt Weber <matthew.weber@rockwellcollins.com>
----
- ccache.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
 diff --git a/src/ccache.c b/src/ccache.c
-index 8ffadcc..76139b9 100644
+old mode 100644
+new mode 100755
+index 5cff0b7..0364f14
 --- a/src/ccache.c
 +++ b/src/ccache.c
-@@ -2407,6 +2407,21 @@ cc_process_args(struct args *args, struct args **preprocessor_args,
- 			free(option);
+@@ -2545,6 +2545,21 @@ cc_process_args(struct args *args, struct args **preprocessor_args,
+ 			free(relpath);
  			continue;
  		}
 +		// Alternate form of specifying sysroot without =
@@ -38,6 +26,3 @@ index 8ffadcc..76139b9 100644
  		if (str_startswith(argv[i], "-Wp,")) {
  			if (str_eq(argv[i], "-Wp,-P")
  			    || strstr(argv[i], ",-P,")
--- 
-2.8.3
-
