@@ -168,7 +168,6 @@ define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		CCACHE_SLOPPINESS=time_macros \
-		CCACHE_CPP2=yes \
 		CCACHE_COMPRESS=true \
 		CCACHE_NOSTATS=1 \
 		CCACHE_OPTIONS="--zero-stats" \
