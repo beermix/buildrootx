@@ -43,7 +43,6 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
 	use_vaapi=true \
-	enable_hangout_services_extension=true \
 	enable_vulkan=false \
 	enable_google_now=false \
 	enable_vr=false \
@@ -85,7 +84,7 @@ endif
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=true
+CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
