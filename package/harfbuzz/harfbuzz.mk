@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-HARFBUZZ_VERSION = 1.7.1
+HARFBUZZ_VERSION = 1.8.8
 HARFBUZZ_SITE = https://www.freedesktop.org/software/harfbuzz/release
 HARFBUZZ_SOURCE = harfbuzz-$(HARFBUZZ_VERSION).tar.bz2
 HARFBUZZ_LICENSE = MIT, ISC (ucdn library)
@@ -27,7 +27,7 @@ HOST_HARFBUZZ_CONF_OPTS = \
 
 ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 # forgets to link test programs with -pthread breaking static link
-HARFBUZZ_CONF_ENV = LDFLAGS="$(TARGET_LDFLAGS) -pthread"
+HARFBUZZ_CONF_ENV = LDFLAGS="$(TARGET_LDFLAGS) -pthread -ldl"
 endif
 
 ifeq ($(BR2_PACKAGE_CAIRO),y)
