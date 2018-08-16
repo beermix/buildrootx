@@ -13,7 +13,7 @@ CHROMIUM_DEPENDENCIES = systemd alsa-lib cairo dbus freetype harfbuzz \
 			host-ninja host-python \
 			jpeg-turbo libdrm libglib2 libva libkrb5 libnss libpng pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib host-clang host-lld
+			xlib_libXrandr zlib host-clang host-lld libgtk2 xlib_libXi xlib_libXtst
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -36,6 +36,7 @@ CHROMIUM_OPTS = \
 	google_default_client_id=\"740889307901-4bkm4e0udppnp1lradko85qsbnmkfq3b.apps.googleusercontent.com\" \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
+	use_gtk3=false \
 	use_dbus=true \
 	use_system_zlib=true \
 	use_system_libdrm=true \
@@ -95,9 +96,6 @@ else
 CHROMIUM_OPTS += use_pulseaudio=false
 endif
 
-CHROMIUM_DEPENDENCIES += libgtk2 xlib_libXi xlib_libXtst
-CHROMIUM_OPTS += use_gtk3=false
-
 ifeq ($(BR2_TOOLCHAIN_EXTERNAL),y)
 CHROMIUM_TARGET_LDFLAGS += --gcc-toolchain=$(TOOLCHAIN_EXTERNAL_INSTALL_DIR)
 else
@@ -113,20 +111,20 @@ define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py; \
-		CCACHE_SLOPPINESS=time_macros $(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_NM="$(HOSTNM)" \
-		HOST_CC="/home/user/.bin/ccache $(HOSTCC)" \
-		HOST_CXX="/home/user/.bin/ccache $(HOSTCXX)" \
+		HOST_CC="ccache $(HOSTCC)" \
+		HOST_CXX="ccache $(HOSTCXX)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
 		TARGET_CC="ccache $(HOST_DIR)/bin/clang" \
 		TARGET_CXX="ccache $(HOST_DIR)/bin/clang++" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -mmmx -msse -msse2 -mfpmath=sse -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -mmmx -msse -msse2 -mfpmath=sse -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		out/Release/gn gen out/Release --args="$(CHROMIUM_OPTS)" \
