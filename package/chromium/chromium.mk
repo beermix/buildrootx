@@ -127,6 +127,8 @@ endif
 CHROMIUM_TARGET_CFLAGS += $(CHROMIUM_TARGET_LDFLAGS)
 CHROMIUM_TARGET_CXXFLAGS += $(CHROMIUM_TARGET_CFLAGS)
 
+export CCACHE_SLOPPINESS=time_macros
+
 define CHROMIUM_CONFIGURE_CMDS
 	# Allow building against system libraries in official builds
 	( cd $(@D); \
