@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-NODEJS_VERSION = 8.11.3
+NODEJS_VERSION = 8.11.4
 NODEJS_SOURCE = node-v$(NODEJS_VERSION).tar.xz
 NODEJS_SITE = http://nodejs.org/dist/v$(NODEJS_VERSION)
 NODEJS_DEPENDENCIES = host-python host-nodejs c-ares \
@@ -22,8 +22,9 @@ NODEJS_CONF_OPTS = \
 	--shared-libuv \
 	--without-dtrace \
 	--without-etw \
-	--dest-os=linux
-
+	--dest-os=linux \
+	--fully-static
+	
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
 NODEJS_DEPENDENCIES += openssl
 NODEJS_CONF_OPTS += --shared-openssl
