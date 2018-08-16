@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CHROMIUM_VERSION = 68.0.3440.106
+CHROMIUM_VERSION = 69.0.3497.23
 CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-official
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
@@ -12,9 +12,9 @@ CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-clang host-ninja host-python \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
-			libxml2 libxslt pango snappy \
+			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libva systemd dbus
+			xlib_libXrandr zlib libva
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -30,44 +30,37 @@ CHROMIUM_OPTS = \
 	use_sysroot=false \
 	target_sysroot=\"$(STAGING_DIR)\" \
 	target_cpu=\"$(BR2_PACKAGE_CHROMIUM_TARGET_ARCH)\" \
-	google_api_key=\"AIzaSyAQ6L9vt9cnN4nM0weaa6Y38K4eyPvtKgI\" \
-	google_default_client_id=\"740889307901-4bkm4e0udppnp1lradko85qsbnmkfq3b.apps.googleusercontent.com\" \
-	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	is_official_build=false \
+	is_official_build=true \
+	use_system_zlib=true \
 	use_system_libjpeg=true \
-	use_system_libpng=false \
+	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
-	use_vaapi=true \
-	enable_vulkan=false \
-	enable_google_now=false \
-	enable_vr=false \
-	enable_wayland_server=false \
-	symbol_level=0 \
-	is_cfi=false \
-	fieldtrial_testing_like_official_build=true \
-	use_aura=true \
-	linux_link_libudev=true
+	use_vaapi=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
+	icu \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt
+	libxslt \
+	zlib
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
 CHROMIUM_DEPENDENCIES += host-yasm
 endif
+
 # tcmalloc has portability issues
 CHROMIUM_OPTS += use_allocator=\"none\"
+
 ifeq ($(BR2_CCACHE),y)
 CHROMIUM_CC_WRAPPER = ccache
 endif
@@ -124,6 +117,7 @@ else
 CHROMIUM_DEPENDENCIES += libgtk2 xlib_libXi xlib_libXtst
 CHROMIUM_OPTS += use_gtk3=false
 endif
+
 ifeq ($(BR2_TOOLCHAIN_EXTERNAL),y)
 CHROMIUM_TARGET_LDFLAGS += --gcc-toolchain=$(TOOLCHAIN_EXTERNAL_INSTALL_DIR)
 else
@@ -140,6 +134,9 @@ define CHROMIUM_CONFIGURE_CMDS
 			tools/generate_shim_headers/generate_shim_headers.py \
 	)
 
+	mkdir -p $(@D)/third_party/node/linux/node-linux-x64/bin
+	ln -sf $(HOST_DIR)/bin/node $(@D)/third_party/node/linux/node-linux-x64/bin/
+
 	# Use python2 by default
 	mkdir -p $(@D)/bin
 	ln -sf $(HOST_DIR)/usr/bin/python2 $(@D)/bin/python
@@ -154,6 +151,7 @@ define CHROMIUM_CONFIGURE_CMDS
 			  -delete; \
 		done \
 	)
+
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		build/linux/unbundle/replace_gn_files.py \
@@ -162,10 +160,6 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		CCACHE_SLOPPINESS=time_macros \
-		CCACHE_COMPRESS=true \
-		CCACHE_NOSTATS=1 \
-		CCACHE_OPTIONS="--zero-stats" \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
@@ -178,10 +172,9 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__=  -DNO_UNWIND_TABLES" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
@@ -197,12 +190,12 @@ define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
-		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chromedriver \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
 	)
 endef
 
 define CHROMIUM_INSTALL_TARGET_CMDS
-	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chromium.bin
+	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chromium
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
 	cp $(@D)/out/Release/{chrome_{100,200}_percent,resources}.pak \
@@ -210,10 +203,6 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
-	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
-
-	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
-	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
 endef
 
 $(eval $(generic-package))
