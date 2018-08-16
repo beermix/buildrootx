@@ -10,7 +10,7 @@ GLIBC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,glibc,$(GLIBC_VE
 else
 # Generate version string using:
 #   git describe --match 'glibc-*' --abbrev=40 origin/release/MAJOR.MINOR/master
-GLIBC_VERSION = cf6deb0
+GLIBC_VERSION = glibc-2.28
 # Upstream doesn't officially provide an https download link.
 # There is one (https://sourceware.org/git/glibc.git) but it's not reliable,
 # sometimes the connection times out. So use an unofficial github mirror.
@@ -82,7 +82,7 @@ define GLIBC_CONFIGURE_CMDS
 	# Do the configuration
 	(cd $(@D)/build; \
 		$(TARGET_CONFIGURE_OPTS) \
-		CFLAGS="-O2 $(GLIBC_EXTRA_CFLAGS) -Wno-error=stringop-truncation -Wno-error=overflow -Wno-error=format-overflow=" CPPFLAGS="" \
+		CFLAGS="-O2 $(GLIBC_EXTRA_CFLAGS)" CPPFLAGS="" \
 		CXXFLAGS="-O2 $(GLIBC_EXTRA_CFLAGS)" \
 		$(SHELL) $(@D)/configure \
 		ac_cv_path_BASH_SHELL=/bin/bash \
@@ -93,16 +93,12 @@ define GLIBC_CONFIGURE_CMDS
 		--build=$(GNU_HOST_NAME) \
 		--prefix=/usr \
 		--enable-shared \
-		$(if $(BR2_SOFT_FLOAT),--without-fp,--with-fp) \
 		$(if $(BR2_x86_64),--enable-lock-elision) \
 		--with-pkgversion="Buildroot" \
 		--without-cvs \
 		--disable-profile \
 		--without-gd \
 		--enable-obsolete-rpc \
-		--disable-debug \
-		--without-selinux \
-		--disable-werror \
 		--enable-kernel=$(call qstrip,$(BR2_TOOLCHAIN_HEADERS_AT_LEAST)) \
 		--with-headers=$(STAGING_DIR)/usr/include)
 	$(GLIBC_ADD_MISSING_STUB_H)

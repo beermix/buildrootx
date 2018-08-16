@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GST1_PLUGINS_BASE_VERSION = 1.14.1
+GST1_PLUGINS_BASE_VERSION = 1.14.2
 GST1_PLUGINS_BASE_SOURCE = gst-plugins-base-$(GST1_PLUGINS_BASE_VERSION).tar.xz
 GST1_PLUGINS_BASE_SITE = https://gstreamer.freedesktop.org/src/gst-plugins-base
 GST1_PLUGINS_BASE_INSTALL_STAGING = YES
@@ -14,7 +14,8 @@ GST1_PLUGINS_BASE_LICENSE = LGPL-2.0+, LGPL-2.1+
 # gio_unix_2_0 is only used for tests
 GST1_PLUGINS_BASE_CONF_OPTS = \
 	--disable-examples \
-	--disable-valgrind
+	--disable-valgrind \
+	--disable-introspection
 
 # Options which require currently unpackaged libraries
 GST1_PLUGINS_BASE_CONF_OPTS += \
@@ -46,7 +47,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BASE_LIB_OPENGL_GLX),y)
 GST1_PLUGINS_BASE_CONF_OPTS += --enable-glx
-GST1_PLUGINS_BASE_DEPENDENCIES += xproto_glproto xlib_libXrender
+GST1_PLUGINS_BASE_DEPENDENCIES += xorgproto xlib_libXrender
 else
 GST1_PLUGINS_BASE_CONF_OPTS += --disable-glx
 endif

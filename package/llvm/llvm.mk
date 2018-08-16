@@ -12,11 +12,9 @@ LLVM_LICENSE_FILES = LICENSE.TXT
 LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_INSTALL_STAGING = YES
 
-export CCACHE_SLOPPINESS=file_macro
-
 # http://llvm.org/docs/GettingStarted.html#software
 # host-python: Python interpreter 2.7 or newer is required for builds and testing.
-HOST_LLVM_DEPENDENCIES = host-python host-libxml2
+HOST_LLVM_DEPENDENCIES = host-python
 LLVM_DEPENDENCIES = host-llvm
 
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
@@ -41,9 +39,8 @@ LLVM_CONF_OPTS += -DLLVM_BUILD_GLOBAL_ISEL=OFF
 LLVM_TARGET_ARCH = $(call qstrip,$(BR2_PACKAGE_LLVM_TARGET_ARCH))
 
 # Build backend for target architecture. This include backends like AMDGPU.
-HOST_LLVM_TARGETS_TO_BUILD = $(LLVM_TARGET_ARCH)
 LLVM_TARGETS_TO_BUILD = $(LLVM_TARGET_ARCH)
-HOST_LLVM_CONF_OPTS += -DLLVM_TARGETS_TO_BUILD="$(subst $(space),;,$(HOST_LLVM_TARGETS_TO_BUILD))"
+HOST_LLVM_CONF_OPTS += -DLLVM_TARGETS_TO_BUILD="$(subst $(space),;,$(LLVM_TARGETS_TO_BUILD))"
 LLVM_CONF_OPTS += -DLLVM_TARGETS_TO_BUILD="$(subst $(space),;,$(LLVM_TARGETS_TO_BUILD))"
 
 # LLVM target to use for native code generation. This is required for JIT generation.
@@ -59,13 +56,7 @@ LLVM_CONF_OPTS += -DLLVM_TARGET_ARCH=$(LLVM_TARGET_ARCH)
 # output only $(LLVM_TARGET_ARCH) if not, and mesa3d won't build as
 # it thinks AMDGPU backend is not installed on the target.
 ifeq ($(BR2_PACKAGE_LLVM_AMDGPU),y)
-HOST_LLVM_TARGETS_TO_BUILD += AMDGPU
 LLVM_TARGETS_TO_BUILD += AMDGPU
-endif
-
-# Build backend for host architecture
-ifeq ($(BR2_PACKAGE_HOST_LLVM_ENABLE_HOST_ARCH),y)
-HOST_LLVM_TARGETS_TO_BUILD += $(call qstrip,$(BR2_PACKAGE_HOST_LLVM_HOST_ARCH))
 endif
 
 # Use native llvm-tblgen from host-llvm (needed for cross-compilation)
@@ -272,8 +263,6 @@ LLVM_CONF_OPTS += \
 define HOST_LLVM_COPY_LLVM_CONFIG_TO_STAGING_DIR
 	$(INSTALL) -D -m 0755 $(HOST_DIR)/bin/llvm-config \
 		$(STAGING_DIR)/usr/bin/llvm-config
-		
-	#cp $(shell pwd)/package/llvm/llvm-config.h $(HOST_DIR)/include/llvm/Config/llvm-config.h
 endef
 HOST_LLVM_POST_INSTALL_HOOKS = HOST_LLVM_COPY_LLVM_CONFIG_TO_STAGING_DIR
 

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 3.2.10
+FFMPEG_VERSION = 3.4.4
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = http://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -231,6 +231,13 @@ ifeq ($(BR2_PACKAGE_FFMPEG_GPL)$(BR2_PACKAGE_LIBEBUR128),yy)
 FFMPEG_DEPENDENCIES += libebur128
 endif
 
+ifeq ($(BR2_PACKAGE_LIBDRM),y)
+FFMPEG_CONF_OPTS += --enable-libdrm
+FFMPEG_DEPENDENCIES += libdrm
+else
+FFMPEG_CONF_OPTS += --disable-libdrm
+endif
+
 ifeq ($(BR2_PACKAGE_LIBOPENH264),y)
 FFMPEG_CONF_OPTS += --enable-libopenh264
 FFMPEG_DEPENDENCIES += libopenh264
@@ -396,7 +403,7 @@ FFMPEG_CONF_OPTS += --disable-libx265
 endif
 
 ifeq ($(BR2_X86_CPU_HAS_MMX),y)
-FFMPEG_CONF_OPTS += --enable-yasm
+FFMPEG_CONF_OPTS += --enable-x86asm
 FFMPEG_DEPENDENCIES += host-nasm
 else
 FFMPEG_CONF_OPTS += --disable-x86asm
