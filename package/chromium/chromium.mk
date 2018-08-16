@@ -172,9 +172,9 @@ export CCACHE_SLOPPINESS=time_macros
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
-		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
+		TARGET_CC="$(CHROMIUM_CC_WRAPPER) ccache clang" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
+		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) ccache clang++" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
