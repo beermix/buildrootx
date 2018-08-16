@@ -1,10 +1,7 @@
-diff --git a/src/ccache.c b/src/ccache.c
-old mode 100644
-new mode 100755
-index 5cff0b7..0364f14
---- a/src/ccache.c
-+++ b/src/ccache.c
-@@ -2545,6 +2545,21 @@ cc_process_args(struct args *args, struct args **preprocessor_args,
+diff -Naur ccache-3.4.2-orig/src/ccache.c ccache-3.4.2/src/ccache.c
+--- ccache-3.4.2-orig/src/ccache.c	2018-08-16 22:51:32.886536436 +0300
++++ ccache-3.4.2/src/ccache.c	2018-03-25 23:24:05.000000000 +0300
+@@ -2510,6 +2510,21 @@
  			free(relpath);
  			continue;
  		}
