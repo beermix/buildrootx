@@ -83,7 +83,7 @@ check_one_hash() {
 }
 
 # Do we know one or more hashes for that file?
-nb_checks=0
+nb_checks=1
 while read t h f; do
     case "${t}" in
         ''|'#'*)

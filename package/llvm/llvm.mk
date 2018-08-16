@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LLVM_VERSION = ef7c5cc
+LLVM_VERSION = 2c9adfa
 LLVM_SITE = $(call github,llvm-mirror,llvm,$(LLVM_VERSION))
 #LLVM_SOURCE = llvm-$(LLVM_VERSION).src.tar.xz
 LLVM_LICENSE = NCSA

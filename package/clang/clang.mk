@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CLANG_VERSION = bdb1c36
+CLANG_VERSION = ca31943
 CLANG_SITE = $(call github,llvm-mirror,clang,$(CLANG_VERSION))
 #CLANG_SOURCE = clang-$(CLANG_VERSION).src.tar.xz
 CLANG_LICENSE = NCSA
