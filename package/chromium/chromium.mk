@@ -36,15 +36,13 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	is_official_build=true \
-	use_system_zlib=true \
+	is_official_build=false \
 	use_system_libjpeg=true \
 	use_system_libpng=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
 	use_vaapi=true \
-	remove_webcore_debug_symbols=true \
 	enable_hangout_services_extension=true \
 	enable_vulkan=false \
 	enable_google_now=false \
@@ -53,7 +51,6 @@ CHROMIUM_OPTS = \
 	symbol_level=0 \
 	is_cfi=false \
 	fieldtrial_testing_like_official_build=true \
-	is_component_build=false \
 	use_aura=true \
 	linux_link_libudev=true
 
@@ -61,7 +58,6 @@ CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	icu \
 	libdrm \
 	libjpeg \
 	libxml \
