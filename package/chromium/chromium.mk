@@ -165,15 +165,16 @@ export CCACHE_SLOPPINESS=time_macros
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
-		HOST_CFLAGS="$(HOST_CFLAGS)" \
+		HOST_CFLAGS="$(HOST_CFLAGS) -fdiagnostics-color=always" \
 		HOST_CXX="$(HOSTCXX)" \
-		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
+		HOST_CXXFLAGS="$(HOST_CXXFLAGS) -fdiagnostics-color=always" \
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
