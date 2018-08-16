@@ -7,7 +7,7 @@ index 9e23a5a..74459a6 100755
          cflags.remove('-fno-rtti')  # Needed for above pedanticness.
      else:
 -        cflags += ['-O2', '-DNDEBUG']
-+        cflags += ['-O3', '-DNDEBUG']
++        cflags += ['-march=native -pipe -O3 -Wall', '-DNDEBUG']
      try:
          proc = subprocess.Popen(
              [CXX, '-fdiagnostics-color', '-c', '-x', 'c++', '/dev/null',

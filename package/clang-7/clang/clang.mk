@@ -12,8 +12,8 @@ CLANG_LICENSE_FILES = LICENSE.TXT
 CLANG_SUPPORTS_IN_SOURCE_BUILD = NO
 CLANG_INSTALL_STAGING = YES
 
-HOST_CLANG_DEPENDENCIES = host-llvm host-libxml2
-CLANG_DEPENDENCIES = llvm host-clang
+HOST_CLANG_DEPENDENCIES = host-python host-llvm host-libxml2
+CLANG_DEPENDENCIES = host-python llvm host-clang
 
 # This option is needed, otherwise multiple shared libs
 # (libclangAST.so, libclangBasic.so, libclangFrontend.so, etc.) will
