@@ -120,8 +120,8 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		TARGET_AR="ar" \
 		TARGET_NM="nm" \
-		TARGET_CC="/home/user/.bin/ccache $(HOST_DIR)/bin/clang" \
-		TARGET_CXX="/home/user/.bin/ccache $(HOST_DIR)/bin/clang++" \
+		TARGET_CC="ccache $(HOST_DIR)/bin/clang" \
+		TARGET_CXX="ccache $(HOST_DIR)/bin/clang++" \
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -mmmx -msse -msse2 -mfpmath=sse -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -mmmx -msse -msse2 -mfpmath=sse -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
