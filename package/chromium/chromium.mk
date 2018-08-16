@@ -37,6 +37,7 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
+	remove_webcore_debug_symbols=true \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_libpng=true \
@@ -44,6 +45,7 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
 	use_vaapi=true \
+	symbol_level=0 \
 	linux_link_libudev=true
 
 CHROMIUM_SYSTEM_LIBS = \
@@ -165,16 +167,16 @@ export CCACHE_SLOPPINESS=time_macros
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
-		HOST_CFLAGS="$(HOST_CFLAGS) -fdiagnostics-color=always" \
+		HOST_CFLAGS="$(HOST_CFLAGS)" \
 		HOST_CXX="$(HOSTCXX)" \
-		HOST_CXXFLAGS="$(HOST_CXXFLAGS) -fdiagnostics-color=always" \
+		HOST_CXXFLAGS="$(HOST_CXXFLAGS)" \
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -fdiagnostics-color=always -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -DNO_UNWIND_TABLES" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) `-Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
