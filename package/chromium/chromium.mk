@@ -44,14 +44,17 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
 	use_vaapi=true \
-	symbol_level=0 \
-	enable_vulkan=false \
+	remove_webcore_debug_symbols=true \
 	enable_hangout_services_extension=true \
-	enable_widevine=true \
+	enable_vulkan=false \
 	enable_google_now=false \
-	enable_mdns=true \
 	enable_vr=false \
 	enable_wayland_server=false \
+	symbol_level=0 \
+	is_cfi=false \
+	fieldtrial_testing_like_official_build=true \
+	is_component_build=false \
+	use_aura=true \
 	linux_link_libudev=true
 
 CHROMIUM_SYSTEM_LIBS = \
@@ -62,8 +65,7 @@ CHROMIUM_SYSTEM_LIBS = \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt \
-	snappy
+	libxslt
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
@@ -185,7 +187,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__=  -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
