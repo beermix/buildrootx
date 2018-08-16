@@ -1,3 +1,0 @@
-config BR2_PACKAGE_LLD
-	bool "lld"
-	depends on BR2_PACKAGE_LLVM_ARCH_SUPPORTS
