@@ -39,19 +39,21 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
-	use_system_libjpeg=true \
-	use_system_libpng=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	enable_vulkan=false \
+	use_cfi_icall=false \
+	fieldtrial_testing_like_official_build=true \
+	enable_hangout_services_extension=true \
+	enable_widevine=true \
+	remove_webcore_debug_symbols=true \
 	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	libdrm \
-	libjpeg
+	libdrm
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
