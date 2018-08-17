@@ -12,7 +12,7 @@ CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-clang host-ninja host-python \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
-			libxml2 libxslt pango \
+			libxml2 libxslt opus pango snappy \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
 			xlib_libXrandr zlib libva systemd dbus
 
@@ -37,8 +37,9 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
+	use_system_zlib=true \
 	use_system_libjpeg=true \
-	use_system_libpng=false \
+	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
@@ -50,7 +51,13 @@ CHROMIUM_OPTS = \
 	symbol_level=0 \
 	is_cfi=false \
 	fieldtrial_testing_like_official_build=true \
+	enable_mdns=true \
+	is_desktop_linux=true \
+	use_alsa=true \
 	use_aura=true \
+	use_gio=true \
+	use_glib=true \
+	rtc_enable_protobuf=false \
 	linux_link_libudev=true
 
 CHROMIUM_SYSTEM_LIBS = \
@@ -61,7 +68,10 @@ CHROMIUM_SYSTEM_LIBS = \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt
+	libxslt \
+	opus \
+	snappy \
+	zlib
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
