@@ -12,7 +12,7 @@ CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-clang host-ninja host-python \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
-			libxml2 libxslt pango snappy \
+			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
 			xlib_libXrandr zlib libva systemd dbus
 
@@ -36,7 +36,7 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	is_official_build=false \
+	is_official_build=true \
 	use_system_libjpeg=true \
 	use_system_libpng=false \
 	use_system_harfbuzz=true \
@@ -57,6 +57,7 @@ CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
+	icu \
 	libdrm \
 	libjpeg \
 	libxml \
@@ -69,6 +70,9 @@ endif
 # tcmalloc has portability issues
 CHROMIUM_OPTS += use_allocator=\"none\"
 ifeq ($(BR2_CCACHE),y)
+export CCACHE_SLOPPINESS=time_macros
+export CCACHE_COMPRESS=true
+export CCACHE_NOSTATS=1
 CHROMIUM_CC_WRAPPER = ccache
 endif
 
@@ -162,10 +166,6 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		CCACHE_SLOPPINESS=time_macros \
-		CCACHE_COMPRESS=true \
-		CCACHE_NOSTATS=1 \
-		CCACHE_OPTIONS="--zero-stats" \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
@@ -197,7 +197,7 @@ define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
-		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chromedriver \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
 	)
 endef
 
