@@ -39,9 +39,8 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
-	use_system_zlib=true \
 	use_system_libjpeg=true \
-	use_system_libpng=true \
+	use_system_libpng=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false
@@ -50,12 +49,8 @@ CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	icu \
 	libdrm \
-	libjpeg \
-	libxslt \
-	opus \
-	snappy
+	libjpeg
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
