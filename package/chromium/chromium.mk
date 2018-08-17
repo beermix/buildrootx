@@ -23,6 +23,8 @@ CHROMIUM_OPTS = \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
+	use_vaapi=true \
+	symbol_level=0 \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
@@ -37,18 +39,18 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
-	use_custom_libcxx=false \
-	use_vaapi=true \
-	enable_vulkan=false \
-	enable_vr=false \
-	symbol_level=0 \
-	is_cfi=false \
-	linux_link_libudev=true
+	use_system_zlib=true \
+	use_system_libjpeg=true \
+	use_system_libpng=true \
+	use_system_harfbuzz=true \
+	use_system_freetype=true \
+	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
+	icu \
 	libdrm \
 	libjpeg \
 	libxslt \
