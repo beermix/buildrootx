@@ -37,41 +37,23 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
-	use_system_zlib=true \
-	use_system_libjpeg=true \
-	use_system_libpng=true \
-	use_system_harfbuzz=true \
-	use_system_freetype=true \
 	use_custom_libcxx=false \
 	use_vaapi=true \
 	enable_vulkan=false \
-	enable_google_now=false \
 	enable_vr=false \
-	enable_wayland_server=false \
 	symbol_level=0 \
 	is_cfi=false \
-	fieldtrial_testing_like_official_build=true \
-	enable_mdns=true \
-	is_desktop_linux=true \
-	use_alsa=true \
-	use_aura=true \
-	use_gio=true \
-	use_glib=true \
-	rtc_enable_protobuf=false \
 	linux_link_libudev=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	icu \
 	libdrm \
 	libjpeg \
-	libxml \
 	libxslt \
 	opus \
-	snappy \
-	zlib
+	snappy
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
