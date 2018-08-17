@@ -70,9 +70,6 @@ endif
 # tcmalloc has portability issues
 CHROMIUM_OPTS += use_allocator=\"none\"
 ifeq ($(BR2_CCACHE),y)
-export CCACHE_SLOPPINESS=time_macros
-export CCACHE_COMPRESS=true
-export CCACHE_NOSTATS=1
 CHROMIUM_CC_WRAPPER = ccache
 endif
 
@@ -166,6 +163,8 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
+		CCACHE_SLOPPINESS=time_macros \
+		CCACHE_NOSTATS=1 \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
