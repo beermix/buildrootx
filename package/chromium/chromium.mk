@@ -43,6 +43,7 @@ CHROMIUM_OPTS = \
 	use_system_libpng=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
+	enable_vulkan=false \
 	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
