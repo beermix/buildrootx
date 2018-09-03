@@ -38,22 +38,22 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	is_official_build=true \
+	use_system_zlib=true \
+	use_system_libjpeg=true \
+	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	enable_vulkan=false \
-	use_cfi_icall=false \
-	fieldtrial_testing_like_official_build=true \
-	enable_hangout_services_extension=true \
-	enable_widevine=true \
-	remove_webcore_debug_symbols=true \
 	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	libdrm
+	icu \
+	libdrm \
+	libjpeg \
+	libxml \
+	libxslt
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
@@ -74,10 +74,6 @@ else
 CHROMIUM_DEPENDENCIES += host-lld
 CHROMIUM_OPTS += use_lld=true
 endif
-
-# V8 snapshots require compiling V8 with the same word size as the target
-# architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
@@ -155,8 +151,6 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		CCACHE_SLOPPINESS=time_macros \
-		CCACHE_NOSTATS=1 \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
