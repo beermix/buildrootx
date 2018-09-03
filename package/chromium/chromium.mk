@@ -49,6 +49,7 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
 	enable_google_now=false \
+	is_desktop_linux=true \
 	enable_vr=false
 
 CHROMIUM_SYSTEM_LIBS = \
@@ -61,7 +62,7 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxml \
 	libxslt
 
-# is_official_build=false
+#	is_official_build=false \
 #	enable_wayland_server=false \
 #	is_desktop_linux=true \
 #	use_alsa=true \
@@ -70,9 +71,10 @@ CHROMIUM_SYSTEM_LIBS = \
 #	use_dbus=true \
 #	use_gio=true \
 #	use_glib=true \
-#	use_gold=false \
 #	enable_mdns=true \
-#	rtc_enable_protobuf=false
+#	rtc_enable_protobuf=false \
+# 	enable_google_now=false \
+# 	enable_vr=false
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
@@ -177,6 +179,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
