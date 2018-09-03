@@ -24,7 +24,6 @@ CHROMIUM_OPTS = \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
 	use_vaapi=true \
-	symbol_level=0 \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
@@ -163,10 +162,9 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
-		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__=  -DNO_UNWIND_TABLES" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
