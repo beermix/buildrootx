@@ -47,7 +47,9 @@ CHROMIUM_OPTS = \
 	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false
+	use_custom_libcxx=false \
+	enable_google_now=false \
+	enable_vr=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -60,6 +62,17 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxslt
 
 # is_official_build=false
+#	enable_wayland_server=false \
+#	is_desktop_linux=true \
+#	use_alsa=true \
+#	use_aura=true \
+#	use_cups=false \
+#	use_dbus=true \
+#	use_gio=true \
+#	use_glib=true \
+#	use_gold=false \
+#	enable_mdns=true \
+#	rtc_enable_protobuf=false
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
