@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Chromium
+# Chromium | is_official_build=false \
 #
 ################################################################################
 
@@ -47,7 +47,8 @@ CHROMIUM_OPTS = \
 	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false
+	use_custom_libcxx=false \
+	use_cups=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -58,8 +59,6 @@ CHROMIUM_SYSTEM_LIBS = \
 	libjpeg \
 	libxml \
 	libxslt
-
-# is_official_build=false
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
@@ -91,12 +90,6 @@ else
 CHROMIUM_OPTS += is_debug=false
 endif
 
-ifeq ($(BR2_PACKAGE_CUPS),y)
-CHROMIUM_DEPENDENCIES += cups
-CHROMIUM_OPTS += use_cups=true
-else
-CHROMIUM_OPTS += use_cups=false
-endif
 ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)
 CHROMIUM_OPTS += proprietary_codecs=true ffmpeg_branding=\"Chrome\"
 endif
