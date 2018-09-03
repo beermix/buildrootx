@@ -20,7 +20,7 @@ PYTHON_LIBTOOL_PATCH = NO
 HOST_PYTHON_CONF_OPTS += \
 	--enable-static \
 	--without-cxx-main \
-	--disable-sqlite3 \
+	--enable-sqlite3 \
 	--disable-tk \
 	--with-expat=system \
 	--disable-curses \
@@ -31,8 +31,8 @@ HOST_PYTHON_CONF_OPTS += \
 	--disable-gdbm \
 	--disable-bsddb \
 	--disable-test-modules \
-	--disable-bz2 \
-	--disable-ssl \
+	--enable-bz2 \
+	--enable-ssl \
 	--disable-ossaudiodev \
 	--disable-ipv6 \
 	--with-lto
@@ -57,7 +57,7 @@ HOST_PYTHON_MAKE = $(MAKE1)
 
 PYTHON_DEPENDENCIES = host-python libffi $(TARGET_NLS_DEPENDENCIES)
 
-HOST_PYTHON_DEPENDENCIES = host-expat host-zlib
+HOST_PYTHON_DEPENDENCIES = host-expat host-zlib host-libopenssl host-bzip2 host-lsqlite3
 
 PYTHON_INSTALL_STAGING = YES
 
