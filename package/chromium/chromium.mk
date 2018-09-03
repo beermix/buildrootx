@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Chromium
+# Chromium | is_official_build=false \
 #
 ################################################################################
 
@@ -23,9 +23,11 @@ CHROMIUM_OPTS = \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
+	use_cfi_icall=false \
 	use_vaapi=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
+	fieldtrial_testing_like_official_build=true \
 	use_gnome_keyring=false \
 	linux_use_bundled_binutils=false \
 	use_sysroot=false \
@@ -37,9 +39,9 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	is_official_build=false \
 	enable_vulkan=false \
 	use_udev=true \
+	remove_webcore_debug_symbols=true \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_libpng=true \
