@@ -23,11 +23,9 @@ CHROMIUM_OPTS = \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
-	use_cfi_icall=false \
 	use_vaapi=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
-	fieldtrial_testing_like_official_build=true \
 	use_gnome_keyring=false \
 	linux_use_bundled_binutils=false \
 	use_sysroot=false \
@@ -39,18 +37,12 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	enable_vulkan=false \
-	use_udev=true \
-	remove_webcore_debug_symbols=true \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false \
-	enable_google_now=false \
-	is_desktop_linux=true \
-	enable_vr=false
+	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -62,6 +54,14 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxml \
 	libxslt
 
+#	use_cfi_icall=false \
+#	fieldtrial_testing_like_official_build=true \
+#	enable_vulkan=false \
+#	use_udev=true \
+#	remove_webcore_debug_symbols=true \
+#	enable_google_now=false \
+#	is_desktop_linux=true \
+#	enable_vr=false
 #	is_official_build=false \
 #	enable_wayland_server=false \
 #	is_desktop_linux=true \
@@ -179,7 +179,6 @@ define CHROMIUM_CONFIGURE_CMDS
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
-		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
@@ -201,6 +200,8 @@ define CHROMIUM_CONFIGURE_CMDS
 			--script-executable=$(HOST_DIR)/bin/python2 \
 	)
 endef
+
+# 		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 
 define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
