@@ -20,7 +20,7 @@ PYTHON_LIBTOOL_PATCH = NO
 HOST_PYTHON_CONF_OPTS += \
 	--enable-static \
 	--without-cxx-main \
-	--enable-sqlite3 \
+	--disable-sqlite3 \
 	--disable-tk \
 	--with-expat=system \
 	--disable-curses \
@@ -33,9 +33,7 @@ HOST_PYTHON_CONF_OPTS += \
 	--disable-test-modules \
 	--enable-bz2 \
 	--enable-ssl \
-	--disable-ossaudiodev \
-	--disable-ipv6 \
-	--with-lto
+	--disable-ossaudiodev
 
 # Make sure that LD_LIBRARY_PATH overrides -rpath.
 # This is needed because libpython may be installed at the same time that
@@ -57,7 +55,7 @@ HOST_PYTHON_MAKE = $(MAKE1)
 
 PYTHON_DEPENDENCIES = host-python libffi $(TARGET_NLS_DEPENDENCIES)
 
-HOST_PYTHON_DEPENDENCIES = host-expat host-zlib host-libopenssl host-bzip2 host-lsqlite3
+HOST_PYTHON_DEPENDENCIES = host-expat host-zlib host-libopenssl host-bzip2
 
 PYTHON_INSTALL_STAGING = YES
 
