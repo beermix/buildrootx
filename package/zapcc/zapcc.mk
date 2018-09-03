@@ -4,10 +4,12 @@
 #
 ################################################################################
 
-ZAPCC_VERSION = f23c9ba
+ZAPCC_VERSION = 4b5f916
 ZAPCC_SITE = $(call github,yrnkrn,zapcc,$(ZAPCC_VERSION))
-ZAPCC_SUPPORTS_IN_SOURCE_BUILD = NO
-ZAPCC_INSTALL_STAGING = YES
+CLANG_LICENSE = NCSA
+CLANG_LICENSE_FILES = LICENSE.TXT
+CLANG_SUPPORTS_IN_SOURCE_BUILD = NO
+CLANG_INSTALL_STAGING = YES
 
 HOST_ZAPCC_DEPENDENCIES = host-llvm host-libxml2
 ZAPCC_DEPENDENCIES = llvm host-zapcc
@@ -33,41 +35,41 @@ ZAPCC_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
 ZAPCC_CONF_OPTS += -DCMAKE_CROSSCOMPILING=1
 
 # We need to build tools because libclang is a tool
-HOST_ZAPCC_CONF_OPTS += -DZAPCC_BUILD_TOOLS=ON
-ZAPCC_CONF_OPTS += -DZAPCC_BUILD_TOOLS=ON
+HOST_ZAPCC_CONF_OPTS += -DCLANG_BUILD_TOOLS=ON
+ZAPCC_CONF_OPTS += -DCLANG_BUILD_TOOLS=ON
 
 HOST_ZAPCC_CONF_OPTS += \
-	-DZAPCC_BUILD_EXAMPLES=OFF \
-	-DZAPCC_INCLUDE_DOCS=OFF \
-	-DZAPCC_INCLUDE_TESTS=OFF
+	-DCLANG_BUILD_EXAMPLES=OFF \
+	-DCLANG_INCLUDE_DOCS=OFF \
+	-DCLANG_INCLUDE_TESTS=OFF
 
 ZAPCC_CONF_OPTS += \
-	-DZAPCC_BUILD_EXAMPLES=OFF \
-	-DZAPCC_INCLUDE_DOCS=OFF \
-	-DZAPCC_INCLUDE_TESTS=OFF
+	-DCLANG_BUILD_EXAMPLES=OFF \
+	-DCLANG_INCLUDE_DOCS=OFF \
+	-DCLANG_INCLUDE_TESTS=OFF
 
 HOST_ZAPCC_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(HOST_DIR)/bin/llvm-config
 ZAPCC_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(STAGING_DIR)/usr/bin/llvm-config \
-	-DZAPCC_TABLEGEN:FILEPATH=$(HOST_DIR)/usr/bin/clang-tblgen \
+	-DCLANG_TABLEGEN:FILEPATH=$(HOST_DIR)/usr/bin/clang-tblgen \
 	-DLLVM_TABLEGEN_EXE:FILEPATH=$(HOST_DIR)/usr/bin/llvm-tblgen
 
 # Clang can't be used as compiler on the target since there are no
 # development files (headers) and other build tools. So remove clang
 # binaries and some other unnecessary files from target.
 ZAPCC_FILES_TO_REMOVE = \
-	/usr/bin/zapcc* \
+	/usr/bin/clang* \
 	/usr/bin/c-index-test \
-	/usr/bin/git-zapcc-format \
+	/usr/bin/git-clang-format \
 	/usr/bin/scan-build \
 	/usr/bin/scan-view \
 	/usr/libexec/c++-analyzer \
 	/usr/libexec/ccc-analyzer \
-	/usr/share/zapcc \
+	/usr/share/clang \
 	/usr/share/opt-viewer \
 	/usr/share/scan-build \
 	/usr/share/scan-view \
 	/usr/share/man/man1/scan-build.1 \
-	/usr/lib/zapcc
+	/usr/lib/clang
 
 define ZAPCC_CLEANUP_TARGET
 	rm -rf $(addprefix $(TARGET_DIR),$(ZAPCC_FILES_TO_REMOVE))
