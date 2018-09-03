@@ -35,7 +35,6 @@ HOST_PYTHON_CONF_OPTS += \
 	--disable-ssl \
 	--disable-ossaudiodev \
 	--disable-ipv6 \
-	--disable-optimizations \
 	--with-lto
 
 # Make sure that LD_LIBRARY_PATH overrides -rpath.
