@@ -24,6 +24,7 @@ CHROMIUM_OPTS = \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
 	use_vaapi=true \
+	symbol_level=0 \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
