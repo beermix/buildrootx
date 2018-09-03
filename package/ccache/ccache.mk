@@ -8,7 +8,7 @@ CCACHE_VERSION = 3.4.2
 CCACHE_SITE = https://www.samba.org/ftp/ccache
 CCACHE_SOURCE = ccache-$(CCACHE_VERSION).tar.xz
 CCACHE_LICENSE = GPL-3.0+, others
-CCACHE_LICENSE_FILES = LICENSE.txt GPL-3.0.txt
+CCACHE_LICENSE_FILES = LICENSE.adoc GPL-3.0.txt
 
 # Force ccache to use its internal zlib. The problem is that without
 # this, ccache would link against the zlib of the build system, but we
