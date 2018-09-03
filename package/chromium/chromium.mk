@@ -12,7 +12,7 @@ CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-clang host-ninja host-python \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
-			libxml2 libxslt opus pango snappy \
+			libxml2 libxslt pango snappy \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
 			xlib_libXrandr zlib libva systemd
 
@@ -47,7 +47,8 @@ CHROMIUM_OPTS = \
 	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false
+	use_custom_libcxx=false \
+	use_cups=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -87,13 +88,6 @@ ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
 else
 CHROMIUM_OPTS += is_debug=false
-endif
-
-ifeq ($(BR2_PACKAGE_CUPS),y)
-CHROMIUM_DEPENDENCIES += cups
-CHROMIUM_OPTS += use_cups=true
-else
-CHROMIUM_OPTS += use_cups=false
 endif
 
 ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)

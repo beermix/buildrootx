@@ -15,5 +15,5 @@ HOST_XLIB_LIBXCURSOR_DEPENDENCIES = \
 	host-xlib_libX11 host-xlib_libXfixes host-xlib_libXrender \
 	host-xorgproto
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+#$(eval $(autotools-package))
+#$(eval $(host-autotools-package))
