@@ -153,6 +153,9 @@ define CHROMIUM_CONFIGURE_CMDS
 			tools/generate_shim_headers/generate_shim_headers.py \
 	)
 
+	mkdir -p $(@D)/third_party/node/linux/node-linux-x64/bin
+	ln -sf /home/user/.bin/node $(@D)/third_party/node/linux/node-linux-x64/bin/
+
 	# Use python2 by default
 	mkdir -p $(@D)/bin
 	ln -sf $(HOST_DIR)/usr/bin/python2 $(@D)/bin/python
