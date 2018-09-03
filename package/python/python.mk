@@ -34,9 +34,9 @@ HOST_PYTHON_CONF_OPTS += \
 	--disable-bz2 \
 	--disable-ssl \
 	--disable-ossaudiodev \
-	--enable-optimizations \
-	--with-lto \
-	--disable-pyo-build
+	--disable-ipv6 \
+	--disable-optimizations \
+	--with-lto
 
 # Make sure that LD_LIBRARY_PATH overrides -rpath.
 # This is needed because libpython may be installed at the same time that
