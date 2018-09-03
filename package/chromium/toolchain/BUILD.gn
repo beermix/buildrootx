@@ -15,8 +15,8 @@ gcc_toolchain("host") {
 
   toolchain_args = {
     cc_wrapper = ""
-    current_cpu = host_cpu
-    current_os = host_os
+    current_cpu = x64
+    current_os = linux
     is_clang = false
     use_sysroot = false
     use_lld = false
@@ -37,8 +37,8 @@ gcc_toolchain("target") {
 
   toolchain_args = {
     cc_wrapper = ""
-    current_cpu = target_cpu
-    current_os = target_os
+    current_cpu = x64
+    current_os = linux
     is_clang = is_clang
     use_sysroot = use_sysroot
   }
@@ -58,12 +58,8 @@ gcc_toolchain("v8_snapshot") {
 
   toolchain_args = {
     cc_wrapper = ""
-    if (target_cpu == "x86" || target_cpu == "arm" || target_cpu == "mipsel") {
-      current_cpu = "x86"
-    } else {
-      current_cpu = "x64"
-    }
-    current_os = host_os
+    current_cpu = "x64"
+    current_os = linux
     is_clang = is_clang
     use_sysroot = false
   }
