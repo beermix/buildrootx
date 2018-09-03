@@ -14,7 +14,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
 			libxml2 libxslt opus pango snappy \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libva systemd dbus
+			xlib_libXrandr zlib libva systemd
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -39,9 +39,6 @@ CHROMIUM_OPTS = \
 	enable_linux_installer=false \
 	is_official_build=false \
 	enable_vulkan=false \
-	use_dbus=true \
-	use_gio=true \
-	use_libpci=true \
 	use_udev=true \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
