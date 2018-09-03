@@ -39,12 +39,14 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	is_official_build=true \
-	enable_vulkan=false \
-	use_system_zlib=true \
-	use_system_libjpeg=true \
-	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
+	enable_vulkan=false \
+	use_cfi_icall=false \
+	fieldtrial_testing_like_official_build=true \
+	enable_hangout_services_extension=true \
+	enable_widevine=true \
+	remove_webcore_debug_symbols=true \
 	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
@@ -53,9 +55,7 @@ CHROMIUM_SYSTEM_LIBS = \
 	harfbuzz-ng \
 	icu \
 	libdrm \
-	libjpeg \
-	libxml \
-	libxslt
+	libdrm
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
@@ -79,7 +79,7 @@ endif
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=true
+CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
@@ -157,6 +157,8 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
+		CCACHE_SLOPPINESS=time_macros \
+		CCACHE_NOSTATS=1 \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
@@ -169,9 +171,10 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__=  -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
