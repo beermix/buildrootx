@@ -18,7 +18,7 @@ HOST_LLD_CONF_OPTS += -DCMAKE_C_FLAGS="${HOST_CFLAGS} -Wno-unused-local-typedefs
 HOST_LLD_CONF_OPTS += -DCMAKE_CXX_FLAGS="${HOST_CXXFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess"
 
 define HOST_LLD_BUILD_CMDS
-	CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime \
+	CCACHE_SLOPPINESS=file_macro \
 	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -c -C $(@D)/buildroot-build -w dupbuild=warn
 endef
 
