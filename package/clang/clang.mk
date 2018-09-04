@@ -107,7 +107,8 @@ define HOST_CLANG_BUILD_CMDS
 endef
 
 define HOST_CLANG_INSTALL_CMDS
-	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build install
+	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build install \
+	strip $(HOST_DIR)/usr/bin/*
 endef
 
 define CLANG_BUILD_CMDS
