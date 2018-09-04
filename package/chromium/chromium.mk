@@ -11,7 +11,7 @@ CHROMIUM_LICENSE = BSD-Style
 CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-clang host-ninja host-python \
-			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
+			icu jpeg-turbo libdrm libglib2 libkrb5 libnss \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
 			xlib_libXrandr zlib libxslt libva dbus
@@ -23,6 +23,7 @@ CHROMIUM_OPTS = \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
+	use_cfi_icall=false \
 	use_vaapi=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -39,11 +40,9 @@ CHROMIUM_OPTS = \
 	enable_linux_installer=false \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
-	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
-	use_cfi_icall=false \
 	fieldtrial_testing_like_official_build=true \
 	enable_hangout_services_extension=true \
 	enable_vulkan=false \
@@ -222,7 +221,7 @@ define CHROMIUM_BUILD_CMDS
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
 		CCACHE_SLOPPINESS=file_macro \
-		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver -w dupbuild=err \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver -w dupbuild=warn \
 	)
 endef
 
