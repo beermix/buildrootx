@@ -189,9 +189,6 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
-		CCACHE_COMPRESS=true \
-		CCACHE_NOSTATS=1 \
-		CCACHE_SLOPPINESS=time_macros \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
@@ -225,6 +222,7 @@ define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
+		CCACHE_SLOPPINESS=file_macro \
 		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver -w dupbuild=err \
 	)
 endef

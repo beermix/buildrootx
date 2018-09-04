@@ -287,6 +287,7 @@ endef
 LLVM_POST_INSTALL_TARGET_HOOKS = LLVM_DELETE_LLVM_TBLGEN_TARGET
 
 define HOST_LLVM_BUILD_CMDS
+	CCACHE_SLOPPINESS=file_macro \
 	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build -w dupbuild=warn
 endef
 
