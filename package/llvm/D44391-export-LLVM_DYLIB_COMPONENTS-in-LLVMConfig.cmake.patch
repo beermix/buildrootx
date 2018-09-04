@@ -22,7 +22,7 @@ git-svn-id: https://llvm.org/svn/llvm-project/llvm/trunk@327484 91177308-0d34-04
  1 file changed, 2 insertions(+)
 
 diff --git a/cmake/modules/LLVMConfig.cmake.in b/cmake/modules/LLVMConfig.cmake.in
-index fe4df52..e700186 100644
+index fe4df5278498..e70018679846 100644
 --- a/cmake/modules/LLVMConfig.cmake.in
 +++ b/cmake/modules/LLVMConfig.cmake.in
 @@ -13,6 +13,8 @@ set(LLVM_COMMON_DEPENDS @LLVM_COMMON_DEPENDS@)
@@ -34,6 +34,3 @@ index fe4df52..e700186 100644
  set(LLVM_ALL_TARGETS @LLVM_ALL_TARGETS@)
  
  set(LLVM_TARGETS_TO_BUILD @LLVM_TARGETS_TO_BUILD@)
--- 
-1.8.3.1
-

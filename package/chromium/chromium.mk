@@ -42,7 +42,18 @@ CHROMIUM_OPTS = \
 	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false
+	use_custom_libcxx=false \
+	use_cfi_icall=false \
+	fieldtrial_testing_like_official_build=true \
+	enable_vulkan=false \
+	use_udev=true \
+	remove_webcore_debug_symbols=true \
+	enable_google_now=false \
+	is_desktop_linux=true \
+	enable_vr=false
+	is_official_build=true \
+	enable_wayland_server=false \
+	is_desktop_linux=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -185,6 +196,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
@@ -213,7 +225,7 @@ define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
-		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver -w dupbuild=err \
 	)
 endef
 

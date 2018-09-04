@@ -19,8 +19,8 @@ LLVM_DEPENDENCIES = host-llvm
 
 HOST_LLVM_CONF_OPTS += -GNinja
 HOST_LLVM_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-HOST_LLVM_CONF_OPTS += -DCMAKE_C_FLAGS="${HOST_CFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
-HOST_LLVM_CONF_OPTS += -DCMAKE_CXX_FLAGS="${HOST_CXXFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
+HOST_LLVM_CONF_OPTS += -DCMAKE_C_FLAGS="${HOST_CFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -Wno-cast-function-type -fdiagnostics-color=always"
+HOST_LLVM_CONF_OPTS += -DCMAKE_CXX_FLAGS="${HOST_CXXFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -Wno-cast-function-type -fdiagnostics-color=always"
 
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
 # This flag assumes that projects are checked out side-by-side and not nested
@@ -287,8 +287,7 @@ endef
 LLVM_POST_INSTALL_TARGET_HOOKS = LLVM_DELETE_LLVM_TBLGEN_TARGET
 
 define HOST_LLVM_BUILD_CMDS
-	CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime \
-	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
+	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build -w dupbuild=warn
 endef
 
 define HOST_LLVM_INSTALL_CMDS
