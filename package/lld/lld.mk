@@ -19,11 +19,12 @@ HOST_LLD_CONF_OPTS += -DCMAKE_CXX_FLAGS="${HOST_CXXFLAGS} -Wno-unused-local-type
 
 define HOST_LLD_BUILD_CMDS
 	CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime \
-	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
+	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -c -C $(@D)/buildroot-build
 endef
 
 define HOST_LLD_INSTALL_CMDS
-	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build install
+	$(HOST_MAKE_ENV) ninja -c -C $(@D)/buildroot-build install \
+	strip $(HOST_DIR)/bin/*
 endef
 
 $(eval $(host-cmake-package))

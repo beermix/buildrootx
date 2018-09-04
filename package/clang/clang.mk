@@ -103,12 +103,12 @@ CLANG_CONF_OPTS += -DLLVM_DYLIB_COMPONENTS=all
 
 define HOST_CLANG_BUILD_CMDS
 	CCACHE_SLOPPINESS=file_macro \
-	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
+	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build -w dupbuild=err
 endef
 
 define HOST_CLANG_INSTALL_CMDS
 	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build install \
-	strip $(HOST_DIR)/usr/bin/*
+	strip $(HOST_DIR)/bin/*
 endef
 
 define CLANG_BUILD_CMDS

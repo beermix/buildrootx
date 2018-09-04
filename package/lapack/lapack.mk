@@ -23,7 +23,7 @@ LAPACK_CONF_OPTS += -DBUILD_COMPLEX=OFF -DBUILD_COMPLEX16=OFF
 endif
 
 define HOST_LAPACK_BUILD_CMDS
-	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build
+	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build -w dupbuild=err
 endef
 
 define HOST_LAPACK_INSTALL_CMDS
