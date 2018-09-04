@@ -178,6 +178,8 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
+		CCACHE_COMPRESS=true \
+		CCACHE_NOSTATS=1 \
 		CCACHE_SLOPPINESS=time_macros \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \

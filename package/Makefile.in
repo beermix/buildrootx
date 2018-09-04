@@ -117,7 +117,7 @@ ifeq ($(BR2_OPTIMIZE_1),y)
 TARGET_OPTIMIZATION = -O1
 endif
 ifeq ($(BR2_OPTIMIZE_2),y)
-TARGET_OPTIMIZATION = -O2
+TARGET_OPTIMIZATION = -O2 -fdiagnostics-color=always
 endif
 ifeq ($(BR2_OPTIMIZE_3),y)
 TARGET_OPTIMIZATION = -O3
@@ -226,7 +226,7 @@ UNZIP := $(shell which unzip || type -p unzip) -q
 APPLY_PATCHES = PATH=$(HOST_DIR)/bin:$$PATH support/scripts/apply-patches.sh $(if $(QUIET),-s)
 
 HOST_CPPFLAGS  = -I$(HOST_DIR)/include
-HOST_CFLAGS   ?= -O2
+HOST_CFLAGS   ?= -march=native -O2 -fdiagnostics-color=always
 HOST_CFLAGS   += $(HOST_CPPFLAGS)
 HOST_CXXFLAGS += $(HOST_CFLAGS)
 HOST_LDFLAGS  += -L$(HOST_DIR)/lib -Wl,-rpath,$(HOST_DIR)/lib
@@ -419,15 +419,15 @@ TARGET_CONFIGURE_OPTS += CXX=no
 endif
 
 ifeq ($(BR2_STATIC_LIBS),y)
-SHARED_STATIC_LIBS_OPTS = --enable-static --disable-shared
+SHARED_STATIC_LIBS_OPTS = --enable-static --disable-shared --enable-silent-rules
 TARGET_CFLAGS += -static
 TARGET_CXXFLAGS += -static
 TARGET_FCFLAGS += -static
 TARGET_LDFLAGS += -static
 else ifeq ($(BR2_SHARED_LIBS),y)
-SHARED_STATIC_LIBS_OPTS = --disable-static --enable-shared
+SHARED_STATIC_LIBS_OPTS = --disable-static --enable-shared --enable-silent-rules
 else ifeq ($(BR2_SHARED_STATIC_LIBS),y)
-SHARED_STATIC_LIBS_OPTS = --enable-static --enable-shared
+SHARED_STATIC_LIBS_OPTS = --enable-static --enable-shared --enable-silent-rules
 endif
 
 ifeq ($(BR2_COMPILER_PARANOID_UNSAFE_PATH),y)

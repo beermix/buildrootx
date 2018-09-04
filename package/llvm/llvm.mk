@@ -14,16 +14,21 @@ LLVM_INSTALL_STAGING = YES
 
 # http://llvm.org/docs/GettingStarted.html#software
 # host-python: Python interpreter 2.7 or newer is required for builds and testing.
-HOST_LLVM_DEPENDENCIES = host-python
+HOST_LLVM_DEPENDENCIES = host-python host-ninja
 LLVM_DEPENDENCIES = host-llvm
+
+HOST_LLVM_CONF_OPTS += -GNinja
+HOST_LLVM_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+HOST_LLVM_CONF_OPTS += -DCMAKE_C_FLAGS="${HOST_CFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
+HOST_LLVM_CONF_OPTS += -DCMAKE_CXX_FLAGS="${HOST_CXXFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
 
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
 # This flag assumes that projects are checked out side-by-side and not nested
 HOST_LLVM_CONF_OPTS += -DLLVM_ENABLE_PROJECTS=""
 LLVM_CONF_OPTS += -DLLVM_ENABLE_PROJECTS=""
 
-HOST_LLVM_CONF_OPTS += -DLLVM_CCACHE_BUILD=$(if $(BR2_CCACHE),ON,OFF)
-LLVM_CONF_OPTS += -DLLVM_CCACHE_BUILD=$(if $(BR2_CCACHE),ON,OFF)
+HOST_LLVM_CONF_OPTS += -DLLVM_CCACHE_BUILD=ON
+LLVM_CONF_OPTS += -DLLVM_CCACHE_BUILD=ON
 
 # This option prevents AddLLVM.cmake from adding $ORIGIN/../lib to
 # binaries. Otherwise, llvm-config (host variant installed in STAGING)
@@ -278,7 +283,26 @@ HOST_LLVM_POST_INSTALL_HOOKS = HOST_LLVM_COPY_LLVM_CONFIG_TO_STAGING_DIR
 define LLVM_DELETE_LLVM_TBLGEN_TARGET
 	rm -f $(TARGET_DIR)/usr/bin/llvm-tblgen $(TARGET_DIR)/usr/lib/LLVMHello.so
 endef
+
 LLVM_POST_INSTALL_TARGET_HOOKS = LLVM_DELETE_LLVM_TBLGEN_TARGET
+
+define HOST_LLVM_BUILD_CMDS
+	CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime \
+	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
+endef
+
+define HOST_LLVM_INSTALL_CMDS
+	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build install
+endef
+
+define LLVM_BUILD_CMDS
+	CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime \
+	$(MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
+endef
+
+define LLVM_INSTALL_CMDS
+	$(MAKE_ENV) ninja -C $(@D)/buildroot-build install
+endef
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))

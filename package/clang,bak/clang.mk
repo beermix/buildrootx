@@ -12,16 +12,8 @@ CLANG_LICENSE_FILES = LICENSE.TXT
 CLANG_SUPPORTS_IN_SOURCE_BUILD = NO
 CLANG_INSTALL_STAGING = YES
 
-HOST_CLANG_DEPENDENCIES = host-ninja host-llvm host-libxml2
+HOST_CLANG_DEPENDENCIES = host-llvm host-libxml2
 CLANG_DEPENDENCIES = llvm host-clang
-
-HOST_CLANG_CONF_OPTS += -GNinja
-HOST_CLANG_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-HOST_CLANG_CONF_OPTS += -DCMAKE_C_FLAGS="${HOST_CFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
-HOST_CLANG_CONF_OPTS += -DCMAKE_CXX_FLAGS="${HOST_CXXFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
-
-CLANG_CONF_OPTS += -GNinja
-CLANG_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 # This option is needed, otherwise multiple shared libs
 # (libclangAST.so, libclangBasic.so, libclangFrontend.so, etc.) will
@@ -100,24 +92,6 @@ CLANG_CONF_OPTS += -DLLVM_LINK_LLVM_DYLIB=ON
 # Prevent clang binaries from linking against LLVM static libs
 HOST_CLANG_CONF_OPTS += -DLLVM_DYLIB_COMPONENTS=all
 CLANG_CONF_OPTS += -DLLVM_DYLIB_COMPONENTS=all
-
-define HOST_CLANG_BUILD_CMDS
-	CCACHE_SLOPPINESS=file_macro \
-	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
-endef
-
-define HOST_CLANG_INSTALL_CMDS
-	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build install
-endef
-
-define CLANG_BUILD_CMDS
-	CCACHE_SLOPPINESS=file_macro \
-	$(MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
-endef
-
-define CLANG_INSTALL_CMDS
-	$(MAKE_ENV) ninja -C $(@D)/buildroot-build install
-endef
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
