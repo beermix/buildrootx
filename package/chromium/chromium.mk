@@ -46,14 +46,12 @@ CHROMIUM_OPTS = \
 	fieldtrial_testing_like_official_build=true \
 	enable_hangout_services_extension=true \
 	enable_vulkan=false \
-	use_udev=true \
 	remove_webcore_debug_symbols=true \
 	enable_google_now=false \
 	is_desktop_linux=true \
 	enable_vr=false
 	is_official_build=true \
 	enable_wayland_server=false \
-	is_desktop_linux=true \
 	enable_mdns=true \
 	use_dbus=true
 
