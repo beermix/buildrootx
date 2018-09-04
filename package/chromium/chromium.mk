@@ -12,9 +12,9 @@ CHROMIUM_LICENSE_FILES = LICENSE
 CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-clang host-ninja host-python \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
-			libxml2 libxslt pango snappy \
+			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libva systemd
+			xlib_libXrandr zlib libxslt libva
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -45,6 +45,7 @@ CHROMIUM_OPTS = \
 	use_custom_libcxx=false \
 	use_cfi_icall=false \
 	fieldtrial_testing_like_official_build=true \
+	enable_hangout_services_extension=true \
 	enable_vulkan=false \
 	use_udev=true \
 	remove_webcore_debug_symbols=true \
@@ -53,7 +54,8 @@ CHROMIUM_OPTS = \
 	enable_vr=false
 	is_official_build=true \
 	enable_wayland_server=false \
-	is_desktop_linux=true
+	is_desktop_linux=true \
+	enable_mdns=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -72,20 +74,16 @@ CHROMIUM_SYSTEM_LIBS = \
 #	remove_webcore_debug_symbols=true \
 #	enable_google_now=false \
 #	is_desktop_linux=true \
-#	enable_vr=false
 #	is_official_build=false \
 #	enable_wayland_server=false \
-#	is_desktop_linux=true \
 #	use_alsa=true \
 #	use_aura=true \
 #	use_cups=false \
 #	use_dbus=true \
 #	use_gio=true \
-#	use_glib=true \
+#	f=true \
 #	enable_mdns=true \
-#	rtc_enable_protobuf=false \
-# 	enable_google_now=false \
-# 	enable_vr=false
+#	rtc_enable_protobuf=fals
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
