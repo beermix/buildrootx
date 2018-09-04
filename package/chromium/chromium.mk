@@ -14,7 +14,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss libpng \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libxslt libva
+			xlib_libXrandr zlib libxslt libva dbus
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -55,17 +55,18 @@ CHROMIUM_OPTS = \
 	is_official_build=true \
 	enable_wayland_server=false \
 	is_desktop_linux=true \
-	enable_mdns=true
+	enable_mdns=true \
+	use_dbus=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	icu \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt
+	libxslt \
+	icu
 
 #	use_cfi_icall=false \
 #	fieldtrial_testing_like_official_build=true \
@@ -237,7 +238,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
-	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
+	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/hrome_sandbox
 endef
 
 $(eval $(generic-package))
