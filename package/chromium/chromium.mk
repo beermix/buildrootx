@@ -25,7 +25,6 @@ CHROMIUM_OPTS = \
 	is_clang=true \
 	use_vaapi=true \
 	symbol_level=0 \
-	use_cfi_icall=false \
 	fieldtrial_testing_like_official_build=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -45,13 +44,16 @@ CHROMIUM_OPTS = \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
-	enable_widevine=true \
-	enable_hangout_services_extension=true \
 	enable_vulkan=false \
 	remove_webcore_debug_symbols=true \
 	enable_google_now=false \
 	is_desktop_linux=true \
-	enable_vr=false
+	enable_vr=false \
+	use_udev=true \
+	use_aura=true \
+	use_gio=true \
+	rtc_enable_protobuf=false \
+	is_official_build=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -62,6 +64,8 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxml \
 	libxslt
 
+#	enable_widevine=true \
+#	enable_hangout_services_extension=true \
 #	is_official_build=false \
 #	enable_wayland_server=false \
 #	enable_mdns=true \
