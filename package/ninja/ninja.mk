@@ -12,7 +12,7 @@ NINJA_LICENSE_FILES = COPYING
 HOST_NINJA_DEPENDENCIES = host-python host-python3 host-clang
 
 define HOST_NINJA_BUILD_CMDS
-	(cd $(@D); CXX=$(HOST_DIR)/bin/clang++ $(HOST_DIR)/bin/python2 ./configure.py --bootstrap)
+	(cd $(@D); CXX=$(HOST_DIR)/bin/clang++ $(HOST_DIR)/bin/python2 ./configure.py --bootstrap; ./ninja ninja_test; ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots)
 endef
 
 define HOST_NINJA_INSTALL_CMDS
