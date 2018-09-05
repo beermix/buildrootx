@@ -24,6 +24,8 @@ CHROMIUM_OPTS = \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
 	use_vaapi=true \
+	symbol_level=0 \
+	fieldtrial_testing_like_official_build=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
@@ -50,15 +52,8 @@ CHROMIUM_OPTS = \
 	is_official_build=true \
 	enable_wayland_server=false \
 	enable_mdns=true \
-	use_dbus=true
-	use_cfi_icall=false \
-	fieldtrial_testing_like_official_build=true \
-	use_udev=true \
-	use_alsa=true \
-	use_aura=true \
-	use_gio=true \
-	rtc_enable_protobuf=false \
-	symbol_level=0
+	use_dbus=true \
+	use_cfi_icall=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
