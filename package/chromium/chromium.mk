@@ -14,7 +14,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libxslt libva dbus
+			xlib_libXrandr zlib libxslt libva systemd dbus
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -23,7 +23,6 @@ CHROMIUM_OPTS = \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
-	use_cfi_icall=false \
 	use_vaapi=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -37,23 +36,11 @@ CHROMIUM_OPTS = \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
 	enable_swiftshader=false \
-	enable_linux_installer=false \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false \
-	fieldtrial_testing_like_official_build=true \
-	enable_hangout_services_extension=true \
-	enable_vulkan=false \
-	remove_webcore_debug_symbols=true \
-	enable_google_now=false \
-	is_desktop_linux=true \
-	enable_vr=false
-	is_official_build=true \
-	enable_wayland_server=false \
-	enable_mdns=true \
-	use_dbus=true
+	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -65,6 +52,16 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxslt \
 	icu
 
+#	enable_hangout_services_extension=true \
+#	enable_vulkan=false \
+#	remove_webcore_debug_symbols=true \
+#	enable_google_now=false \
+#	is_desktop_linux=true \
+#	enable_vr=false
+#	is_official_build=true \
+#	enable_wayland_server=false \
+#	enable_mdns=true \
+#	use_dbus=true
 #	use_cfi_icall=false \
 #	fieldtrial_testing_like_official_build=true \
 #	enable_vulkan=false \
@@ -87,6 +84,7 @@ ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
 CHROMIUM_DEPENDENCIES += host-yasm
 endif
+
 # tcmalloc has portability issues
 CHROMIUM_OPTS += use_allocator=\"none\"
 ifeq ($(BR2_CCACHE),y)
@@ -99,6 +97,7 @@ CHROMIUM_OPTS += use_lld=false
 # Disable gold as well, to force usage of our toolchain's ld.bfd
 CHROMIUM_OPTS += use_gold=false
 else
+
 CHROMIUM_DEPENDENCIES += host-lld
 CHROMIUM_OPTS += use_lld=true
 endif
@@ -119,6 +118,7 @@ CHROMIUM_OPTS += use_cups=true
 else
 CHROMIUM_OPTS += use_cups=false
 endif
+
 ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)
 CHROMIUM_OPTS += proprietary_codecs=true ffmpeg_branding=\"Chrome\"
 endif
@@ -144,6 +144,7 @@ else
 CHROMIUM_DEPENDENCIES += libgtk2 xlib_libXi xlib_libXtst
 CHROMIUM_OPTS += use_gtk3=false
 endif
+
 ifeq ($(BR2_TOOLCHAIN_EXTERNAL),y)
 CHROMIUM_TARGET_LDFLAGS += --gcc-toolchain=$(TOOLCHAIN_EXTERNAL_INSTALL_DIR)
 else
@@ -232,7 +233,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
-	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
+	#cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/hrome_sandbox
