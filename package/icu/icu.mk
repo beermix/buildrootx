@@ -31,14 +31,14 @@ ifeq ($(BR2_TOOLCHAIN_USES_MUSL),y)
 ICU_CONF_ENV += ac_cv_func_strtod_l=no
 endif
 
-HOST_ICU_CONF_OPTS = \
-	--disable-samples \
-	--disable-tests \
-	--disable-extras \
-	--disable-icuio \
-	--disable-layout \
-	--with-data-packaging=archive \
-	--disable-renaming
+#HOST_ICU_CONF_OPTS = \
+#	--disable-samples \
+#	--disable-tests \
+#	--disable-extras \
+#	--disable-icuio \
+#	--disable-layout \
+#	--disable-renaming
+
 ICU_SUBDIR = source
 HOST_ICU_SUBDIR = source
 
