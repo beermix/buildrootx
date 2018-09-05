@@ -12,7 +12,7 @@ NINJA_LICENSE_FILES = COPYING
 HOST_NINJA_DEPENDENCIES = host-python host-python3
 
 define HOST_NINJA_BUILD_CMDS
-	(cd $(@D); $(HOST_DIR)/bin/python2 ./configure.py --bootstrap --verbose)
+	(cd $(@D); $(HOST_DIR)/bin/python2 ./configure.py --bootstrap)
 endef
 
 define HOST_NINJA_INSTALL_CMDS
