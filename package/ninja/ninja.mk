@@ -9,10 +9,10 @@ NINJA_SITE = $(call github,ninja-build,ninja,$(NINJA_VERSION))
 NINJA_LICENSE = Apache-2.0
 NINJA_LICENSE_FILES = COPYING
 
-HOST_NINJA_DEPENDENCIES = host-python host-python3 host-clang
+HOST_NINJA_DEPENDENCIES = host-python host-python3
 
 define HOST_NINJA_BUILD_CMDS
-	(cd $(@D); CXX=$(HOST_DIR)/bin/clang++ $(HOST_DIR)/bin/python2 ./configure.py --bootstrap; ./ninja ninja_test; ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots)
+	(cd $(@D); $(HOST_DIR)/bin/python2 ./configure.py --bootstrap --verbose)
 endef
 
 define HOST_NINJA_INSTALL_CMDS
