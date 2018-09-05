@@ -14,7 +14,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg-turbo libdrm libglib2 libkrb5 libnss \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libxslt libva systemd dbus
+			xlib_libXrandr zlib libva systemd dbus
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -25,6 +25,7 @@ CHROMIUM_OPTS = \
 	is_clang=true \
 	use_vaapi=true \
 	symbol_level=0 \
+	use_cfi_icall=false \
 	fieldtrial_testing_like_official_build=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -38,10 +39,11 @@ CHROMIUM_OPTS = \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
 	enable_swiftshader=false \
+	enable_linux_installer=false \
+	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_dbus=true \
 	use_custom_libcxx=false \
 	enable_widevine=true \
 	enable_hangout_services_extension=true \
@@ -53,7 +55,6 @@ CHROMIUM_OPTS = \
 	is_official_build=false \
 	enable_wayland_server=false \
 	enable_mdns=true \
-	use_cfi_icall=false \
 	rtc_enable_protobuf=false
 
 CHROMIUM_SYSTEM_LIBS = \
