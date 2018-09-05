@@ -38,7 +38,6 @@ CHROMIUM_OPTS = \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
 	enable_swiftshader=false \
-	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
@@ -48,12 +47,12 @@ CHROMIUM_OPTS = \
 	remove_webcore_debug_symbols=true \
 	enable_google_now=false \
 	is_desktop_linux=true \
-	enable_vr=false
+	enable_vr=false \
 	is_official_build=true \
 	enable_wayland_server=false \
 	enable_mdns=true \
-	use_dbus=true \
-	use_cfi_icall=false
+	use_cfi_icall=false \
+	rtc_enable_protobuf=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -64,16 +63,17 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxml \
 	libxslt
 
+# 	use_system_zlib=true \
 #	enable_hangout_services_extension=true \
 #	enable_vulkan=false \
 #	remove_webcore_debug_symbols=true \
 #	enable_google_now=false \
 #	is_desktop_linux=true \
-#	enable_vr=false
+#	enable_vr=false \
 #	is_official_build=true \
 #	enable_wayland_server=false \
 #	enable_mdns=true \
-#	use_dbus=true
+#	use_dbus=true \
 #	use_cfi_icall=false \
 #	fieldtrial_testing_like_official_build=true \
 #	use_udev=true \
