@@ -91,6 +91,12 @@ export BR2_VERSION := 2018.08-rc1
 # Actual time the release is cut (for reproducible builds)
 BR2_VERSION_EPOCH = 1533476000
 
+export CCACHE_NOSTATS=1
+export CCACHE_OPTIONS="--zero-stats"
+export CCACHE_SLOPPINESS=file_macro
+export CCACHE_COMPRESS=true
+export CCACHE_COMPRESSLEVEL=8
+
 # Save running make version since it's clobbered by the make package
 RUNNING_MAKE_VERSION := $(MAKE_VERSION)
 

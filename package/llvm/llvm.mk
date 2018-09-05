@@ -4,9 +4,12 @@
 #
 ################################################################################
 
-LLVM_VERSION = 6.0.1
-LLVM_SITE = http://llvm.org/releases/$(LLVM_VERSION)
-LLVM_SOURCE = llvm-$(LLVM_VERSION).src.tar.xz
+#LLVM_VERSION = 6.0.1
+#LLVM_SITE = http://llvm.org/releases/$(LLVM_VERSION)
+#LLVM_SOURCE = llvm-$(LLVM_VERSION).src.tar.xz
+
+LLVM_VERSION = 600f7a2
+LLVM_SITE = $(call github,llvm-mirror,llvm,$(LLVM_VERSION))
 LLVM_LICENSE = NCSA
 LLVM_LICENSE_FILES = LICENSE.TXT
 LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
