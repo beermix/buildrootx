@@ -239,7 +239,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(@D)/out/Release/locales/*.pak
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
-	#$(TARGET_STRIP) --strip-all $(TARGET_DIR)/usr/lib/chromium/chromium.bin
+	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromium.bin
 endef
 
 $(eval $(generic-package))
