@@ -57,7 +57,8 @@ CHROMIUM_OPTS = \
 	use_alsa=true \
 	use_aura=true \
 	use_gio=true \
-	rtc_enable_protobuf=false
+	rtc_enable_protobuf=false \
+	symbol_level=0
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -66,8 +67,7 @@ CHROMIUM_SYSTEM_LIBS = \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt \
-	icu
+	libxslt
 
 #	enable_hangout_services_extension=true \
 #	enable_vulkan=false \
@@ -206,10 +206,11 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
 		V8_CC="$(CHROMIUM_CC_WRAPPER) clang" \
@@ -240,7 +241,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
-	#cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
+	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
 	$(TARGET_STRIP) --strip-all $(TARGET_DIR)/usr/lib/chromium/chromium.bin
 endef
