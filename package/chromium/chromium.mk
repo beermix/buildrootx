@@ -51,11 +51,7 @@ CHROMIUM_OPTS = \
 	remove_webcore_debug_symbols=true \
 	enable_google_now=false \
 	is_desktop_linux=true \
-	enable_vr=false \
-	is_official_build=false \
-	enable_wayland_server=false \
-	enable_mdns=true \
-	rtc_enable_protobuf=false
+	enable_vr=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -66,6 +62,10 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxml \
 	libxslt
 
+#	is_official_build=false \
+#	enable_wayland_server=false \
+#	enable_mdns=true \
+#	rtc_enable_protobuf=false
 # 	use_system_zlib=true \
 #	enable_hangout_services_extension=true \
 #	enable_vulkan=false \
@@ -109,7 +109,7 @@ endif
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-# CHROMIUM_OPTS += v8_use_snapshot=false
+CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
