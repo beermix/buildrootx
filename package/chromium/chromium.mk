@@ -106,7 +106,7 @@ endif
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-# CHROMIUM_OPTS += v8_use_snapshot=true
+CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
@@ -217,8 +217,6 @@ define CHROMIUM_CONFIGURE_CMDS
 	)
 endef
 
-# 		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
-
 define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
@@ -239,7 +237,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(@D)/out/Release/locales/*.pak
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
-	$(TARGET_STRIP) --strip-all $(TARGET_DIR)/usr/lib/chromium/chromium.bin
+	#$(TARGET_STRIP) --strip-all $(TARGET_DIR)/usr/lib/chromium/chromium.bin
 endef
 
 $(eval $(generic-package))

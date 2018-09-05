@@ -19,7 +19,7 @@ LIBNSPR_CONF_ENV = \
 	HOST_LDFLAGS="-lc"
 # NSPR mixes up --build and --host
 LIBNSPR_CONF_OPTS = --host=$(GNU_HOST_NAME)
-LIBNSPR_CONF_OPTS += --$(if $(BR2_ARCH_IS_64),en,dis)able-64bit
+LIBNSPR_CONF_OPTS += --$(if $(BR2_ARCH_IS_64),en,dis)able-64bit --enable-optimize --disable-debug
 
 # ./nspr/pr/include/md/_linux.h tests only __GLIBC__ version to detect
 # c-library features, list musl features here for now (taken from
@@ -49,7 +49,7 @@ LIBNSPR_INSTALL_TARGET_OPTS = DESTDIR=$(TARGET_DIR) LIBRARY= install
 LIBNSPR_INSTALL_STAGING_OPTS = DESTDIR=$(STAGING_DIR) LIBRARY= install
 endif
 
-HOST_LIBNSPR_CONF_OPTS += --$(if $(filter %64,$(HOSTARCH)),en,dis)able-64bit
+HOST_LIBNSPR_CONF_OPTS += --$(if $(filter %64,$(HOSTARCH)),en,dis)able-64bit --enable-optimize --disable-debug
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
