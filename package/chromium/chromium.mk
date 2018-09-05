@@ -25,6 +25,7 @@ CHROMIUM_OPTS = \
 	is_clang=true \
 	use_vaapi=true \
 	symbol_level=0 \
+	use_cfi_icall=false \
 	fieldtrial_testing_like_official_build=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -39,7 +40,6 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	use_system_zlib=true \
 	use_system_libjpeg=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
@@ -53,7 +53,8 @@ CHROMIUM_OPTS = \
 	use_aura=true \
 	use_gio=true \
 	rtc_enable_protobuf=false \
-	is_official_build=true
+	enable_wayland_server=false \
+	is_official_build=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -199,7 +200,6 @@ define CHROMIUM_CONFIGURE_CMDS
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
-		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
@@ -223,6 +223,8 @@ define CHROMIUM_CONFIGURE_CMDS
 			--script-executable=$(HOST_DIR)/bin/python2 \
 	)
 endef
+
+# $(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 
 define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
