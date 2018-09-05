@@ -40,7 +40,24 @@ CHROMIUM_OPTS = \
 	use_system_libjpeg=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false
+	use_custom_libcxx=false \
+	enable_hangout_services_extension=true \
+	enable_vulkan=false \
+	remove_webcore_debug_symbols=true \
+	enable_google_now=false \
+	is_desktop_linux=true \
+	enable_vr=false
+	is_official_build=true \
+	enable_wayland_server=false \
+	enable_mdns=true \
+	use_dbus=true
+	use_cfi_icall=false \
+	fieldtrial_testing_like_official_build=true \
+	use_udev=true \
+	use_alsa=true \
+	use_aura=true \
+	use_gio=true \
+	rtc_enable_protobuf=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -64,21 +81,11 @@ CHROMIUM_SYSTEM_LIBS = \
 #	use_dbus=true
 #	use_cfi_icall=false \
 #	fieldtrial_testing_like_official_build=true \
-#	enable_vulkan=false \
 #	use_udev=true \
-#	remove_webcore_debug_symbols=true \
-#	enable_google_now=false \
-#	is_desktop_linux=true \
-#	is_official_build=false \
-#	enable_wayland_server=false \
 #	use_alsa=true \
 #	use_aura=true \
-#	use_cups=false \
-#	use_dbus=true \
 #	use_gio=true \
-#	f=true \
-#	enable_mdns=true \
-#	rtc_enable_protobuf=fals
+#	rtc_enable_protobuf=false
 
 ifeq ($(BR2_i386)$(BR2_x86_64),y)
 CHROMIUM_SYSTEM_LIBS += yasm
@@ -235,8 +242,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(@D)/out/Release/locales/*.pak
 	#cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
-	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
-	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/hrome_sandbox
+	$(TARGET_STRIP) --strip-all $(TARGET_DIR)/usr/lib/chromium/chromium.bin
 endef
 
 $(eval $(generic-package))
