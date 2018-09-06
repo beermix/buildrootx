@@ -224,7 +224,7 @@ define CHROMIUM_BUILD_CMDS
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
 		CCACHE_SLOPPINESS=file_macro \
-		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver -w dupbuild=warn \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox -w dupbuild=warn \
 	)
 endef
 
@@ -233,8 +233,8 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
 	cp $(@D)/out/Release/{chrome_{100,200}_percent,resources}.pak \
-		$(@D)/out/Release/chromedriver \
-		$(TARGET_DIR)/usr/lib/chromium/
+		#$(@D)/out/Release/chromedriver \
+		#$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
