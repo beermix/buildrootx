@@ -18,11 +18,14 @@ HOST_COMPILERRT_CONF_OPTS += \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DLLVM_CONFIG=$(HOST_DIR)/bin/llvm-config
 
-define HOST_COMPILERRT_INSTALL_CMDS
-     mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/lib
+
+define HOST_COMPILERRT_COPY_COMPILERRT_CONFIG_TO_HOST_DIR
+     mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/lib/linux
      mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/share
-     mv -fu $(HOST_DIR)/usr/lib/linux $(HOST_DIR)/usr/lib/clang/7.0.0/lib/
-     mv -fu $(HOST_DIR)/share/*.txt $(HOST_DIR)/usr/lib/clang/7.0.0/share/
+     mv -f $(HOST_DIR)/usr/lib/linux/* $(HOST_DIR)/usr/lib/clang/7.0.0/lib/linux/
+     mv -f $(HOST_DIR)/share/*.txt $(HOST_DIR)/usr/lib/clang/7.0.0/share/
 endef
+
+HOST_COMPILERRT_POST_INSTALL_HOOKS = HOST_COMPILERRT_COPY_COMPILERRT_CONFIG_TO_HOST_DIR
 
 $(eval $(host-cmake-package))
