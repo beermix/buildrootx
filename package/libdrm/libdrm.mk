@@ -14,7 +14,8 @@ LIBDRM_DEPENDENCIES = \
 	libpthread-stubs \
 	host-pkgconf \
 	host-meson \
-	host-xutil_util-macros
+	host-xutil_util-macros \
+	libpciaccess
 
 LIBDRM_CONF_OPTS = \
 	-Dnouveau=false \
