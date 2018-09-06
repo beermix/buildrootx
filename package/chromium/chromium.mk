@@ -21,10 +21,10 @@ CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
+	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
 	use_vaapi=true \
 	symbol_level=0 \
-	use_cfi_icall=false \
 	fieldtrial_testing_like_official_build=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
@@ -45,17 +45,22 @@ CHROMIUM_OPTS = \
 	linux_link_libudev=true \
 	enable_vulkan=false \
 	remove_webcore_debug_symbols=true \
-	is_official_build=true
+	is_official_build=true \
+	enable_widevine=true \
+	enable_hangout_services_extension=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
+	freetype \
+	harfbuzz-ng \
+	icu \
 	libdrm \
 	libjpeg \
 	libxml \
 	libxslt \
-	opus \
-	icu
+	opus
 
+#	use_cfi_icall=false \
 #	enable_widevine=true \
 #	enable_hangout_services_extension=true \
 #	use_system_libjpeg=true \
