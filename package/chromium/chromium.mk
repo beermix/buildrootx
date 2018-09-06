@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Chromium
+# Chromium v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 #
 ################################################################################ host-clang host-lld host-compilerrt
 
@@ -14,14 +14,13 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg-turbo libdrm libglib2 systemd dbus libkrb5 libnss \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libva
+			xlib_libXrandr zlib libva opus
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
-	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
 	use_vaapi=true \
 	symbol_level=0 \
@@ -55,7 +54,8 @@ CHROMIUM_SYSTEM_LIBS = \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt
+	libxslt \
+	opus
 
 #	use_system_libjpeg=true \
 #	use_system_harfbuzz=true \
@@ -107,7 +107,7 @@ endif
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=false
+# CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true

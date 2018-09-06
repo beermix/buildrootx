@@ -1,0 +1,51 @@
+################################################################################
+#
+# mesa3d
+#
+################################################################################
+
+# When updating the version, please also update mesa3d-headers
+MESA3D_VERSION = 18.2.0-rc6
+MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
+#MESA3D_SITE = https://mesa.freedesktop.org/archive
+MESA3D_SITE = https://fossies.org/linux/misc
+MESA3D_LICENSE = MIT, SGI, Khronos
+MESA3D_LICENSE_FILES = docs/license.html
+
+MESA3D_DEPENDENCIES = \
+	host-bison \
+	host-flex \
+	host-python-mako \
+	expat \
+	libdrm \
+	zlib \
+	xapp_xrandr \
+	xlib_libX11 \
+	xlib_libXext \
+	xlib_libXdamage \
+	xlib_libXfixes \
+	xorgproto \
+	libxcb elfutils host-meson
+
+MESA3D_CONF_OPTS += -Ddri-drivers=i965 -Ddri3=true -Degl=true -Dgallium-extra-hud=false -Dgallium-nine=false -Dgallium-omx=disabled -Dgallium-opencl=disabled -Dgallium-va=false -Dgallium-vdpau=false -Dgallium-xa=false -Dgallium-xvmc=false -Dgbm=true -Dgles1=false -Dgles2=false -Dglvnd=false -Dglx-read-only-text=false -Dglx=dri -Dlibunwind=false -Dllvm=false -Dlmsensors=false -Dopengl=true -Dosmesa-bits=8 -Dosmesa=none -Dplatforms=x11,drm -Dpower8=auto -Dselinux=false -Dshader-cache=true -Dshared-glapi=true -Dvalgrind=false  -Dxlib-lease=auto -Dllvm=false -Dgallium-extra-hud=false \
+                       -Dgallium-xvmc=false \
+                       -Dgallium-omx=disabled \
+                       -Dgallium-nine=false \
+                       -Dgallium-opencl=disabled \
+                       -Dvulkan-drivers= \
+                       -Dshader-cache=true \
+                       -Dshared-glapi=true \
+                       -Dopengl=true \
+                       -Dgbm=true \
+                       -Degl=true \
+                       -Dglvnd=false \
+                       -Dasm=true \
+                       -Dvalgrind=false \
+                       -Dlibunwind=false \
+                       -Dlmsensors=false \
+                       -Dbuild-tests=false \
+                       -Dtexture-float=true \
+                       -Dselinux=false \
+                       -Dosmesa=none
+
+$(eval $(meson-package))
