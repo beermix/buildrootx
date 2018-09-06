@@ -52,6 +52,8 @@ CHROMIUM_OPTS = \
 	enable_vr=false \
 	rtc_enable_protobuf=false \
 	enable_wayland_server=false \
+	enable_widevine=true \
+	enable_hangout_services_extension=true \
 	is_official_build=false
 
 CHROMIUM_SYSTEM_LIBS = \
