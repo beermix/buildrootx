@@ -29,6 +29,12 @@ LIBDRM_CONF_OPTS = \
 	-Dfreedreno-kgsl=false \
 	-Dinstall-test-programs=false \
 	-Dudev=false \
-	-Dintel=true
+	-Dintel=true \
+	-Dradeon=true \
+	-Damdgpu=true \
+	-Dvmwgfx=true \
+	-Dvc4=true \
+	-Dfreedreno=true \
+	-Detnaviv=true
 
 $(eval $(meson-package))
