@@ -30,11 +30,11 @@ LIBDRM_CONF_OPTS = \
 	-Dinstall-test-programs=false \
 	-Dudev=false \
 	-Dintel=true \
-	-Dradeon=true \
-	-Damdgpu=true \
-	-Dvmwgfx=true \
-	-Dvc4=true \
-	-Dfreedreno=true \
-	-Detnaviv=true
+	-Dradeon=false \
+	-Damdgpu=false \
+	-Dvmwgfx=false \
+	-Dvc4=false \
+	-Dfreedreno=false \
+	-Detnaviv=false
 
 $(eval $(meson-package))
