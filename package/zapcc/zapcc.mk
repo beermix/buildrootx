@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ZAPCC_VERSION = 4b5f916
+ZAPCC_VERSION = 9bd04e7
 ZAPCC_SITE = $(call github,yrnkrn,zapcc,$(ZAPCC_VERSION))
 ZAPCC_LICENSE = NCSA
 ZAPCC_LICENSE_FILES = LICENSE.TXT
