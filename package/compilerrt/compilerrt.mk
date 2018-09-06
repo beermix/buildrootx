@@ -2,7 +2,7 @@
 #
 # compilerrt
 #
-################################################################################
+################################################################################  -DCMAKE_BUILD_TYPE:STRING=Release
 
 #compilerrt_VERSION = 6.0.1
 #compilerrt_SITE = https://llvm.org/releases/$(compilerrt_VERSION)
@@ -17,6 +17,7 @@ COMPILERRT_LICENSE_FILES = LICENSE.TXT
 COMPILERRT_SUPPORTS_IN_SOURCE_BUILD = NO
 HOST_COMPILERRT_DEPENDENCIES = host-llvm
 
-HOST_COMPILERRT_CONF_OPTS += -DCMAKE_ASM_COMPILER=/bin/cc -DCMAKE_BUILD_TYPE:STRING=Release
+HOST_COMPILERRT_CONF_OPTS += \
+		-DCMAKE_ASM_COMPILER=$(HOSTCC)
 
 $(eval $(host-cmake-package))
