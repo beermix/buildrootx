@@ -21,8 +21,8 @@ HOST_COMPILERRT_CONF_OPTS += \
 define HOST_COMPILERRT_INSTALL_CMDS
      mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/lib
      mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/share
-     cp -r $(HOST_DIR)/usr/lib/linux $(HOST_DIR)/usr/lib/clang/7.0.0/lib
-     cp -r $(HOST_DIR)/share/*.txt $(HOST_DIR)/usr/lib/clang/7.0.0/share
+     mv -fu $(HOST_DIR)/usr/lib/linux $(HOST_DIR)/usr/lib/clang/7.0.0/lib/
+     mv -fu $(HOST_DIR)/share/*.txt $(HOST_DIR)/usr/lib/clang/7.0.0/share/
 endef
 
 $(eval $(host-cmake-package))
