@@ -61,8 +61,7 @@ CHROMIUM_SYSTEM_LIBS = \
 	libdrm \
 	libjpeg \
 	libxml \
-	libxslt \
-	icu
+	libxslt
 
 #	use_system_libjpeg=true \
 #	use_system_harfbuzz=true \
@@ -244,7 +243,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
-	#cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
+	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromium.bin
 endef
