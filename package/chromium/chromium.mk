@@ -229,7 +229,7 @@ define CHROMIUM_BUILD_CMDS
 endef
 
 define CHROMIUM_INSTALL_TARGET_CMDS
-	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chromium.bin
+	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chrome
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
 	cp $(@D)/out/Release/{chrome_{100,200}_percent,resources}.pak \
@@ -239,7 +239,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		$(@D)/out/Release/locales/*.pak
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
-	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromium.bin
+	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
 endef
 
 $(eval $(generic-package))
