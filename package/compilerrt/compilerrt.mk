@@ -16,16 +16,13 @@ HOST_COMPILERRT_DEPENDENCIES = host-llvm
 HOST_COMPILERRT_CONF_OPTS += \
 		-DCMAKE_ASM_COMPILER=/bin/cc \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCOMPILER_RT_BUILD_LIBFUZZER=1 \
-		-DCOMPILER_RT_BUILD_PROFILE=1 \
-		-DCOMPILER_RT_BUILD_SANITIZERS=1 \
-		-DCOMPILER_RT_BUILD_XRAY=1 \
 		-DLLVM_CONFIG=$(HOST_DIR)/bin/llvm-config
 
 define HOST_COMPILERRT_INSTALL_CMDS
      mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/lib
-     mv -f $(HOST_DIR)/usr/lib/linux $(HOST_DIR)/usr/lib/clang/7.0.0/lib
-     mv -f $(HOST_DIR)/share/*.txt $(HOST_DIR)/usr/lib/clang/7.0.0/
+     mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/share
+     cp -r $(HOST_DIR)/usr/lib/linux $(HOST_DIR)/usr/lib/clang/7.0.0/lib
+     cp -r $(HOST_DIR)/share/*.txt $(HOST_DIR)/usr/lib/clang/7.0.0/share
 endef
 
 $(eval $(host-cmake-package))
