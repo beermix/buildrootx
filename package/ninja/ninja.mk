@@ -17,6 +17,6 @@ endef
 
 define HOST_NINJA_INSTALL_CMDS
 	$(INSTALL) -m 0755 -D $(@D)/ninja $(HOST_DIR)/bin/ninja
-sendef
+endef
 
 $(eval $(host-generic-package))

@@ -40,12 +40,12 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	use_system_libjpeg=true \
+	use_custom_libcxx=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	use_custom_libcxx=false \
 	linux_link_libudev=true \
 	enable_vulkan=false \
+	use_pulseaudio=false \
 	remove_webcore_debug_symbols=true \
 	enable_google_now=false \
 	is_desktop_linux=true \
@@ -54,18 +54,20 @@ CHROMIUM_OPTS = \
 	enable_wayland_server=false \
 	enable_widevine=true \
 	enable_hangout_services_extension=true \
-	is_official_build=false
+	is_official_build=true \
+	is_cfi=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
-	freetype \
-	harfbuzz-ng \
 	libdrm \
 	libjpeg \
 	libxml \
 	libxslt \
 	icu
 
+#	use_system_libjpeg=true \
+#	use_system_harfbuzz=true \
+#	use_system_freetype=true \
 #	enable_widevine=true \
 #	enable_hangout_services_extension=true \
 #	is_official_build=false \
