@@ -2,11 +2,7 @@
 #
 # compilerrt
 #
-################################################################################  -DCMAKE_BUILD_TYPE:STRING=Release
-
-#compilerrt_VERSION = 6.0.1
-#compilerrt_SITE = https://llvm.org/releases/$(compilerrt_VERSION)
-#compilerrt_SOURCE = compiler-rt-$(compilerrt_VERSION).src.tar.xz
+################################################################################
 
 COMPILERRT_VERSION = 7.0.0rc2
 #COMPILERRT_SITE = $(call github,llvm-mirror,compiler-rt,$(compilerrt_VERSION))
@@ -18,9 +14,18 @@ COMPILERRT_SUPPORTS_IN_SOURCE_BUILD = NO
 HOST_COMPILERRT_DEPENDENCIES = host-llvm
 
 HOST_COMPILERRT_CONF_OPTS += \
-		-DCOMPILER_RT_INCLUDE_TESTS=OFF \
 		-DCMAKE_ASM_COMPILER=/bin/cc \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-		-DLLVM_CONFIG:FILEPATH=$(HOST_DIR)/bin/llvm-config
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCOMPILER_RT_BUILD_LIBFUZZER=1 \
+		-DCOMPILER_RT_BUILD_PROFILE=1 \
+		-DCOMPILER_RT_BUILD_SANITIZERS=1 \
+		-DCOMPILER_RT_BUILD_XRAY=1 \
+		-DLLVM_CONFIG=$(HOST_DIR)/bin/llvm-config
+
+define HOST_COMPILERRT_INSTALL_CMDS
+     mkdir -p $(HOST_DIR)/usr/lib/clang/7.0.0/lib
+     mv -f $(HOST_DIR)/usr/lib/linux $(HOST_DIR)/usr/lib/clang/7.0.0/lib
+     mv -f $(HOST_DIR)/share/*.txt $(HOST_DIR)/usr/lib/clang/7.0.0/
+endef
 
 $(eval $(host-cmake-package))
