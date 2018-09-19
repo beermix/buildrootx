@@ -44,7 +44,8 @@ CHROMIUM_OPTS = \
 	linux_link_libudev=true \
 	enable_vulkan=false \
 	remove_webcore_debug_symbols=true \
-	is_official_build=true \
+	is_official_build=false \
+	use_cfi_icall=false \
 	enable_widevine=true \
 	enable_hangout_services_extension=true
 
@@ -52,7 +53,6 @@ CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	icu \
 	libdrm \
 	libjpeg \
 	libxml \
@@ -242,7 +242,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 		#$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
-	#cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
+	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
 endef
