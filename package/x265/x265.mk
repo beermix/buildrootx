@@ -16,12 +16,6 @@ ifeq ($(BR2_i386)$(BR2_x86_64),y)
 X265_DEPENDENCIES += host-nasm
 endif
 
-HOST_X265_CONF_OPTS += -GNinja
-HOST_X265_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
-X265_CONF_OPTS += -GNinja
-X265_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
 # disable altivec, it has build issues
 # https://bitbucket.org/multicoreware/x265/issues/320/
 ifeq ($(BR2_powerpc64)$(BR2_powerpc64le),y)
@@ -40,21 +34,4 @@ else
 X265_CONF_OPTS += -DENABLE_CLI=OFF
 endif
 
-define HOST_X265_BUILD_CMDS
-	$(HOST_MAKE_ENV) ninja -C $(@D)/source
-endef
-
-define HOST_X265_INSTALL_CMDS
-	$(HOST_MAKE_ENV) ninja -C $(@D)/source install
-endef
-
-define X265_BUILD_CMDS
-	$(MAKE_ENV) ninja -C $(@D)/source
-endef
-
-define X265_INSTALL_CMDS
-	$(MAKE_ENV) ninja -C $(@D)/source install
-endef
-
 $(eval $(cmake-package))
-$(eval $(host-cmake-package))

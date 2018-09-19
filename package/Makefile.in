@@ -219,8 +219,6 @@ TARGET_STRIP = /bin/true
 STRIPCMD = $(TARGET_STRIP)
 endif
 INSTALL := $(shell which install || type -p install)
-FLEX := $(shell which flex || type -p flex)
-BISON := $(shell which bison || type -p bison)
 UNZIP := $(shell which unzip || type -p unzip) -q
 
 APPLY_PATCHES = PATH=$(HOST_DIR)/bin:$$PATH support/scripts/apply-patches.sh $(if $(QUIET),-s)
@@ -419,15 +417,15 @@ TARGET_CONFIGURE_OPTS += CXX=no
 endif
 
 ifeq ($(BR2_STATIC_LIBS),y)
-SHARED_STATIC_LIBS_OPTS = --enable-static --disable-shared --enable-silent-rules
+SHARED_STATIC_LIBS_OPTS = --enable-static --disable-shared
 TARGET_CFLAGS += -static
 TARGET_CXXFLAGS += -static
 TARGET_FCFLAGS += -static
 TARGET_LDFLAGS += -static
 else ifeq ($(BR2_SHARED_LIBS),y)
-SHARED_STATIC_LIBS_OPTS = --disable-static --enable-shared --enable-silent-rules
+SHARED_STATIC_LIBS_OPTS = --disable-static --enable-shared
 else ifeq ($(BR2_SHARED_STATIC_LIBS),y)
-SHARED_STATIC_LIBS_OPTS = --enable-static --enable-shared --enable-silent-rules
+SHARED_STATIC_LIBS_OPTS = --enable-static --enable-shared
 endif
 
 ifeq ($(BR2_COMPILER_PARANOID_UNSAFE_PATH),y)

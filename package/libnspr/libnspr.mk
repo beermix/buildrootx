@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBNSPR_VERSION = 4.20
+LIBNSPR_VERSION = 4.19
 LIBNSPR_SOURCE = nspr-$(LIBNSPR_VERSION).tar.gz
 LIBNSPR_SITE = https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v$(LIBNSPR_VERSION)/src
 LIBNSPR_SUBDIR = nspr
@@ -19,7 +19,7 @@ LIBNSPR_CONF_ENV = \
 	HOST_LDFLAGS="-lc"
 # NSPR mixes up --build and --host
 LIBNSPR_CONF_OPTS = --host=$(GNU_HOST_NAME)
-LIBNSPR_CONF_OPTS += --$(if $(BR2_ARCH_IS_64),en,dis)able-64bit --enable-optimize --disable-debug
+LIBNSPR_CONF_OPTS += --$(if $(BR2_ARCH_IS_64),en,dis)able-64bit
 
 # ./nspr/pr/include/md/_linux.h tests only __GLIBC__ version to detect
 # c-library features, list musl features here for now (taken from
@@ -49,7 +49,7 @@ LIBNSPR_INSTALL_TARGET_OPTS = DESTDIR=$(TARGET_DIR) LIBRARY= install
 LIBNSPR_INSTALL_STAGING_OPTS = DESTDIR=$(STAGING_DIR) LIBRARY= install
 endif
 
-HOST_LIBNSPR_CONF_OPTS += --$(if $(filter %64,$(HOSTARCH)),en,dis)able-64bit --enable-optimize --disable-debug
+HOST_LIBNSPR_CONF_OPTS += --$(if $(filter %64,$(HOSTARCH)),en,dis)able-64bit
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

@@ -5,10 +5,9 @@
 ################################################################################
 
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 18.2.0-rc6
+MESA3D_VERSION = 18.2.0
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
-#MESA3D_SITE = https://mesa.freedesktop.org/archive
-MESA3D_SITE = https://fossies.org/linux/misc
+MESA3D_SITE = https://mesa.freedesktop.org/archive
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.html
 MESA3D_AUTORECONF = YES
@@ -22,8 +21,7 @@ MESA3D_DEPENDENCIES = \
 	host-flex \
 	expat \
 	libdrm \
-	zlib \
-	xapp_xrandr
+	zlib
 
 # Disable assembly usage.
 MESA3D_CONF_OPTS = --disable-asm
@@ -63,6 +61,7 @@ MESA3D_DEPENDENCIES += \
 	xlib_libXext \
 	xlib_libXdamage \
 	xlib_libXfixes \
+	xlib_libXrandr \
 	xorgproto \
 	libxcb
 MESA3D_CONF_OPTS += --enable-glx --disable-mangling
@@ -132,7 +131,9 @@ ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),)
 MESA3D_CONF_OPTS += \
 	--without-vulkan-drivers
 else
+MESA3D_DEPENDENCIES += xlib_libxshmfence
 MESA3D_CONF_OPTS += \
+	--enable-dri3 \
 	--with-vulkan-drivers=$(subst $(space),$(comma),$(MESA3D_VULKAN_DRIVERS-y))
 endif
 
@@ -200,13 +201,6 @@ MESA3D_PROVIDES += libgles
 MESA3D_CONF_OPTS += --enable-gles1 --enable-gles2
 else
 MESA3D_CONF_OPTS += --disable-gles1 --disable-gles2
-endif
-
-ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_TEXTURE_FLOAT),y)
-MESA3D_CONF_OPTS += --enable-texture-float
-MESA3D_LICENSE_FILES += docs/patents.txt
-else
-MESA3D_CONF_OPTS += --disable-texture-float
 endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBXVMC),y)

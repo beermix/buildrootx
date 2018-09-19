@@ -61,7 +61,7 @@ github = https://github.com/$(1)/$(2)/archive/$(3)
 # Expressly do not check hashes for those files
 # Exported variables default to immediately expanded in some versions of
 # make, but we need it to be recursively-epxanded, so explicitly assign it.
-export BR_NO_CHECK_HASH_FOR = llvm
+export BR_NO_CHECK_HASH_FOR =
 
 ################################################################################
 # DOWNLOAD -- Download helper. Will call DL_WRAPPER which will try to download
@@ -92,7 +92,7 @@ endif
 
 define DOWNLOAD
 	$(Q)mkdir -p $($(PKG)_DL_DIR)
-	$(EXTRA_ENV) $(FLOCK) $(DL_WRAPPER) \
+	$(Q)$(EXTRA_ENV) $(FLOCK) $(DL_WRAPPER) \
 		-c '$($(PKG)_DL_VERSION)' \
 		-d '$($(PKG)_DL_DIR)' \
 		-D '$(DL_DIR)' \
