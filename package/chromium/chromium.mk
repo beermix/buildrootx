@@ -21,7 +21,9 @@ CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
+	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	is_clang=true \
+	use_cfi_icall=false \
 	use_vaapi=true \
 	symbol_level=0 \
 	fieldtrial_testing_like_official_build=true \
@@ -29,7 +31,7 @@ CHROMIUM_OPTS = \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
 	linux_use_bundled_binutils=false \
-	use_sysroot=true \
+	use_sysroot=false \
 	target_sysroot=\"$(STAGING_DIR)\" \
 	target_cpu=\"$(BR2_PACKAGE_CHROMIUM_TARGET_ARCH)\" \
 	google_api_key=\"AIzaSyAQ6L9vt9cnN4nM0weaa6Y38K4eyPvtKgI\" \
@@ -43,9 +45,9 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	linux_link_libudev=true \
 	enable_vulkan=false \
+	use_udev=true \
 	remove_webcore_debug_symbols=true \
-	is_official_build=false \
-	use_cfi_icall=false \
+	is_official_build=true \
 	enable_widevine=true \
 	enable_hangout_services_extension=true
 
@@ -112,7 +114,7 @@ endif
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-# CHROMIUM_OPTS += v8_use_snapshot=false
+CHROMIUM_OPTS += v8_use_snapshot=true
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
@@ -229,7 +231,7 @@ define CHROMIUM_BUILD_CMDS
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
 		CCACHE_SLOPPINESS=file_macro \
-		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox -w dupbuild=warn \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
 	)
 endef
 
@@ -245,6 +247,7 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
+	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
 endef
 
 $(eval $(generic-package))
