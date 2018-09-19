@@ -5,7 +5,7 @@
 ################################################################################
 
 CLANG_VERSION = 7.0.0rc3
-CLANG_SITE = https://prereleases.llvm.org/7.0.0/rc2
+CLANG_SITE = https://prereleases.llvm.org/7.0.0/rc3
 CLANG_SOURCE = cfe-$(CLANG_VERSION).src.tar.xz
 #CLANG_VERSION = 0513b40
 #CLANG_SITE = $(call github,llvm-mirror,clang,$(CLANG_VERSION))

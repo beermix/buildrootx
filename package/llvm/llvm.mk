@@ -5,7 +5,7 @@
 ################################################################################
 
 LLVM_VERSION = 7.0.0rc3
-LLVM_SITE = https://prereleases.llvm.org/7.0.0/rc2
+LLVM_SITE = https://prereleases.llvm.org/7.0.0/rc3
 LLVM_SOURCE = llvm-$(LLVM_VERSION).src.tar.xz
 #LLVM_VERSION = 65ce2e5
 #LLVM_SITE = $(call github,llvm-mirror,llvm,$(LLVM_VERSION))
