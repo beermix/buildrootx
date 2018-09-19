@@ -4,12 +4,9 @@
 #
 ################################################################################
 
-#COMPILERRT_VERSION = 7.0.0rc2
-COMPILERRT_VERSION = a4cbb02
-COMPILERRT_SITE = $(call github,llvm-mirror,compiler-rt,$(compilerrt_VERSION))
-#COMPILERRT_SITE = https://prereleases.llvm.org/7.0.0/rc2
-COMPILERRT_SOURCE = $(COMPILERRT_VERSION).tar.gz
-#COMPILERRT_SOURCE = compiler-rt-$(COMPILERRT_VERSION).src.tar.xz
+COMPILERRT_VERSION = 7.0.0rc3
+COMPILERRT_SITE = https://prereleases.llvm.org/7.0.0/rc3
+COMPILERRT_SOURCE = compiler-rt-$(COMPILERRT_VERSION).src.tar.xz
 COMPILERRT_LICENSE = NCSA
 COMPILERRT_LICENSE_FILES = LICENSE.TXT
 COMPILERRT_SUPPORTS_IN_SOURCE_BUILD = NO
