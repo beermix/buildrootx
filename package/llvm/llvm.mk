@@ -4,12 +4,12 @@
 #
 ################################################################################
 
-#LLVM_VERSION = 7.0.0rc2
-#LLVM_SITE = https://prereleases.llvm.org/7.0.0/rc2
-#LLVM_SOURCE = llvm-$(LLVM_VERSION).src.tar.xz
-LLVM_VERSION = 65ce2e5
-LLVM_SITE = $(call github,llvm-mirror,llvm,$(LLVM_VERSION))
-LLVM_LICENSE = NCSA
+LLVM_VERSION = 7.0.0rc3
+LLVM_SITE = https://prereleases.llvm.org/7.0.0/rc2
+LLVM_SOURCE = llvm-$(LLVM_VERSION).src.tar.xz
+#LLVM_VERSION = 65ce2e5
+#LLVM_SITE = $(call github,llvm-mirror,llvm,$(LLVM_VERSION))
+#LLVM_LICENSE = NCSA
 LLVM_LICENSE_FILES = LICENSE.TXT
 LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_INSTALL_STAGING = YES
