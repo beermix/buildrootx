@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-COMPILERRT_VERSION = 7.0.0rc3
-COMPILERRT_SITE = https://prereleases.llvm.org/7.0.0/rc3
+COMPILERRT_VERSION = 7.0.0
+COMPILERRT_SITE = http://llvm.org/releases/$(COMPILERRT_VERSION)
 COMPILERRT_SOURCE = compiler-rt-$(COMPILERRT_VERSION).src.tar.xz
 COMPILERRT_LICENSE = NCSA
 COMPILERRT_LICENSE_FILES = LICENSE.TXT
