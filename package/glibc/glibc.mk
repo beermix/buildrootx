@@ -10,7 +10,7 @@ GLIBC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,glibc,$(GLIBC_VE
 else
 # Generate version string using:
 #   git describe --match 'glibc-*' --abbrev=40 origin/release/MAJOR.MINOR/master
-GLIBC_VERSION = a33650d
+GLIBC_VERSION = glibc-2.28
 # Upstream doesn't officially provide an https download link.
 # There is one (https://sourceware.org/git/glibc.git) but it's not reliable,
 # sometimes the connection times out. So use an unofficial github mirror.
@@ -28,7 +28,12 @@ GLIBC_ADD_TOOLCHAIN_DEPENDENCY = NO
 
 # Before glibc is configured, we must have the first stage
 # cross-compiler and the kernel headers
-GLIBC_DEPENDENCIES = host-gcc-initial linux-headers host-bison host-gawk
+GLIBC_DEPENDENCIES = host-gcc-initial linux-headers host-bison host-gawk \
+	$(BR2_MAKE_HOST_DEPENDENCY)
+
+# glibc requires make >= 4.0 since 2.28 release.
+# https://www.sourceware.org/ml/libc-alpha/2018-08/msg00003.html
+GLIBC_MAKE = $(BR2_MAKE)
 
 GLIBC_SUBDIR = build
 
