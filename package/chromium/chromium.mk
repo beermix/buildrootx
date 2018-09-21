@@ -4,7 +4,7 @@
 #
 ################################################################################ host-clang host-lld host-compilerrt
 
-CHROMIUM_VERSION = 68.0.3440.106
+CHROMIUM_VERSION = 69.0.3497.100
 CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-official
 CHROMIUM_SOURCE = chromium-$(CHROMIUM_VERSION).tar.xz
 CHROMIUM_LICENSE = BSD-Style
@@ -43,9 +43,7 @@ CHROMIUM_OPTS = \
 	use_custom_libcxx=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	linux_link_libudev=true \
 	enable_vulkan=false \
-	use_udev=true \
 	remove_webcore_debug_symbols=true \
 	is_official_build=true \
 	enable_widevine=true \
@@ -55,12 +53,13 @@ CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
-	libdrm \
-	libjpeg \
-	libxml \
-	libxslt \
-	opus
+	libdrm
 
+#	 \
+#	libjpeg \
+#	libxml \
+#	libxslt \
+#	opus
 #	use_cfi_icall=false \
 #	enable_widevine=true \
 #	enable_hangout_services_extension=true \
@@ -114,7 +113,7 @@ endif
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=true
+CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
@@ -199,7 +198,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
-		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean; \
+		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
