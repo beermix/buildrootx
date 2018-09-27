@@ -15,4 +15,6 @@ LLD_SUPPORTS_IN_SOURCE_BUILD = NO
 HOST_LLD_DEPENDENCIES = host-llvm host-clang
 # HOST_LLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
 
+export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
+
 $(eval $(host-cmake-package))
