@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Chromium v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
+#
 #
 ################################################################################ host-clang host-lld host-compilerrt
 
@@ -14,7 +14,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg-turbo libdrm libglib2 systemd dbus libkrb5 libnss \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
-			xlib_libXrandr zlib libva opus
+			xlib_libXrandr zlib libva opus host-alsa-lib
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
