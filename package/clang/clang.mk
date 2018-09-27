@@ -15,14 +15,6 @@ CLANG_INSTALL_STAGING = YES
 HOST_CLANG_DEPENDENCIES = host-libxml2 host-llvm host-compilerrt
 CLANG_DEPENDENCIES = llvm host-clang
 
-#HOST_CLANG_CONF_OPTS += -GNinja
-#HOST_CLANG_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-#HOST_CLANG_CONF_OPTS += -DCMAKE_C_FLAGS="${HOST_CFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
-#HOST_CLANG_CONF_OPTS += -DCMAKE_CXX_FLAGS="${HOST_CXXFLAGS} -Wno-unused-local-typedefs -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wno-class-memaccess -Wno-implicit-fallthrough -fdiagnostics-color=always"
-
-#CLANG_CONF_OPTS += -GNinja
-#CLANG_CONF_OPTS += -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
 # This option is needed, otherwise multiple shared libs
 # (libclangAST.so, libclangBasic.so, libclangFrontend.so, etc.) will
 # be generated. As a final shared lib containing all these components
@@ -59,8 +51,8 @@ CLANG_CONF_OPTS += \
 
 HOST_CLANG_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(HOST_DIR)/bin/llvm-config
 CLANG_CONF_OPTS += -DLLVM_CONFIG:FILEPATH=$(STAGING_DIR)/usr/bin/llvm-config \
-	-DCLANG_TABLEGEN:FILEPATH=$(HOST_DIR)/usr/bin/clang-tblgen \
-	-DLLVM_TABLEGEN_EXE:FILEPATH=$(HOST_DIR)/usr/bin/llvm-tblgen
+	-DCLANG_TABLEGEN:FILEPATH=$(HOST_DIR)/bin/clang-tblgen \
+	-DLLVM_TABLEGEN_EXE:FILEPATH=$(HOST_DIR)/bin/llvm-tblgen
 
 # Clang can't be used as compiler on the target since there are no
 # development files (headers) and other build tools. So remove clang
@@ -89,7 +81,7 @@ CLANG_POST_INSTALL_TARGET_HOOKS += CLANG_CLEANUP_TARGET
 # for cross-compiling clang
 define HOST_CLANG_INSTALL_CLANG_TBLGEN
 	$(INSTALL) -D -m 0755 $(HOST_CLANG_BUILDDIR)/bin/clang-tblgen \
-		$(HOST_DIR)/usr/bin/clang-tblgen
+		$(HOST_DIR)/bin/clang-tblgen
 endef
 HOST_CLANG_POST_INSTALL_HOOKS = HOST_CLANG_INSTALL_CLANG_TBLGEN
 
@@ -100,27 +92,6 @@ CLANG_CONF_OPTS += -DLLVM_LINK_LLVM_DYLIB=ON
 # Prevent clang binaries from linking against LLVM static libs
 HOST_CLANG_CONF_OPTS += -DLLVM_DYLIB_COMPONENTS=all
 CLANG_CONF_OPTS += -DLLVM_DYLIB_COMPONENTS=all
-
-HOST_CLANG_CONF_OPTS += -DCLANG_DEFAULT_RTLIB=compiler-rt
-
-#define HOST_CLANG_BUILD_CMDS
-#	CCACHE_SLOPPINESS=file_macro \
-#	$(HOST_MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build -w dupbuild=warn
-#endef
-
-#define HOST_CLANG_INSTALL_CMDS
-#	$(HOST_MAKE_ENV) ninja -C $(@D)/buildroot-build install \
-#	strip $(HOST_DIR)/bin/*
-#endef
-
-#define CLANG_BUILD_CMDS
-#	CCACHE_SLOPPINESS=file_macro \
-#	$(MAKE_ENV) ninja -j$(PARALLEL_JOBS) -C $(@D)/buildroot-build
-#endef
-
-#define CLANG_INSTALL_CMDS
-#	$(MAKE_ENV) ninja -C $(@D)/buildroot-build install
-#endef
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))

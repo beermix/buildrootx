@@ -45,7 +45,7 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	enable_vulkan=false \
 	remove_webcore_debug_symbols=true \
-	is_official_build=true \
+	is_official_build=false \
 	enable_widevine=true \
 	enable_hangout_services_extension=true
 
@@ -212,7 +212,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
-		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__= -D__TIME__= -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
 		V8_CC="$(CHROMIUM_CC_WRAPPER) clang" \

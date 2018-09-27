@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CCACHE_VERSION = 3.4.2
+CCACHE_VERSION = 3.4.3
 CCACHE_SITE = https://www.samba.org/ftp/ccache
 CCACHE_SOURCE = ccache-$(CCACHE_VERSION).tar.xz
 CCACHE_LICENSE = GPL-3.0+, others
@@ -55,7 +55,7 @@ BR_CCACHE_INITIAL_SETUP = $(call qstrip,$(BR2_CCACHE_INITIAL_SETUP))
 ifneq ($(BR_CCACHE_INITIAL_SETUP),)
 define HOST_CCACHE_DO_INITIAL_SETUP
 	@$(call MESSAGE,"Applying initial settings")
-	unset CCACHE_DISABLE; $(CCACHE) $(BR_CCACHE_INITIAL_SETUP)
+	$(CCACHE) $(BR_CCACHE_INITIAL_SETUP)
 	$(CCACHE) -s
 endef
 
