@@ -56,6 +56,8 @@ CHROMIUM_SYSTEM_LIBS = \
 	libjpeg \
 	libxml \
 	libxslt \
+	icu \
+	opus \
 	libdrm
 
 # V8 snapshots require compiling V8 with the same word size as the target

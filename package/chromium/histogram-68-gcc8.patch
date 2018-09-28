@@ -1,0 +1,12 @@
+--- chromium-68.0.3440.106/base/metrics/histogram_samples.cc.gcc8	2018-08-08 21:10:31.000000000 +0200
++++ chromium-68.0.3440.106/base/metrics/histogram_samples.cc	2018-08-14 02:31:33.960840778 +0200
+@@ -172,7 +172,9 @@
+ HistogramSamples::LocalMetadata::LocalMetadata() {
+   // This is the same way it's done for persistent metadata since no ctor
+   // is called for the data members in that case.
++#pragma GCC diagnostic ignored "-Wclass-memaccess"
+   memset(this, 0, sizeof(*this));
++#pragma GCC diagnostic pop
+ }
+ 
+ HistogramSamples::HistogramSamples(uint64_t id, Metadata* meta)
