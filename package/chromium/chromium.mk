@@ -52,6 +52,9 @@ CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
 	freetype \
 	harfbuzz-ng \
+	libjpeg \
+	libxml \
+	libxslt \
 	libdrm
 
 # V8 snapshots require compiling V8 with the same word size as the target
