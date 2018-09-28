@@ -13,8 +13,8 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			harfbuzz host-ninja host-clang host-lld host-compilerrt host-python \
 			icu jpeg-turbo libdrm libglib2 systemd dbus libkrb5 libnss \
 			libxml2 libxslt pango \
-			xlib_libXcomposite xlib_libXScrnSaver host-xlib_libXcursor xlib_libXcursor \
-			xlib_libXrandr zlib libva host-alsa-lib
+			xlib_libXcomposite xlib_libXScrnSaver xlib_libXcursor \
+			xlib_libXrandr zlib libva
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -22,8 +22,6 @@ CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
 	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
-	is_clang=true \
-	use_cfi_icall=false \
 	use_vaapi=true \
 	symbol_level=0 \
 	fieldtrial_testing_like_official_build=true \
@@ -31,7 +29,7 @@ CHROMIUM_OPTS = \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
 	linux_use_bundled_binutils=false \
-	use_sysroot=true \
+	use_sysroot=false \
 	target_sysroot=\"$(STAGING_DIR)\" \
 	target_cpu=\"$(BR2_PACKAGE_CHROMIUM_TARGET_ARCH)\" \
 	google_api_key=\"AIzaSyAQ6L9vt9cnN4nM0weaa6Y38K4eyPvtKgI\" \
@@ -198,8 +196,6 @@ define CHROMIUM_CONFIGURE_CMDS
 		CXX="$(HOSTCXX)" \
 		CCACHE_SLOPPINESS=time_macros \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
-		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
-		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
@@ -223,7 +219,8 @@ define CHROMIUM_CONFIGURE_CMDS
 	)
 endef
 
-# $(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
+#	$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
+#	sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 
 define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
