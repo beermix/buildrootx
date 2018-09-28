@@ -143,7 +143,7 @@ endif
 CHROMIUM_OPTS += use_pulseaudio=false
 
 ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
-CHROMIUM_DEPENDENCIES += libgtk3
+CHROMIUM_DEPENDENCIES += libgtk3 at-spi2-atk
 CHROMIUM_OPTS += use_gtk3=true
 else
 CHROMIUM_DEPENDENCIES += libgtk2 xlib_libXi xlib_libXtst
