@@ -4,7 +4,6 @@
 #
 ################################################################################
 
-NINJA_VERSION = ca041d8
 NINJA_VERSION = v1.8.2
 NINJA_SITE = $(call github,ninja-build,ninja,$(NINJA_VERSION))
 NINJA_LICENSE = Apache-2.0

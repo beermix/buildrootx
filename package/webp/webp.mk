@@ -10,7 +10,6 @@ WEBP_SITE = http://downloads.webmproject.org/releases/webp
 WEBP_LICENSE = BSD-3-Clause
 WEBP_LICENSE_FILES = COPYING
 WEBP_INSTALL_STAGING = YES
-WEBP_CONF_OPTS += --disable-shared --with-pic
 
 WEBP_CONF_OPTS += \
 	--with-jpegincludedir=$(STAGING_DIR)/usr/include \

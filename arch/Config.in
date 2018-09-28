@@ -433,6 +433,10 @@ if BR2_powerpc || BR2_powerpc64 || BR2_powerpc64le
 source "arch/Config.in.powerpc"
 endif
 
+if BR2_riscv
+source "arch/Config.in.riscv"
+endif
+
 if BR2_sh
 source "arch/Config.in.sh"
 endif
