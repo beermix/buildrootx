@@ -51,6 +51,7 @@ CHROMIUM_OPTS = \
 	remove_webcore_debug_symbols=true \
 	enable_widevine=true \
 	enable_hangout_services_extension=true \
+	enable_remoting=false \
 	enable_google_now=false \
 	is_desktop_linux=true \
 	enable_vr=false \
