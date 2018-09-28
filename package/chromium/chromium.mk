@@ -58,6 +58,7 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxslt \
 	icu \
 	opus \
+	yasm \
 	libdrm
 
 # V8 snapshots require compiling V8 with the same word size as the target
@@ -176,7 +177,8 @@ define CHROMIUM_CONFIGURE_CMDS
 	)
 
 	mkdir -p $(@D)/third_party/node/linux/node-linux-x64/bin
-	ln -sf /home/user/.bin/node $(@D)/third_party/node/linux/node-linux-x64/bin/
+	ln -sf /usr/bin/node $(@D)/third_party/node/linux/node-linux-x64/bin/
+	#ln -sf /home/user/.bin/node $(@D)/third_party/node/linux/node-linux-x64/bin/
 
 	# Use python2 by default
 	mkdir -p $(@D)/bin
@@ -185,10 +187,10 @@ define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
 		for _lib in $(CHROMIUM_SYSTEM_LIBS); do \
 			find "third_party/$$_lib" -type f \
-			  \! -path "third_party/$$_lib/chromium/*" \
-			  \! -path "third_party/$$_lib/google/*" \
-			  \! -path "third_party/yasm/run_yasm.py" \
-			  \! -regex '.*\.\(gn\|gni\|isolate\)' \
+			\! -path "third_party/$_lib/chromium/*" \
+			\! -path "third_party/$_lib/google/*" \
+			\! -path 'third_party/yasm/run_yasm.py' \
+			\! -regex '.*\.\(gn\|gni\|isolate\)' \
 			  -delete; \
 		done \
 	)
