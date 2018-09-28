@@ -14,7 +14,7 @@ CHROMIUM_DEPENDENCIES = alsa-lib cairo fontconfig freetype \
 			icu jpeg-turbo libdrm libglib2 systemd dbus libkrb5 libnss \
 			libxml2 libxslt pango \
 			xlib_libXcomposite xlib_libXScrnSaver host-xlib_libXcursor xlib_libXcursor \
-			xlib_libXrandr zlib libva opus host-alsa-lib
+			xlib_libXrandr zlib libva host-alsa-lib
 
 CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 
@@ -31,7 +31,7 @@ CHROMIUM_OPTS = \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
 	linux_use_bundled_binutils=false \
-	use_sysroot=false \
+	use_sysroot=true \
 	target_sysroot=\"$(STAGING_DIR)\" \
 	target_cpu=\"$(BR2_PACKAGE_CHROMIUM_TARGET_ARCH)\" \
 	google_api_key=\"AIzaSyAQ6L9vt9cnN4nM0weaa6Y38K4eyPvtKgI\" \
@@ -66,7 +66,6 @@ CHROMIUM_SYSTEM_LIBS = \
 	libxml \
 	libxslt \
 	icu \
-	opus \
 	yasm \
 	libdrm
 
