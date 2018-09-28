@@ -43,6 +43,9 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	use_custom_libcxx=false \
+	use_system_zlib=true \
+	use_system_libjpeg=true \
+	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	remove_webcore_debug_symbols=true \
@@ -187,10 +190,10 @@ define CHROMIUM_CONFIGURE_CMDS
 	( cd $(@D); \
 		for _lib in $(CHROMIUM_SYSTEM_LIBS); do \
 			find "third_party/$$_lib" -type f \
-			\! -path "third_party/$_lib/chromium/*" \
-			\! -path "third_party/$_lib/google/*" \
-			\! -path 'third_party/yasm/run_yasm.py' \
-			\! -regex '.*\.\(gn\|gni\|isolate\)' \
+			  \! -path "third_party/$$_lib/chromium/*" \
+			  \! -path "third_party/$$_lib/google/*" \
+			  \! -path "third_party/yasm/run_yasm.py" \
+			  \! -regex '.*\.\(gn\|gni\|isolate\)' \
 			  -delete; \
 		done \
 	)
