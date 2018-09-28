@@ -40,6 +40,7 @@ CHROMIUM_OPTS = \
 	enable_nacl=false \
 	use_cups=false \
 	linux_link_libudev = true \
+	linux_link_libgio = true \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	use_custom_libcxx=false \
