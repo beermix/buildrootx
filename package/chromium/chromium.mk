@@ -43,7 +43,6 @@ CHROMIUM_OPTS = \
 	use_custom_libcxx=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	enable_vulkan=false \
 	remove_webcore_debug_symbols=true \
 	is_official_build=false \
 	enable_widevine=true \

@@ -3,15 +3,15 @@ From: Paresh Chaudhary <paresh.chaudhary@rockwellcollins.com>
 Date: Mon, 21 May 2018 14:34:23 -0500
 Subject: [PATCH] checksec: Fixed issue with relative path
 
-Before this patch script was not able find exists directory when user pass
-relative directory path with '--dir' or '-d' option and also we faced this error
-when we execute script with relative path.
-
-This patch fixed  "No such file or directory" error in both cases.
+Before this patch, the checksec script was not able to find existing
+directories when the user passed a relative path with --dir/-d,
+the script aborted with a "No such file or directory". The same error
+was reported when the script was executed through a relative path.
 
 https://github.com/slimm609/checksec.sh/issues/54
 
 Signed-off-by: Paresh Chaudhary <paresh.chaudhary@rockwellcollins.com>
+Signed-off-by: Matt Weber <matthew.weber@rockwellcollins.com>
 ---
  checksec | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
