@@ -21,10 +21,9 @@ CHROMIUM_TOOLCHAIN_CONFIG_PATH = $(shell pwd)/package/chromium/toolchain
 CHROMIUM_OPTS = \
 	host_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):host\" \
 	custom_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):target\" \
-	v8_snapshot_toolchain=\"$(CHROMIUM_TOOLCHAIN_CONFIG_PATH):v8_snapshot\" \
 	use_vaapi=true \
 	symbol_level=0 \
-	fieldtrial_testing_like_official_build=true \
+	is_clang=true \
 	clang_use_chrome_plugins=false \
 	treat_warnings_as_errors=false \
 	use_gnome_keyring=false \
@@ -36,17 +35,14 @@ CHROMIUM_OPTS = \
 	google_default_client_id=\"740889307901-4bkm4e0udppnp1lradko85qsbnmkfq3b.apps.googleusercontent.com\" \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
+	use_dbus=true \
 	use_cups=false \
 	linux_link_libudev = true \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	use_custom_libcxx=false \
-	use_system_zlib=true \
-	use_system_libjpeg=true \
-	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	remove_webcore_debug_symbols=true
+	use_custom_libcxx=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -62,7 +58,7 @@ CHROMIUM_SYSTEM_LIBS = \
 # architecture, which means the host needs to have that toolchain available.
 CHROMIUM_OPTS += v8_use_snapshot=false
 
-#	 \
+#	 remove_webcore_debug_symbols=true fieldtrial_testing_like_official_build=true \
 #	libjpeg \
 #	libxml \
 #	libxslt \
@@ -168,7 +164,6 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	mkdir -p $(@D)/third_party/node/linux/node-linux-x64/bin
 	ln -sf /usr/bin/node $(@D)/third_party/node/linux/node-linux-x64/bin/
-	#ln -sf /home/user/.bin/node $(@D)/third_party/node/linux/node-linux-x64/bin/
 
 	# Use python2 by default
 	mkdir -p $(@D)/bin
@@ -192,10 +187,10 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	( cd $(@D); \
 		$(TARGET_MAKE_ENV) \
+		CCACHE_SLOPPINESS=time_macros \
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
-		CCACHE_SLOPPINESS=time_macros \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
@@ -205,11 +200,11 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
-		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
 		V8_CC="$(CHROMIUM_CC_WRAPPER) clang" \
@@ -236,13 +231,12 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chrome
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
-	cp $(@D)/out/Release/{*.pak,*.dat} \
+	cp $(@D)/out/Release/{chrome_{100,200}_percent,resources}.pak \
 		$(@D)/out/Release/chromedriver \
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
-	#cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
-	# ,*.bin
+	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
 
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
