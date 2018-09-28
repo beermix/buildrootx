@@ -63,18 +63,18 @@ CHROMIUM_SYSTEM_LIBS = \
 	libjpeg \
 	libxml \
 	libxslt \
-	icu \
 	yasm \
 	libdrm
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
-# CHROMIUM_OPTS += v8_use_snapshot=false
+CHROMIUM_OPTS += v8_use_snapshot=false
 
 #	 \
 #	libjpeg \
 #	libxml \
 #	libxslt \
+#	icu \
 #	opus
 # 	enable_remoting=false
 #	use_cfi_icall=false \
@@ -238,13 +238,12 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	$(INSTALL) -D $(@D)/out/Release/chrome $(TARGET_DIR)/usr/lib/chromium/chrome
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
-	cp $(@D)/out/Release/{*.pak,*.bin} \
+	cp $(@D)/out/Release/{*.pak,*.dat,*.bin} \
 		$(@D)/out/Release/chromedriver \
 		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
 	#cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
-	# *.dat,
 
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chrome
 	$(TARGET_STRIP) $(TARGET_DIR)/usr/lib/chromium/chromedriver
