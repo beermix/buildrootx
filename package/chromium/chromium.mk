@@ -129,18 +129,7 @@ CHROMIUM_DEPENDENCIES += host-lld
 CHROMIUM_OPTS += use_lld=true
 endif
 
-ifeq ($(BR2_ENABLE_DEBUG),y)
-CHROMIUM_OPTS += is_debug=true
-else
 CHROMIUM_OPTS += is_debug=false
-endif
-
-#ifeq ($(BR2_PACKAGE_CUPS),y)
-#CHROMIUM_DEPENDENCIES += cups
-#CHROMIUM_OPTS += use_cups=true
-#else
-#CHROMIUM_OPTS += use_cups=false
-#endif
 
 ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)
 CHROMIUM_OPTS += proprietary_codecs=true ffmpeg_branding=\"Chrome\"
@@ -153,12 +142,7 @@ else
 CHROMIUM_OPTS += use_libpci=false
 endif
 
-ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
-CHROMIUM_DEPENDENCIES += pulseaudio
-CHROMIUM_OPTS += use_pulseaudio=true
-else
 CHROMIUM_OPTS += use_pulseaudio=false
-endif
 
 ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
 CHROMIUM_DEPENDENCIES += libgtk3
