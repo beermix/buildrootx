@@ -2,7 +2,7 @@
 #
 #
 #
-################################################################################ host-clang host-lld host-compilerrt
+################################################################################ host-clang host-lld host-compilerrt 
 
 CHROMIUM_VERSION = 69.0.3497.100
 CHROMIUM_SITE = https://commondatastorage.googleapis.com/chromium-browser-official
@@ -51,11 +51,9 @@ CHROMIUM_OPTS = \
 	remove_webcore_debug_symbols=true \
 	enable_widevine=true \
 	enable_hangout_services_extension=true \
-	enable_remoting=false \
 	enable_google_now=false \
 	is_desktop_linux=true \
 	enable_vr=false \
-	rtc_enable_protobuf=false \
 	enable_wayland_server=false
 
 CHROMIUM_SYSTEM_LIBS = \
@@ -78,6 +76,7 @@ CHROMIUM_SYSTEM_LIBS = \
 #	libxml \
 #	libxslt \
 #	opus
+# 	enable_remoting=false
 #	use_cfi_icall=false \
 #	enable_widevine=true \
 #	enable_hangout_services_extension=true \
