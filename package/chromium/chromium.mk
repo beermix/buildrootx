@@ -54,6 +54,10 @@ CHROMIUM_SYSTEM_LIBS = \
 	harfbuzz-ng \
 	libdrm
 
+# V8 snapshots require compiling V8 with the same word size as the target
+# architecture, which means the host needs to have that toolchain available.
+# CHROMIUM_OPTS += v8_use_snapshot=false
+
 #	 \
 #	libjpeg \
 #	libxml \
@@ -109,10 +113,6 @@ else
 CHROMIUM_DEPENDENCIES += host-lld
 CHROMIUM_OPTS += use_lld=true
 endif
-
-# V8 snapshots require compiling V8 with the same word size as the target
-# architecture, which means the host needs to have that toolchain available.
-CHROMIUM_OPTS += v8_use_snapshot=false
 
 ifeq ($(BR2_ENABLE_DEBUG),y)
 CHROMIUM_OPTS += is_debug=true
