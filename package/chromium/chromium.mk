@@ -46,13 +46,7 @@ CHROMIUM_OPTS = \
 	use_system_libpng=true \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
-	remove_webcore_debug_symbols=true \
-	enable_widevine=true \
-	enable_hangout_services_extension=true \
-	enable_google_now=false \
-	is_desktop_linux=true \
-	enable_vr=false \
-	enable_wayland_server=false
+	remove_webcore_debug_symbols=true
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
@@ -73,7 +67,14 @@ CHROMIUM_OPTS += v8_use_snapshot=false
 #	libxml \
 #	libxslt \
 #	icu \
-#	opus
+#	opus \
+#
+#	enable_widevine=true \
+#	enable_hangout_services_extension=true \
+#	enable_google_now=false \
+#	is_desktop_linux=true \
+#	enable_vr=false \
+#	enable_wayland_server=false
 # 	enable_remoting=false
 #	use_cfi_icall=false \
 #	enable_widevine=true \
