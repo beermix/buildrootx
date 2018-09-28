@@ -50,7 +50,12 @@ CHROMIUM_OPTS = \
 	use_system_freetype=true \
 	remove_webcore_debug_symbols=true \
 	enable_widevine=true \
-	enable_hangout_services_extension=true
+	enable_hangout_services_extension=true \
+	enable_google_now=false \
+	is_desktop_linux=true \
+	enable_vr=false \
+	rtc_enable_protobuf=false \
+	enable_wayland_server=false
 
 CHROMIUM_SYSTEM_LIBS = \
 	fontconfig \
