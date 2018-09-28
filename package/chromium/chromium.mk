@@ -243,8 +243,8 @@ define CHROMIUM_INSTALL_TARGET_CMDS
 	$(INSTALL) -Dm4755 $(@D)/out/Release/chrome_sandbox \
 		$(TARGET_DIR)/usr/lib/chromium/chrome-sandbox
 	cp $(@D)/out/Release/{*.pak,*.dat,*.bin} \
-		#$(@D)/out/Release/chromedriver \
-		#$(TARGET_DIR)/usr/lib/chromium/
+		$(@D)/out/Release/chromedriver \
+		$(TARGET_DIR)/usr/lib/chromium/
 	$(INSTALL) -Dm644 -t $(TARGET_DIR)/usr/lib/chromium/locales \
 		$(@D)/out/Release/locales/*.pak
 	cp $(@D)/out/Release/icudtl.dat $(TARGET_DIR)/usr/lib/chromium/
