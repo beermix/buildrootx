@@ -38,6 +38,7 @@ CHROMIUM_OPTS = \
 	google_default_client_id=\"740889307901-4bkm4e0udppnp1lradko85qsbnmkfq3b.apps.googleusercontent.com\" \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
+	use_cups=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	use_custom_libcxx=false \
@@ -120,12 +121,12 @@ else
 CHROMIUM_OPTS += is_debug=false
 endif
 
-ifeq ($(BR2_PACKAGE_CUPS),y)
-CHROMIUM_DEPENDENCIES += cups
-CHROMIUM_OPTS += use_cups=true
-else
-CHROMIUM_OPTS += use_cups=false
-endif
+#ifeq ($(BR2_PACKAGE_CUPS),y)
+#CHROMIUM_DEPENDENCIES += cups
+#CHROMIUM_OPTS += use_cups=true
+#else
+#CHROMIUM_OPTS += use_cups=false
+#endif
 
 ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)
 CHROMIUM_OPTS += proprietary_codecs=true ffmpeg_branding=\"Chrome\"
@@ -197,7 +198,9 @@ define CHROMIUM_CONFIGURE_CMDS
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
+		CCACHE_SLOPPINESS=time_macros \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
+		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
