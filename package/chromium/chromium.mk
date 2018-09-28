@@ -226,7 +226,7 @@ define CHROMIUM_BUILD_CMDS
 		$(TARGET_MAKE_ENV) \
 		PATH=$(@D)/bin:$(BR_PATH) \
 		CCACHE_SLOPPINESS=time_macros \
-		ninja -v -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
+		ninja -j$(PARALLEL_JOBS) -C out/Release chrome chrome_sandbox chromedriver \
 	)
 endef
 
