@@ -35,28 +35,27 @@ CHROMIUM_OPTS = \
 	google_default_client_id=\"740889307901-4bkm4e0udppnp1lradko85qsbnmkfq3b.apps.googleusercontent.com\" \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
-	use_dbus=true \
 	use_cups=false \
 	linux_link_libudev = true \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
-	use_system_zlib=true \
-	use_system_libjpeg=true \
-	use_system_libpng=false \
-	use_system_harfbuzz=true \
-	use_system_freetype=true \
 	use_custom_libcxx=false \
 	is_official_build=true
 
-CHROMIUM_SYSTEM_LIBS = \
-	fontconfig \
-	freetype \
-	harfbuzz-ng \
-	libjpeg \
-	libxml \
-	libxslt \
-	yasm \
-	libdrm
+#CHROMIUM_SYSTEM_LIBS = \
+#	fontconfig \
+#	freetype \
+#	harfbuzz-ng \
+#	libjpeg \
+#	libxml \
+#	libxslt \
+#	yasm \
+#	libdrm
+#		use_system_zlib=true \
+#	use_system_libjpeg=true \
+#	use_system_libpng=false \
+#	use_system_harfbuzz=true \
+#	use_system_freetype=true \
 
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
@@ -171,7 +170,9 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	# Use python2 by default
 	mkdir -p $(@D)/bin
+	mkdir -p $(@D)/out/Release
 	ln -sf $(HOST_DIR)/usr/bin/python2 $(@D)/bin/python
+	cp /home/user/.bin/gn $(@D)/out/Release/
 
 	( cd $(@D); \
 		for _lib in $(CHROMIUM_SYSTEM_LIBS); do \
@@ -195,7 +196,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
-		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
+		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
@@ -204,9 +205,10 @@ define CHROMIUM_CONFIGURE_CMDS
 		HOST_NM="$(HOSTNM)" \
 		TARGET_AR="ar" \
 		TARGET_CC="$(CHROMIUM_CC_WRAPPER) clang" \
-		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS)" \
+		TARGET_CFLAGS="$(CHROMIUM_TARGET_CFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
 		TARGET_CXX="$(CHROMIUM_CC_WRAPPER) clang++" \
-		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS)" \
+		TARGET_CXXFLAGS="$(CHROMIUM_TARGET_CXXFLAGS) -Wno-builtin-macro-redefined -fno-unwind-tables -fno-asynchronous-unwind-tables" \
+		TARGET_CPPFLAGS="$(CHROMIUM_TARGET_CPPFLAGS) -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__= -DNO_UNWIND_TABLES" \
 		TARGET_LDFLAGS="$(CHROMIUM_TARGET_LDFLAGS)" \
 		TARGET_NM="nm" \
 		V8_AR="$(HOSTAR)" \
