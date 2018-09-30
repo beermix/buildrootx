@@ -137,13 +137,6 @@ else
 CHROMIUM_OPTS += is_debug=false
 endif
 
-ifeq ($(BR2_PACKAGE_CUPS),y)
-CHROMIUM_DEPENDENCIES += cups
-CHROMIUM_OPTS += use_cups=true
-else
-CHROMIUM_OPTS += use_cups=false
-endif
-
 ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)
 CHROMIUM_OPTS += proprietary_codecs=true ffmpeg_branding=\"Chrome\"
 endif
@@ -217,7 +210,6 @@ define CHROMIUM_CONFIGURE_CMDS
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
-		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
