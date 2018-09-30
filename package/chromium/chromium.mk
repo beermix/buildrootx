@@ -40,7 +40,7 @@ CHROMIUM_OPTS = \
 	enable_linux_installer=false \
 	use_system_zlib=true \
 	use_system_libjpeg=true \
-	use_system_libpng=true \
+	use_system_libpng=false \
 	use_system_harfbuzz=true \
 	use_system_freetype=true \
 	use_custom_libcxx=false \
@@ -61,7 +61,6 @@ CHROMIUM_SYSTEM_LIBS = \
 #	use_system_libpng=false \
 #	use_system_harfbuzz=true \
 #	use_system_freetype=true \
-
 # V8 snapshots require compiling V8 with the same word size as the target
 # architecture, which means the host needs to have that toolchain available.
 CHROMIUM_OPTS += v8_use_snapshot=false
@@ -156,7 +155,12 @@ else
 CHROMIUM_OPTS += use_libpci=false
 endif
 
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+CHROMIUM_DEPENDENCIES += pulseaudio
+CHROMIUM_OPTS += use_pulseaudio=true
+else
 CHROMIUM_OPTS += use_pulseaudio=false
+endif
 
 ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
 CHROMIUM_DEPENDENCIES += libgtk3 at-spi2-atk
@@ -187,9 +191,9 @@ define CHROMIUM_CONFIGURE_CMDS
 
 	# Use python2 by default
 	mkdir -p $(@D)/bin
-	mkdir -p $(@D)/out/Release
+	#mkdir -p $(@D)/out/Release
 	ln -sf $(HOST_DIR)/usr/bin/python2 $(@D)/bin/python
-	cp /home/user/.bin/gn $(@D)/out/Release/
+	#cp /home/user/.bin/gn $(@D)/out/Release/
 
 	( cd $(@D); \
 		for _lib in $(CHROMIUM_SYSTEM_LIBS); do \
@@ -213,6 +217,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
+		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
