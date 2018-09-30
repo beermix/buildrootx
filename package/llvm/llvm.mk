@@ -14,7 +14,7 @@ LLVM_INSTALL_STAGING = YES
 
 # http://llvm.org/docs/GettingStarted.html#software
 # host-python: Python interpreter 2.7 or newer is required for builds and testing.
-HOST_LLVM_DEPENDENCIES = host-python host-cmake
+HOST_LLVM_DEPENDENCIES = host-python
 LLVM_DEPENDENCIES = host-llvm
 
 export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
