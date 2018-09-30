@@ -217,6 +217,7 @@ define CHROMIUM_CONFIGURE_CMDS
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
+		sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 		$(HOST_DIR)/bin/python2 tools/gn/bootstrap/bootstrap.py -s --no-clean --gn-gen-args="$(CHROMIUM_OPTS)"; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
@@ -242,7 +243,6 @@ define CHROMIUM_CONFIGURE_CMDS
 endef
 
 #	$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
-#	sed -i -e '/"-Wno-ignored-pragma-optimize"/d' build/config/compiler/BUILD.gn; \
 
 define CHROMIUM_BUILD_CMDS
 	( cd $(@D); \
