@@ -197,7 +197,6 @@ define CHROMIUM_CONFIGURE_CMDS
 		AR="$(HOSTAR)" \
 		CC="$(HOSTCC)" \
 		CXX="$(HOSTCXX)" \
-		$(HOST_DIR)/bin/python2 third_party/libaddressinput/chromium/tools/update-strings.py; \
 		HOST_AR="$(HOSTAR)" \
 		HOST_CC="$(HOSTCC)" \
 		HOST_CFLAGS="$(HOST_CFLAGS)" \
