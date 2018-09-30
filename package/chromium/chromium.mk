@@ -36,7 +36,6 @@ CHROMIUM_OPTS = \
 	google_default_client_secret=\"9TJlhL661hvShQub4cWhANXa\" \
 	enable_nacl=false \
 	use_cups=false \
-	linux_link_libudev = true \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	use_custom_libcxx=false \
@@ -62,6 +61,7 @@ CHROMIUM_OPTS = \
 # architecture, which means the host needs to have that toolchain available.
 CHROMIUM_OPTS += v8_use_snapshot=false
 
+#	linux_link_libudev = true \
 #	 remove_webcore_debug_symbols=true fieldtrial_testing_like_official_build=true \
 #	libjpeg \
 #	libxml \
