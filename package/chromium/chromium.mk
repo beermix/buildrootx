@@ -40,6 +40,7 @@ CHROMIUM_OPTS = \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
 	use_custom_libcxx=false \
+	fieldtrial_testing_like_official_build=true \
 	is_official_build=true
 
 #CHROMIUM_SYSTEM_LIBS = \
