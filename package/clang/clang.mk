@@ -12,7 +12,7 @@ CLANG_LICENSE_FILES = LICENSE.TXT
 CLANG_SUPPORTS_IN_SOURCE_BUILD = NO
 CLANG_INSTALL_STAGING = YES
 
-HOST_CLANG_DEPENDENCIES = host-libxml2 host-llvm host-compilerrt
+HOST_CLANG_DEPENDENCIES = host-llvm host-libxml2 host-compilerrt
 CLANG_DEPENDENCIES = llvm host-clang
 
 export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
