@@ -38,19 +38,24 @@ CHROMIUM_OPTS = \
 	use_cups=false \
 	enable_swiftshader=false \
 	enable_linux_installer=false \
+	use_system_zlib=true \
+	use_system_libjpeg=true \
+	use_system_libpng=true \
+	use_system_harfbuzz=true \
+	use_system_freetype=true \
 	use_custom_libcxx=false \
 	fieldtrial_testing_like_official_build=true \
 	is_official_build=true
 
-#CHROMIUM_SYSTEM_LIBS = \
-#	fontconfig \
-#	freetype \
-#	harfbuzz-ng \
-#	libjpeg \
-#	libxml \
-#	libxslt \
-#	yasm \
-#	libdrm
+CHROMIUM_SYSTEM_LIBS = \
+	fontconfig \
+	freetype \
+	harfbuzz-ng \
+	libdrm \
+	libjpeg \
+	libxml \
+	libxslt
+
 #		use_system_zlib=true \
 #	use_system_libjpeg=true \
 #	use_system_libpng=false \
@@ -127,7 +132,18 @@ CHROMIUM_DEPENDENCIES += host-lld
 CHROMIUM_OPTS += use_lld=true
 endif
 
+ifeq ($(BR2_ENABLE_DEBUG),y)
+CHROMIUM_OPTS += is_debug=true
+else
 CHROMIUM_OPTS += is_debug=false
+endif
+
+ifeq ($(BR2_PACKAGE_CUPS),y)
+CHROMIUM_DEPENDENCIES += cups
+CHROMIUM_OPTS += use_cups=true
+else
+CHROMIUM_OPTS += use_cups=false
+endif
 
 ifeq ($(BR2_PACKAGE_CHROMIUM_PROPRIETARY_CODECS),y)
 CHROMIUM_OPTS += proprietary_codecs=true ffmpeg_branding=\"Chrome\"
