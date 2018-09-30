@@ -17,7 +17,7 @@ LLVM_INSTALL_STAGING = YES
 HOST_LLVM_DEPENDENCIES = host-python
 LLVM_DEPENDENCIES = host-llvm
 
-export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
+#export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
 
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
 # This flag assumes that projects are checked out side-by-side and not nested

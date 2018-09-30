@@ -15,7 +15,7 @@ CLANG_INSTALL_STAGING = YES
 HOST_CLANG_DEPENDENCIES = host-llvm host-libxml2 host-compilerrt
 CLANG_DEPENDENCIES = llvm host-clang
 
-export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
+#export CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime
 
 # This option is needed, otherwise multiple shared libs
 # (libclangAST.so, libclangBasic.so, libclangFrontend.so, etc.) will
