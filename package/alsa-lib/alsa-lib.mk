@@ -67,4 +67,3 @@ ALSA_LIB_CONF_ENV = \
 	LDFLAGS="$(TARGET_LDFLAGS) -lm"
 
 $(eval $(autotools-package))
-$(eval $(host-autotools-package))

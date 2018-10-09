@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SQLITE_VERSION = 3250100
+SQLITE_VERSION = 3250200
 SQLITE_SOURCE = sqlite-autoconf-$(SQLITE_VERSION).tar.gz
 SQLITE_SITE = https://www.sqlite.org/2018
 SQLITE_LICENSE = Public domain
@@ -54,6 +54,7 @@ ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 SQLITE_CONF_OPTS += --enable-threadsafe
 else
 SQLITE_CONF_OPTS += --disable-threadsafe
+SQLITE_CFLAGS += -DSQLITE_THREADSAFE=0
 endif
 
 ifeq ($(BR2_PACKAGE_NCURSES)$(BR2_PACKAGE_READLINE),yy)

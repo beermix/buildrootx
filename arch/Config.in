@@ -208,6 +208,7 @@ config BR2_riscv
 	  and promoted by RISC-V Foundation.
 	  https://riscv.org/
 	  https://en.wikipedia.org/wiki/RISC-V
+
 config BR2_sh
 	bool "SuperH"
 	select BR2_ARCH_HAS_MMU_OPTIONAL
@@ -314,9 +315,6 @@ config BR2_GCC_TARGET_FP32_MODE
 	string
 
 config BR2_GCC_TARGET_CPU
-	string
-
-config BR2_GCC_TARGET_CPU_REVISION
 	string
 
 # The value of this option will be passed as --with-fpu=<value> when

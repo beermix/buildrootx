@@ -5,7 +5,7 @@
 ################################################################################
 
 CLANG_VERSION = 7.0.0
-CLANG_SITE = https://fossies.org/linux/misc
+CLANG_SITE = http://llvm.org/releases/$(CLANG_VERSION)
 CLANG_SOURCE = cfe-$(CLANG_VERSION).src.tar.xz
 CLANG_LICENSE = NCSA
 CLANG_LICENSE_FILES = LICENSE.TXT

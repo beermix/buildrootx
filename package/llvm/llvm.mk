@@ -32,11 +32,6 @@ LLVM_CONF_OPTS += -DLLVM_CCACHE_BUILD=$(if $(BR2_CCACHE),ON,OFF)
 # will try to use target's libc.
 HOST_LLVM_CONF_OPTS += -DCMAKE_INSTALL_RPATH="$(HOST_DIR)/lib"
 
-# Disable experimental Global Instruction Selection support.
-# https://llvm.org/docs/GlobalISel.html
-HOST_LLVM_CONF_OPTS += -DLLVM_BUILD_GLOBAL_ISEL=OFF
-LLVM_CONF_OPTS += -DLLVM_BUILD_GLOBAL_ISEL=OFF
-
 # Get target architecture
 LLVM_TARGET_ARCH = $(call qstrip,$(BR2_PACKAGE_LLVM_TARGET_ARCH))
 
