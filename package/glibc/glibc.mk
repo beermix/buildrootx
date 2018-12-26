@@ -31,6 +31,7 @@ GLIBC_ADD_TOOLCHAIN_DEPENDENCY = NO
 GLIBC_DEPENDENCIES = host-gcc-initial linux-headers host-bison host-gawk \
 	$(BR2_MAKE_HOST_DEPENDENCY)
 
+
 GLIBC_SUBDIR = build
 
 GLIBC_INSTALL_STAGING = YES
@@ -81,6 +82,7 @@ endif
 # https://www.sourceware.org/ml/libc-alpha/2018-08/msg00003.html
 GLIBC_MAKE = $(BR2_MAKE)
 GLIBC_CONF_ENV += ac_cv_prog_MAKE="$(BR2_MAKE)"
+
 # Even though we use the autotools-package infrastructure, we have to
 # override the default configure commands for several reasons:
 #
@@ -106,6 +108,7 @@ define GLIBC_CONFIGURE_CMDS
 		--build=$(GNU_HOST_NAME) \
 		--prefix=/usr \
 		--enable-shared \
+		--enable-static \
 		$(if $(BR2_x86_64),--enable-lock-elision) \
 		--with-pkgversion="Buildroot" \
 		--without-cvs \
