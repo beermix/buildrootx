@@ -15,7 +15,6 @@ HOST_GCC_FINAL_DEPENDENCIES = \
 	$(BR_LIBC)
 
 HOST_GCC_FINAL_EXCLUDES = $(HOST_GCC_EXCLUDES)
-HOST_GCC_FINAL_POST_EXTRACT_HOOKS += HOST_GCC_FAKE_TESTSUITE
 
 ifneq ($(ARCH_XTENSA_OVERLAY_FILE),)
 HOST_GCC_FINAL_POST_EXTRACT_HOOKS += HOST_GCC_XTENSA_OVERLAY_EXTRACT
@@ -77,6 +76,7 @@ HOST_GCC_FINAL_GCC_LIB_DIR = $(HOST_DIR)/$(GNU_TARGET_NAME)/lib/!m4*
 endif
 
 ifeq ($(BR2_GCC_SUPPORTS_LIBCILKRTS),y)
+
 # libcilkrts does not support v8
 ifeq ($(BR2_sparc),y)
 HOST_GCC_FINAL_CONF_OPTS += --disable-libcilkrts
@@ -93,6 +93,7 @@ HOST_GCC_FINAL_CONF_OPTS += --disable-libcilkrts
 endif
 
 endif # BR2_GCC_SUPPORTS_LIBCILKRTS
+
 # Disable shared libs like libstdc++ if we do static since it confuses linking
 ifeq ($(BR2_STATIC_LIBS),y)
 HOST_GCC_FINAL_CONF_OPTS += --disable-shared
